@@ -27,8 +27,9 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
     unsigned int cap;
     unsigned long price;
 
-    while (input) {
-        while (std::getline(ss, token, ';')) {
+    while (input) { // Read until end of file
+		
+            std::getline(ss, token, ';');
             code = token;
             std::getline(ss, token, ';');
             day = token;
@@ -44,8 +45,10 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
             cap = std::stoi(token);
             std::getline(ss, token, ';');
             price = std::stol(token);
-            a.NewRoute(code, day, from, to, hour, flightd, cap, price);
-        }
+            a.NewRoute(code, day, from, to, hour, flightd, cap, price); // Create and add new flight read
+	    std::getline(inout,line);
+	    ss.clear();
+	    ss.str(line);
     }
 
     input.close();
@@ -58,10 +61,14 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
     std::string line; // Create store
     std::getline(input, line);// Get line form file
     std::istringstream ss(line);// Create stream with line
+
     //--------------Arguments from Stream
-    std::string agencyN;//Create agency name store
-    std::string agencyPassW;// Create agency password store
+
+    std::string agencyN;
+    std::string agencyPassW;
+
     while (input) { // Read until end of file
+
         std::getline(ss, token, ';');
         agencyN = token;
         std::cout << token;
