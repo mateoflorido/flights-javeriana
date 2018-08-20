@@ -40,12 +40,25 @@ void FJA::Aeronautica
            const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
            unsigned int m_Capacity, unsigned long m_Price) {
     auto itRoutes = this->m_Routes.begin();
-    for(;itRoutes != this->m_Routes.end();++itRoutes){
-        if(itRoutes->GetCode() == m_Code)
+    for (; itRoutes != this->m_Routes.end(); ++itRoutes) {
+        if (itRoutes->GetCode() == m_Code)
             throw;
     }
-    if(itRoutes == this->m_Routes.end()){
-        Ruta r(m_Code,m_WeekDay,m_Origin,m_Destination,m_Hour,m_FlightDuration,m_Capacity,m_Price);
+    if (itRoutes == this->m_Routes.end()) {
+        Ruta r(m_Code, m_WeekDay, m_Origin, m_Destination, m_Hour, m_FlightDuration, m_Capacity, m_Price);
         this->m_Routes.push_back(r);
+    }
+}
+
+void FJA::Aeronautica
+::NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
+          const std::string &m_CustomerID,
+          const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
+          const std::string &m_BuyHour) {
+    auto itAgencies = this->m_Agencies.begin();
+    for(;itAgencies != this->m_Agencies.end(); itAgencies++){
+        if(itAgencies->GetAgencyID() == m_Agency){
+            
+        }
     }
 }
