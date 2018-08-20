@@ -85,16 +85,18 @@ void ConsoleHub() {
             std::cout << "Ingrese el Usuario: ";
             std::cin >> arg1;
 
+        } else if (mainCommand == "logout") {
+            //TODO
         } else if (mainCommand == "read") {
-            if(commandline >> mainCommand){
-                if(mainCommand == "flights")
-                    ReadFlights(*a,"./flights.txt");
-                else if(mainCommand == "agencies")
+            if (commandline >> mainCommand) {
+                if (mainCommand == "flights")
+                    ReadFlights(*a, "./flights.txt");
+                else if (mainCommand == "agencies")
                     ReadAgencies(*a, "./passwords.txt");
-                else if(mainCommand == "sales")
+                else if (mainCommand == "sales")
                     ReadSales(*a, "./tickets.txt");
                 else
-                    std::cout << "Argumento no Válido: \n" << commandList.find("help")->second;
+                    std::cout << "Argumento no Válido: \n" << commandList.find("read")->second;
             }
 
         } else if (mainCommand == "help") {
@@ -111,6 +113,28 @@ void ConsoleHub() {
 
                 }
             }
+        } else if (mainCommand == "report"){
+            if(commandline >> mainCommand)
+            {
+                if(mainCommand == "flights"){
+                    //TODO
+                }
+                if(mainCommand == "inventory"){
+                    //TODO
+                }
+            }
+        }
+        else if(mainCommand == "sell"){
+            if(commandline >> mainCommand){
+                if(commandline >> mainCommand){
+
+                }
+                else
+                    std::cout <<"- Falta segundo Argumento.\n";
+            }
+            else
+                std::cout << "- Sin argumentos válidos";
+
         }
 
     }
