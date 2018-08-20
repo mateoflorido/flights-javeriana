@@ -52,14 +52,14 @@ namespace FJA {
         void SetBuyHour(const unsigned int &m_BuyHour);
 
     protected:
-	std::string m_Agency;        
-	std::string m_ID;        
+        std::string m_Agency;
+        std::string m_ID;
         std::string m_Flight;
         std::string m_CustomerID;
         std::string m_Customer;
-        std::string m_FlightDate;
-        std::string m_BuyDate;
-        std::string m_BuyHour;
+        unsigned int m_FlightDate;
+        unsigned int m_BuyDate;
+        unsigned int m_BuyHour;
 
     };
 }
