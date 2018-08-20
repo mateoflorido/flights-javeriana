@@ -16,10 +16,11 @@ Venta()
 
 
 FJA::Venta::
-Venta(const std::string &m_ID, const std::string &m_Flight, const std::string &m_CustomerID,
+Venta(const std::string &m_ID, const std::string &m_Agency, const std::string &m_Flight, const std::string &m_CustomerID,
       const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
       const std::string &m_BuyHour)
         : m_ID(m_ID),
+          m_Agency(m_Agency),
           m_Flight(m_Flight),
           m_CustomerID(m_CustomerID),
           m_Customer(m_Customer),
@@ -36,6 +37,10 @@ const std::string
 
 FJA::Venta::GetID() const {
     return (this->m_ID);
+}
+
+const std::string &FJA::Venta::GetAgency() const {
+    return m_Agency;
 }
 
 const std::string &FJA::Venta::GetFlight() const {
@@ -89,3 +94,9 @@ void FJA::Venta::SetBuyDate(const std::string &m_BuyDate) {
 void FJA::Venta::SetBuyHour(const std::string &m_BuyHour) {
     this->m_BuyHour = m_BuyHour;
 }
+
+void FJA::Venta::SetAgency(const std::string &m_Agency) {
+    Venta::m_Agency = m_Agency;
+}
+
+

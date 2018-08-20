@@ -76,15 +76,29 @@ void ConsoleHub() {
     while (command != "exit") {
         std::cout << "\n$ ";
         std::getline(std::cin, command);
+        commandline.clear();
         commandline.str(command);
-	        ReadAgencies(*a, "./passwords.txt");
+        ReadAgencies(*a, "./passwords.txt");
         commandline >> mainCommand;
+
         if (mainCommand == "login") {
-            std::cout << "Hey Listen!";
+            std::cout << "Ingrese el Usuario: ";
+            std::cin >> arg1;
+
         } else if (mainCommand == "read") {
+            if(commandline >> mainCommand){
+                if(mainCommand == "flights")
+                    ReadFlights(*a,"./flights.txt");
+                else if(mainCommand == "agencies")
+                    ReadAgencies(*a, "./passwords.txt");
+                else if(mainCommand == "sales")
+                    ReadSales(*a, "./tickets.txt");
+                else
+                    std::cout << "Argumento no Válido: \n" << commandList.find("help")->second;
+            }
 
         } else if (mainCommand == "help") {
-            if (!commandline.bad()) {
+            if (commandline >> mainCommand) {
                 std::cout << commandList.find(mainCommand)->second; //Imprimir Comando encontrado
             } else {
                 auto it = commandList.begin();
