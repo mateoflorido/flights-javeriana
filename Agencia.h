@@ -28,6 +28,11 @@ namespace FJA {
 
         void SetSales(const std::vector<Venta> &m_Sales);
 
+        void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
+                     const std::string &m_CustomerID,
+                     const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
+                     const unsigned int &m_BuyHour);
+
     protected:
         std::string m_AgencyID;
         std::string m_Password;

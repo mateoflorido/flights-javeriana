@@ -36,7 +36,7 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         customer = token;
         std::getline(ss, token, ';');
-        flightDate = std::stoi(token);
+        flightDate = std::stoul(token);
         std::getline(ss, token, ';');
         buyDate = std::stoi(token);
         std::getline(ss, token, ';');
@@ -114,7 +114,6 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
 
         std::getline(ss, token, ';');
         agencyN = token;
-        std::cout << token;
         std::getline(ss, token, ';');
         agencyPassW = token;
         a.NewAgency(agencyN, agencyPassW); // Create and add new agency read

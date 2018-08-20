@@ -75,10 +75,10 @@ void ConsoleHub() {
 
     while (command != "exit") {
         std::cout << "\n$ ";
-        std::getline(std::cin, command);
         commandline.clear();
+        std::getline(std::cin, command);
+
         commandline.str(command);
-        ReadAgencies(*a, "./passwords.txt");
         commandline >> mainCommand;
 
         if (mainCommand == "login") {
@@ -101,7 +101,8 @@ void ConsoleHub() {
 
         } else if (mainCommand == "help") {
             if (commandline >> mainCommand) {
-                std::cout << commandList.find(mainCommand)->second; //Imprimir Comando encontrado
+                if (commandList.find(mainCommand) != commandList.end())
+                    std::cout << commandList.find(mainCommand)->second; //Imprimir Comando encontrado
             } else {
                 auto it = commandList.begin();
                 std::cout << "---------------------------------\n";
@@ -113,26 +114,22 @@ void ConsoleHub() {
 
                 }
             }
-        } else if (mainCommand == "report"){
-            if(commandline >> mainCommand)
-            {
-                if(mainCommand == "flights"){
+        } else if (mainCommand == "report") {
+            if (commandline >> mainCommand) {
+                if (mainCommand == "flights") {
                     //TODO
                 }
-                if(mainCommand == "inventory"){
+                if (mainCommand == "inventory") {
                     //TODO
                 }
             }
-        }
-        else if(mainCommand == "sell"){
-            if(commandline >> mainCommand){
-                if(commandline >> mainCommand){
+        } else if (mainCommand == "sell") {
+            if (commandline >> mainCommand) {
+                if (commandline >> mainCommand) {
 
-                }
-                else
-                    std::cout <<"- Falta segundo Argumento.\n";
-            }
-            else
+                } else
+                    std::cout << "- Falta segundo Argumento.\n";
+            } else
                 std::cout << "- Sin argumentos válidos";
 
         }
