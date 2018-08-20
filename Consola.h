@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <unordered_map>
-#include "Comando.h"
 #include "Aeronautica.h"
 
 std::unordered_map<std::string, std::string> ReadCommands();
