@@ -76,14 +76,12 @@ void ConsoleHub() {
         std::getline(std::cin, command);
         commandline.str(command);
         commandline >> mainCommand;
-
         if (mainCommand == "login") {
             std::cout << "Hey Listen!";
         } else if (mainCommand == "read") {
 
         } else if (mainCommand == "help") {
             if (!commandline.bad()) {
-                commandline >> mainCommand;
                 std::cout << commandList.find(mainCommand)->second; //Imprimir Comando encontrado
             } else {
                 auto it = commandList.begin();
