@@ -12,7 +12,7 @@ namespace FJA {
     public:
         Venta();
 
-        Venta(const std::string &m_ID, const std::string &m_Agency, const std::string &m_Flight,
+        Venta(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
               const std::string &m_CustomerID, const std::string &m_Customer,
               const std::string &m_FlightDate, const std::string &m_BuyDate,
               const std::string &m_BuyHour);
@@ -52,8 +52,8 @@ namespace FJA {
         void SetBuyHour(const std::string &m_BuyHour);
 
     protected:
-        std::string m_ID;
-        std::string m_Agency;
+	std::string m_Agency;        
+	std::string m_ID;        
         std::string m_Flight;
         std::string m_CustomerID;
         std::string m_Customer;

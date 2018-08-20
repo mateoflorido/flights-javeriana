@@ -6,7 +6,8 @@
 
 FJA::Venta::
 Venta()
-        : m_ID(""),
+        : m_Agency(""),
+	  m_ID(""),
           m_Flight(""),
           m_CustomerID(""),
           m_Customer(""),
@@ -16,11 +17,11 @@ Venta()
 
 
 FJA::Venta::
-Venta(const std::string &m_ID, const std::string &m_Agency, const std::string &m_Flight, const std::string &m_CustomerID,
+Venta(const std::string &m_Agency , const std::string &m_ID , const std::string &m_Flight, const std::string &m_CustomerID,
       const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
       const std::string &m_BuyHour)
-        : m_ID(m_ID),
-          m_Agency(m_Agency),
+        : m_Agency(m_Agency),
+	  m_ID(m_ID),
           m_Flight(m_Flight),
           m_CustomerID(m_CustomerID),
           m_Customer(m_Customer),
