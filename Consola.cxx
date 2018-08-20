@@ -6,6 +6,8 @@
 #include <ctime>
 #include <iostream>
 #include "Consola.h"
+#include <fstream>
+#include "Archivo.h"
 
 std::unordered_map<std::string, std::string> ReadCommands() {
     std::unordered_map<std::string, std::string> commandList;
@@ -61,7 +63,7 @@ void ConsoleHub() {
     std::string arg2;
     TCommandList commandList = ReadCommands();
 
-    FJA::Aeronautica aero();
+    auto a = new FJA::Aeronautica();
 
     std::time_t result = std::time(nullptr);
 
@@ -75,6 +77,7 @@ void ConsoleHub() {
         std::cout << "\n$ ";
         std::getline(std::cin, command);
         commandline.str(command);
+	ReadAgencies(*a, "flights.txt");
         commandline >> mainCommand;
         if (mainCommand == "login") {
             std::cout << "Hey Listen!";

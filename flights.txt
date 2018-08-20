@@ -1,0 +1,20 @@
+AT402;Lunes;Cali;Pasto;1033;6710;142;454789
+AV664;Lunes;Soacha;Armenia;0353;0544;141;301292
+AV101;Jueves;Villavicencio;Armenia;2241;3512;103;315325
+AV564;Sabado;Cali;Pasto;2320;7804;207;428509
+AV279;Sabado;Cúcuta;Pereira;1220;9206;180;227907
+AV380;Miercoles;Cartagena;Armenia;1442;4152;215;117922
+AT894;Martes;Cartagena;Sincelejo;1358;5256;188;177669
+AT321;Lunes;Barranquilla;Montería;0550;4611;171;224890
+AT145;Lunes;Soledad;Sincelejo;2329;5711;111;165942
+AV803;Lunes;Bucaramanga;Manizales;0234;3859;149;317654
+AV165;Lunes;Cali;Armenia;0340;1229;209;157401
+AT749;Viernes;Villavicencio;Sincelejo;2035;0158;108;460070
+AT136;Sabado;Soledad;Palmira;0420;2154;121;489069
+AV584;Sabado;Soacha;Neiva;0418;2744;170;315242
+AV794;Jueves;Villavicencio;Neiva;0715;0954;162;378387
+AT140;Jueves;Bucaramanga;Buenaventura;2238;7538;165;465996
+AT646;Martes;Bucaramanga;Montería;0922;2716;150;303927
+AT312;Domingo;Soacha;Valledupar;0507;7444;214;486800
+AT674;Lunes;Ibagué;Palmira;0430;5447;208;425444
+AT527;Miercoles;Santa Marta;Montería;0518;6753;182;331695
