@@ -5,7 +5,8 @@
 #include "Agencia.h"
 
 FJA::Agencia::
-Agencia() {}
+Agencia() 
+         : m_Sales(std::vector<FJA::Venta>()) {}
 
 FJA::Agencia::
 ~Agencia() {}
