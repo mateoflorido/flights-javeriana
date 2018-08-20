@@ -14,8 +14,8 @@ namespace FJA {
 
         Venta(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
               const std::string &m_CustomerID, const std::string &m_Customer,
-              const std::string &m_FlightDate, const std::string &m_BuyDate,
-              const std::string &m_BuyHour);
+              const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
+              const unsigned int &m_BuyHour);
 
         virtual ~Venta();
 
@@ -29,11 +29,11 @@ namespace FJA {
 
         const std::string &GetCustomer() const;
 
-        const std::string &GetFlightDate() const;
+        const unsigned int &GetFlightDate() const;
 
-        const std::string &GetBuyDate() const;
+        const unsigned int &GetBuyDate() const;
 
-        const std::string &GetBuyHour() const;
+        const unsigned int &GetBuyHour() const;
 
         void SetID(const std::string &m_ID);
 
@@ -45,11 +45,11 @@ namespace FJA {
 
         void SetCustomer(const std::string &m_Customer);
 
-        void SetFlightDate(const std::string &m_FlightDate);
+        void SetFlightDate(const unsigned int &m_FlightDate);
 
-        void SetBuyDate(const std::string &m_BuyDate);
+        void SetBuyDate(const unsigned int &m_BuyDate);
 
-        void SetBuyHour(const std::string &m_BuyHour);
+        void SetBuyHour(const unsigned int &m_BuyHour);
 
     protected:
 	std::string m_Agency;        
