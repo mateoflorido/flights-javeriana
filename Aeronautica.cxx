@@ -53,12 +53,13 @@ void FJA::Aeronautica
 void FJA::Aeronautica
 ::NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
           const std::string &m_CustomerID,
-          const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
-          const std::string &m_BuyHour) {
+          const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
+          const unsigned int &m_BuyHour) {
     auto itAgencies = this->m_Agencies.begin();
     for(;itAgencies != this->m_Agencies.end(); itAgencies++){
         if(itAgencies->GetAgencyID() == m_Agency){
-            
+	    Venta v(m_Agency, m_ID, m_Flight, m_CustomerID, m_Customer, m_FlightDate, m_BuyDate, m_BuyHour);
+            itAgencies->GetSales.push_back(v)
         }
     }
 }

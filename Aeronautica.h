@@ -24,8 +24,8 @@ namespace FJA {
                       const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
                       unsigned int m_Capacity, unsigned long m_Price);
         void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight, const std::string &m_CustomerID,
-                     const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
-                     const std::string &m_BuyHour);
+                     const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
+                     const unsigned int &m_BuyHour);
 
     protected:
         typedef std::vector<Agencia> TAgencies;
