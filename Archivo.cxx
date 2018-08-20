@@ -3,6 +3,7 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include "Archivo.h"
 
@@ -61,12 +62,16 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
     std::string agencyN;//Create agency name store
     std::string agencyPassW;// Create agency password store
     while (input) { // Read until end of file
-        while (std::getline(ss, token, ';')) {
-            agencyN = token;
-            std::getline(ss, token, ';');
-            agencyPassW = token;
-            a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
-        }
+        std::getline(ss, token, ';');
+        agencyN = token;
+        std::cout << token;
+        std::getline(ss, token, ';');
+        agencyPassW = token;
+        a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
+        std::getline(input, line);
+        ss.clear();
+        ss.str(line);
+
     }
     input.close();
 
