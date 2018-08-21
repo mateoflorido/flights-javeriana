@@ -27,6 +27,10 @@ namespace FJA {
                      const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
                      const unsigned int &m_BuyHour);
 
+        bool Sell(const std::string &IdVuelo, const unsigned int fecha);
+
+        bool CheckLogin(const std::string &m_AgencyID, const std::string &m_Password);
+
     protected:
         typedef std::vector<Agencia> TAgencies;
         typedef std::vector<Ruta> TRoutes;

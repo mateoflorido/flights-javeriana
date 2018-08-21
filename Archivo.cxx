@@ -115,6 +115,7 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         agencyN = token;
         std::getline(ss, token, ';');
+        token.erase(token.end()-1, token.end());
         agencyPassW = token;
         a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
         std::getline(input, line);

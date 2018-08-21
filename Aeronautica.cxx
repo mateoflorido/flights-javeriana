@@ -63,3 +63,66 @@ void FJA::Aeronautica
         }
     }
 }
+
+bool FJA::Aeronautica
+::CheckLogin(const std::string &m_AgencyID, const std::string &m_Password) {
+    auto itAgencies = this->m_Agencies.begin();
+    for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
+        if (itAgencies->GetAgencyID() == m_AgencyID)
+            if (itAgencies->GetPassword() == m_Password)
+                return true;
+            else
+                return false;
+
+        else
+            return false;
+
+    }
+
+}
+
+/*bool FJA::Aeronautica
+::Sell(const std::string &IdVuelo, const unsigned int fecha, const std::string &currentAgency, const std::string &CustomerID, const std::string &Customer, const unsigned int &buyDate, const unsigned int &buyHour){
+    //if(VerificarFechas(akljsbdfsd)){
+    int sillasV=ContarVentas(IdVuelo);
+    FJA::Ruta auxR;
+    auto itRoutes = this->m_Routes.begin();
+    for(;itRoutes != this->Routes.end(); itRoutes++){
+        if(itRoutes->GetCode()==IdVuelo){
+            break;
+        }
+    }
+    if(itRoutes!=this->m_Routes.end()){
+        auto itAgencies = this->m_Agencies.begin();
+        for(;itAgencies != this->m_Agencies.end(); itAgencies++){
+            std::mt19937 rng; //Random Number from 0000 to 9999
+            rng.seed(std::random_device()());
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0000,9999);
+            if(itAgencies->GetAgencyID()==currentAgency){
+                NewSale(itAgencies->GetAgencyID(), dist6(rng), itRoutes->GetCode(), CustomerID, Customer, fecha, buyDate, buyHour);
+                return true;
+            }
+        }
+    }
+    else{
+        return false;
+    }
+    //}
+    //else{
+    //return false;
+    //}
+}
+int FJA::Aeronautica
+::ContarVentas(const std::string &IdVuelo){
+    int conta=0;
+    for(auto itAg= this->m_Agencies.begin(); itAg!= this->m_Agencies.end(); itAg++)
+        for(auto itSales= itAg->GetSales().begin(); itSales!= itAg->GetSales().end();itSales++){
+            if(itSales->GetID==IdVuelo)
+                conta++;
+        }
+}
+return conta;
+}*/
+
+
+

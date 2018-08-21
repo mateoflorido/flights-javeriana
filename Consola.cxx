@@ -62,6 +62,7 @@ void ConsoleHub() {
     std::string arg1;
     std::string arg2;
     TCommandList commandList = ReadCommands();
+    std::string currentAgency;
 
     auto a = new FJA::Aeronautica();
 
@@ -74,19 +75,31 @@ void ConsoleHub() {
               << "En caso de necesitar ayuda use help";
 
     while (command != "exit") {
-        std::cout << "\n$ ";
-        commandline.clear();
-        std::getline(std::cin, command);
+        std::cout << "\n" << currentAgency << " $ ";
 
+        std::getline(std::cin, command);
+        commandline.clear();
         commandline.str(command);
         commandline >> mainCommand;
 
         if (mainCommand == "login") {
             std::cout << "Ingrese el Usuario: ";
             std::cin >> arg1;
+            std::cout << "Ingrese su contraseña: ";
+            std::cin >> arg2;
+            if (a->CheckLogin(arg1, arg2)) {
+                currentAgency = arg1;
+                std::cin.ignore();
+                std::cin >> command;
+
+            } else
+                currentAgency = "";
+
 
         } else if (mainCommand == "logout") {
-            //TODO
+            if (currentAgency != "") {
+                std::cout << " Cerrando Sesión de " << currentAgency << '\n';
+            }
         } else if (mainCommand == "read") {
             if (commandline >> mainCommand) {
                 if (mainCommand == "flights")
@@ -96,7 +109,7 @@ void ConsoleHub() {
                 else if (mainCommand == "sales")
                     ReadSales(*a, "./tickets.txt");
                 else
-                    std::cout << "Argumento no Válido: \n" << commandList.find("read")->second;
+                    std::cout << "Argumento no Válido: \n" << commandList.find("sell")->second;
             }
 
         } else if (mainCommand == "help") {
@@ -116,21 +129,24 @@ void ConsoleHub() {
             }
         } else if (mainCommand == "report") {
             if (commandline >> mainCommand) {
-                if (mainCommand == "flights") {
-                    //TODO
-                }
-                if (mainCommand == "inventory") {
-                    //TODO
-                }
+                if (currentAgency != "") {
+                    if (mainCommand == "flights") {
+                        //TODO
+                    } else if (mainCommand == "inventory") {
+                        //TODO
+                    }
+                } else
+                    std::cout << "No ha iniciado sesión.";
             }
         } else if (mainCommand == "sell") {
-            if (commandline >> mainCommand) {
+            if (currentAgency != "")
                 if (commandline >> mainCommand) {
+                    if (commandline >> mainCommand) {
 
+                    } else
+                        std::cout << "- Falta segundo Argumento.\n";
                 } else
-                    std::cout << "- Falta segundo Argumento.\n";
-            } else
-                std::cout << "- Sin argumentos válidos";
+                    std::cout << "- Sin argumentos válidos";
 
         }
 
