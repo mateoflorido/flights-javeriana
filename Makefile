@@ -1,2 +1,2 @@
 all:
-     g++ -o flights *.cpp *.cxx
+     g++ -o flights main.cpp *.cxx
