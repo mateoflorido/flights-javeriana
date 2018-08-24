@@ -5,11 +5,11 @@ compiler:
 - clang
 
 addons:
-   apt:
-	sources:
-	   - ubuntu-toolchain-r-test
-	packages:
-	   - lcov
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - lcov
 
 before_script:
 - mkdir build
@@ -23,7 +23,6 @@ after_success:
 - lcov --directory . --capture --output-file coverage.info
 - lcov --remove coverage.info '/usr/*' --output-file coverage.info
 - lcov --list coverage.info
-
 - bash <(curl -s https://codecov.io/bash) -t 8d9d1950-59a4-4bbd-95ad-a248e8815647 || echo "Codecov did not collect 
 
 
