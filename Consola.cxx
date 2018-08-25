@@ -77,29 +77,33 @@ void ConsoleHub() {
     while (command != "exit") {
         std::cout << "\n" << currentAgency << " $ ";
 
+        command.clear();
         std::getline(std::cin, command);
         commandline.clear();
         commandline.str(command);
         commandline >> mainCommand;
 
         if (mainCommand == "login") {
-            std::cout << "Ingrese el Usuario: ";
-            std::cin >> arg1;
-            std::cout << "Ingrese su contraseña: ";
-            std::cin >> arg2;
-            if (a->CheckLogin(arg1, arg2)) {
-                currentAgency = arg1;
-                std::cin.ignore();
-                std::cin >> command;
-
+            if (currentAgency == "") {
+                std::cout << "Ingrese el Usuario: ";
+                std::getline(std::cin, arg1);
+                std::cout << "Ingrese su contraseña: ";
+                std::getline(std::cin, arg2);
+                if (a->CheckLogin(arg1, arg2)) {
+                    currentAgency = arg1;
+                } else {
+                    currentAgency = "";
+                    std::cout << "Usuario o Contraseña no Válidos";
+                }
             } else
-                currentAgency = "";
-
+                std::cout << "Agencia: " << currentAgency << " Termine sesión para ingresar en otra cuenta.";
 
         } else if (mainCommand == "logout") {
             if (currentAgency != "") {
                 std::cout << " Cerrando Sesión de " << currentAgency << '\n';
-            }
+                currentAgency = "";
+            } else
+                std::cout << "No hay una sesión iniciada.";
         } else if (mainCommand == "read") {
             if (commandline >> mainCommand) {
                 if (mainCommand == "flights")
@@ -116,6 +120,9 @@ void ConsoleHub() {
             if (commandline >> mainCommand) {
                 if (commandList.find(mainCommand) != commandList.end())
                     std::cout << commandList.find(mainCommand)->second; //Imprimir Comando encontrado
+                else
+                    std::cout << "No existe el comando seleccionado. Utilice 'help' para ver la lista de comandos"
+                                 " disponibles";
             } else {
                 auto it = commandList.begin();
                 std::cout << "---------------------------------\n";
@@ -147,6 +154,8 @@ void ConsoleHub() {
                         std::cout << "- Falta segundo Argumento.\n";
                 } else
                     std::cout << "- Sin argumentos válidos";
+            else
+                std::cout << "No ha iniciado sesión";
 
         }
 

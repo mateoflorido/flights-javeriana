@@ -73,11 +73,9 @@ bool FJA::Aeronautica
                 return true;
             else
                 return false;
-
-        else
-            return false;
-
     }
+    if(itAgencies == this->m_Agencies.end())
+        return false;
 
 }
 
