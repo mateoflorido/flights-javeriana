@@ -78,19 +78,17 @@ bool FJA::Aeronautica
         return false;
 
 }
-
-/*bool FJA::Aeronautica
+/*
+bool FJA::Aeronautica
 ::Sell(const std::string &IdVuelo, const unsigned int fecha, const std::string &currentAgency, const std::string &CustomerID, const std::string &Customer, const unsigned int &buyDate, const unsigned int &buyHour){
-    //if(VerificarFechas(akljsbdfsd)){
     int sillasV=ContarVentas(IdVuelo);
-    FJA::Ruta auxR;
     auto itRoutes = this->m_Routes.begin();
     for(;itRoutes != this->Routes.end(); itRoutes++){
         if(itRoutes->GetCode()==IdVuelo){
             break;
         }
     }
-    if(itRoutes!=this->m_Routes.end()){
+    if(itRoutes!=this->m_Routes.end()&&VerificarFechas(fecha, itRoutes->GetWeekDay())==true){
         auto itAgencies = this->m_Agencies.begin();
         for(;itAgencies != this->m_Agencies.end(); itAgencies++){
             std::mt19937 rng; //Random Number from 0000 to 9999
@@ -104,11 +102,7 @@ bool FJA::Aeronautica
     }
     else{
         return false;
-    }
-    //}
-    //else{
-    //return false;
-    //}
+    }  
 }
 int FJA::Aeronautica
 ::ContarVentas(const std::string &IdVuelo){
@@ -120,7 +114,10 @@ int FJA::Aeronautica
         }
 }
 return conta;
-}*/
-
-
+}
+bool FJA::Aeronautica
+::VerificarFechas(const unsigned int fecha,const std::string dia){
+auto s = std::to_string(fecha);
+}
+*/
 
