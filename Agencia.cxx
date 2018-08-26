@@ -37,9 +37,24 @@ void FJA::Agencia::SetSales(const std::vector<FJA::Venta> &m_Sales) {
 }
 
 void FJA::Agencia::NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
-             const std::string &m_CustomerID,
-             const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
-             const std::string &m_BuyHour){
+                           const std::string &m_CustomerID,
+                           const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
+                           const std::string &m_BuyHour) {
     Venta v(m_Agency, m_ID, m_Flight, m_CustomerID, m_Customer, m_FlightDate, m_BuyDate, m_BuyHour);
     this->m_Sales.push_back(v);
+}
+
+std::string FJA::Agencia::SalesReport() {
+    std::string report = "";
+    if (this->m_Sales.size() != 0) {
+        auto itSales = this->m_Sales.begin();
+        for (; itSales != this->m_Sales.end(); itSales++) {
+            report += itSales->GetAgency();
+            report += "_";
+            report += itSales->GetID() + ";" + itSales->GetFlight() + ";" + itSales->GetCustomerID() + ";" +
+                      itSales->GetCustomer() + ";" + itSales->GetFlightDate() + ";" + itSales->GetBuyDate() + ";" +
+                      itSales->GetBuyHour() + "\n";
+        }
+    }
+    return report;
 }

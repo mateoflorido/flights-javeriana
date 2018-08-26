@@ -91,6 +91,12 @@ namespace FJA {
          */
         bool CheckLogin(const std::string &m_AgencyID, const std::string &m_Password);
 
+        /**
+         * @brief
+         * @return
+         */
+        std::string SalesReport();
+
     protected:
         typedef std::vector<Agencia> TAgencies;
         typedef std::vector<Ruta> TRoutes;

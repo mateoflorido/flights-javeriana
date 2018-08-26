@@ -38,6 +38,11 @@ namespace FJA {
                      const std::string &m_CustomerID,
                      const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
                      const std::string &m_BuyHour);
+        /**
+         * @brief
+         * @return
+         */
+        std::string SalesReport();
 
     protected:
         std::string m_AgencyID;

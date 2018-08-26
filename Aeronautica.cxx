@@ -144,4 +144,14 @@ bool FJA::Aeronautica
     return false;
 }
 
+std::string FJA::Aeronautica
+::SalesReport() {
+    if(this->m_Agencies.size() != 0){
+        std::string report;
+        auto itAgencies = this->m_Agencies.begin();
+        for(;itAgencies != this->m_Agencies.end();itAgencies++){
+            report += itAgencies->SalesReport();
+        }
+    }
+}
 
