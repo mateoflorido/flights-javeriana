@@ -149,6 +149,24 @@ void ConsoleHub() {
             if (currentAgency != "")
                 if (commandline >> mainCommand) {
                     if (commandline >> mainCommand) {
+		      std::string CustomerID;
+                      std::string Customer;
+                      std::string buyHour;
+                      std::string buyDate;
+                      std::cout<<"- Ingrese su numero de identificación antecedido de el tipo de documento.\n";
+                      std::cout<<"- Ejemplo: CC1233691510.";
+                      std::cout<<"Documento: ";
+                      std::getline(std::cin, CustomerID);
+                      std::cout<<"\n- Ingrese su nombre con este formato: Apellido1 Apellido2, Nombre1 Nombre2 \n";
+                      std::getline(std::cin, Customer);
+                      buyHour=(std::to_string(std::localtime(&result).tm_hour))+(std::to_string(std::localtime(&result).tm_min));
+                      buyDate=(std::to_string(std::localtime(&result).tm_year+1900))+(std::localtime(&result).tm_mon+1)+(std::localtime(&result).tm_mday);
+                      if(a.Sell(arg1,arg2,currentAgency,CustomerID,Customer,buyDate,buyHour)){
+                        std::cout<<"-Operacion exitosa.\n";
+                      }
+                      else{
+                        std::cout<<"-Datos invalidos.\n"
+                      }
 
                     } else
                         std::cout << "- Falta segundo Argumento.\n";
