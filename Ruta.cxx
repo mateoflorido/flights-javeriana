@@ -11,7 +11,7 @@ Ruta()
           m_WeekDay(""),
           m_Origin(""),
           m_Destination(""),
-          m_Hour(0),
+          m_Hour(""),
           m_FlightDuration(0),
           m_Capacity(0),
           m_Price(0) {
@@ -19,8 +19,8 @@ Ruta()
 
 FJA::Ruta::
 Ruta(const std::string &m_Code, const std::string &m_WeekDay, const std::string &m_Origin,
-     const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
-     unsigned int m_Capacity, unsigned long m_Price)
+     const std::string &m_Destination, const std::string &m_Hour, const unsigned int &m_FlightDuration,
+     const unsigned int &m_Capacity, const unsigned long &m_Price)
         : m_Code(m_Code), m_WeekDay(m_WeekDay),
           m_Origin(m_Origin), m_Destination(m_Destination),
           m_Hour(m_Hour), m_FlightDuration(m_FlightDuration),
@@ -55,7 +55,7 @@ const std::string &FJA::Ruta::GetDestination() const {
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-const unsigned int &FJA::Ruta::GetHour() const {
+const std::string &FJA::Ruta::GetHour() const {
     return (this->m_Hour);
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ void FJA::Ruta::SetDestination(const std::string &m_Destination) {
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-void FJA::Ruta::SetHour(const unsigned int &hour) {
+void FJA::Ruta::SetHour(const std::string &hour) {
     this->m_Hour = m_Hour;
 }
 //----------------------------------------------------------------------------------------------------------------------

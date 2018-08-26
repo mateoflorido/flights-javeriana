@@ -37,8 +37,8 @@ NewAgency(const std::string &name, const std::string &password) {
 
 void FJA::Aeronautica
 ::NewRoute(const std::string &m_Code, const std::string &m_WeekDay, const std::string &m_Origin,
-           const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
-           unsigned int m_Capacity, unsigned long m_Price) {
+           const std::string &m_Destination, const std::string &m_Hour, const unsigned int &m_FlightDuration,
+           const unsigned int &m_Capacity, const unsigned long &m_Price) {
     auto itRoutes = this->m_Routes.begin();
     for (; itRoutes != this->m_Routes.end(); ++itRoutes) {
         if (itRoutes->GetCode() == m_Code)
@@ -53,8 +53,8 @@ void FJA::Aeronautica
 void FJA::Aeronautica
 ::NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
           const std::string &m_CustomerID,
-          const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
-          const unsigned int &m_BuyHour) {
+          const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
+          const std::string &m_BuyHour) {
     auto itAgencies = this->m_Agencies.begin();
     for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
         if (itAgencies->GetAgencyID() == m_Agency) {
@@ -74,69 +74,75 @@ bool FJA::Aeronautica
             else
                 return false;
     }
-    if(itAgencies == this->m_Agencies.end())
+    if (itAgencies == this->m_Agencies.end())
         return false;
 
 }
 
 bool FJA::Aeronautica
-::Sell(const std::string &IdVuelo, const unsigned int fecha, const std::string &currentAgency, const std::string &CustomerID, const std::string &Customer, const unsigned int &buyDate, const unsigned int &buyHour){
-    int sillasV=ContarVentas(IdVuelo);
+::Sell(const std::string &IdVuelo, const std::string &fecha, const std::string &currentAgency,
+       const std::string &CustomerID, const std::string &Customer, const std::string &buyDate,
+       const std::string &buyHour) {
+    int sillasV = ContarVentas(IdVuelo);
     auto itRoutes = this->m_Routes.begin();
-    for(;itRoutes != this->Routes.end(); itRoutes++){
-        if(itRoutes->GetCode()==IdVuelo){
+    for (; itRoutes != this->m_Routes.end(); itRoutes++) {
+        if (itRoutes->GetCode() == IdVuelo) {
             break;
         }
     }
-    if(itRoutes!=this->m_Routes.end()&&VerificarFechas(fecha, itRoutes->GetWeekDay())==true){
+    if (itRoutes != this->m_Routes.end() && VerificarFechas(fecha, itRoutes->GetWeekDay()) == true) {
         auto itAgencies = this->m_Agencies.begin();
-        for(;itAgencies != this->m_Agencies.end(); itAgencies++){
+        for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
             std::mt19937 rng; //Random Number from 0000 to 9999
             rng.seed(std::random_device()());
-            std::uniform_int_distribution<std::mt19937::result_type> dist6(0000,9999);
-            if(itAgencies->GetAgencyID()==currentAgency){
-                NewSale(itAgencies->GetAgencyID(), dist6(rng), itRoutes->GetCode(), CustomerID, Customer, fecha, buyDate, buyHour);
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0000, 9999);
+
+            if (itAgencies->GetAgencyID() == currentAgency) {
+                NewSale(itAgencies->GetAgencyID(), std::to_string(dist6(rng)), itRoutes->GetCode(), CustomerID,
+                        Customer, fecha,
+                        buyDate, buyHour);
                 return true;
             }
         }
-    }
-    else{
+    } else {
         return false;
-    }  
+    }
 }
+
 int FJA::Aeronautica
-::ContarVentas(const std::string &IdVuelo){
-    int conta=0;
-    for(auto itAg= this->m_Agencies.begin(); itAg!= this->m_Agencies.end(); itAg++)
-        for(auto itSales= itAg->GetSales().begin(); itSales!= itAg->GetSales().end();itSales++){
-            if(itSales->GetID==IdVuelo)
+::ContarVentas(const std::string &IdVuelo) {
+    int conta = 0;
+    for (auto itAg = this->m_Agencies.begin(); itAg != this->m_Agencies.end(); itAg++)
+        for (auto itSales = itAg->GetSales().begin(); itSales != itAg->GetSales().end(); itSales++) {
+            if (itSales->GetID() == IdVuelo)
                 conta++;
         }
+
+    return conta;
 }
-return conta;
-}
+
 bool FJA::Aeronautica
-::VerificarFechas(const unsigned int fecha,const std::string dia){
-auto s = std::to_string(fecha);
-std::string year=s[1]+s[2]+s[3];
-std::string month=s[4]+s[5];
-std::string day=s[6]+s[7];
-int resultado= (std::stoi(year)+ std::stoi(month) + std::stoi(day))%7;   //0=sabado
-if(resultado==0||dia==Sabado)	
-	return true;
-if(resultado==1||dia==Domingo)
-	return true;
-if(resultado==2||dia==Lunes)
-	return true;
-if(resultado==3||dia==Martes)	
-	return true;
-if(resultado==4||dia==Miercoles)
-	return true;
-if(resultado==5||dia==Jueves)
-	return true;
-if(resultado==6||dia==Viernes)
-	return true;
-return false;
+::VerificarFechas(const std::string &fecha, const std::string &dia) {
+
+    std::string year =  fecha.substr(1,3);
+    std::string month = fecha.substr(4,5);
+    std::string day = fecha.substr(6,7);
+    int resultado = (std::stoi(year) + std::stoi(month) + std::stoi(day)) % 7;   //0=sabado
+    if (resultado == 0 && dia == "Sabado")
+        return true;
+    if (resultado == 1 && dia == "Domingo")
+        return true;
+    if (resultado == 2 && dia == "Lunes")
+        return true;
+    if (resultado == 3 && dia == "Martes")
+        return true;
+    if (resultado == 4 && dia == "Miercoles")
+        return true;
+    if (resultado == 5 && dia == "Jueves")
+        return true;
+    if (resultado == 6 && dia == "Viernes")
+        return true;
+    return false;
 }
 
 

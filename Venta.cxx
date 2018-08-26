@@ -11,16 +11,16 @@ Venta()
           m_Flight(""),
           m_CustomerID(""),
           m_Customer(""),
-          m_FlightDate(),
-          m_BuyDate(),
-          m_BuyHour() {}
+          m_FlightDate(""),
+          m_BuyDate(""),
+          m_BuyHour("") {}
 
 
 FJA::Venta::
 Venta(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
       const std::string &m_CustomerID,
-      const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
-      const unsigned int &m_BuyHour)
+      const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
+      const std::string &m_BuyHour)
         : m_Agency(m_Agency),
           m_ID(m_ID),
           m_Flight(m_Flight),
@@ -57,15 +57,15 @@ const std::string &FJA::Venta::GetCustomer() const {
     return (this->m_Customer);
 }
 
-const unsigned int &FJA::Venta::GetFlightDate() const {
+const std::string &FJA::Venta::GetFlightDate() const {
     return (this->m_FlightDate);
 }
 
-const unsigned int &FJA::Venta::GetBuyDate() const {
+const std::string &FJA::Venta::GetBuyDate() const {
     return (this->m_BuyDate);
 }
 
-const unsigned int &FJA::Venta::GetBuyHour() const {
+const std::string &FJA::Venta::GetBuyHour() const {
     return (this->m_BuyHour);
 }
 
@@ -85,15 +85,15 @@ void FJA::Venta::SetCustomer(const std::string &m_Customer) {
     this->m_Customer = m_Customer;
 }
 
-void FJA::Venta::SetFlightDate(const unsigned int &m_FlightDate) {
+void FJA::Venta::SetFlightDate(const std::string &m_FlightDate) {
     this->m_FlightDate = m_FlightDate;
 }
 
-void FJA::Venta::SetBuyDate(const unsigned int &m_BuyDate) {
+void FJA::Venta::SetBuyDate(const std::string &m_BuyDate) {
     this->m_BuyDate = m_BuyDate;
 }
 
-void FJA::Venta::SetBuyHour(const unsigned int &m_BuyHour) {
+void FJA::Venta::SetBuyHour(const std::string &m_BuyHour) {
     this->m_BuyHour = m_BuyHour;
 }
 

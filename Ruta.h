@@ -17,8 +17,8 @@ namespace FJA {
         const std::string &GetCode() const;
 
         Ruta(const std::string &m_Code, const std::string &m_WeekDay, const std::string &m_Origin,
-             const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
-             unsigned int m_Capacity, unsigned long m_Price);
+             const std::string &m_Destination, const std::string &m_Hour, const unsigned int &m_FlightDuration,
+             const unsigned int &m_Capacity, const unsigned long &m_Price);
 
         const std::string &GetWeekDay() const;
 
@@ -26,7 +26,7 @@ namespace FJA {
 
         const std::string &GetDestination() const;
 
-        const unsigned int &GetHour() const;
+        const std::string &GetHour() const;
 
         const unsigned int &GetDuration() const;
 
@@ -42,7 +42,7 @@ namespace FJA {
 
         void SetDestination(const std::string &destination);
 
-        void SetHour(const unsigned int &hour);
+        void SetHour(const std::string &hour);
 
         void SetDuration(const unsigned int &duration);
 
@@ -55,7 +55,7 @@ namespace FJA {
         std::string m_WeekDay;
         std::string m_Origin;
         std::string m_Destination;
-        unsigned int m_Hour;
+        std::string m_Hour;
         unsigned int m_FlightDuration;
         unsigned int m_Capacity;
         unsigned long m_Price;

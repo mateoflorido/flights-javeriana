@@ -20,9 +20,9 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
     std::string flight;
     std::string customerID;
     std::string customer;
-    unsigned int flightDate;
-    unsigned int buyDate;
-    unsigned int buyHour;
+    std::string flightDate;
+    std::string buyDate;
+    std::string buyHour;
 
     while (input) { // Read until end of file
         std::getline(ss, token, '_');
@@ -36,11 +36,11 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         customer = token;
         std::getline(ss, token, ';');
-        flightDate = std::stoul(token);
+        flightDate = token;
         std::getline(ss, token, ';');
-        buyDate = std::stoi(token);
+        buyDate = token;
         std::getline(ss, token, ';');
-        buyHour = std::stoi(token);
+        buyHour = token;
         a.NewSale(agencyN, id, flight, customerID, customer, flightDate, buyDate, buyHour); // Create and add sale
         std::getline(input, line);
         ss.clear();
@@ -65,7 +65,7 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
     std::string day;
     std::string from;
     std::string to;
-    unsigned int hour;
+    std::string hour;
     unsigned int flightd;
     unsigned int cap;
     unsigned long price;
@@ -81,7 +81,7 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         to = token;
         std::getline(ss, token, ';');
-        hour = std::stoi(token);
+        hour = token;
         std::getline(ss, token, ';');
         flightd = std::stoi(token);
         std::getline(ss, token, ';');

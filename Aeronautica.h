@@ -22,15 +22,21 @@ namespace FJA {
         void NewAgency(const std::string &name, const std::string &password);
 
         void NewRoute(const std::string &m_Code, const std::string &m_WeekDay, const std::string &m_Origin,
-                      const std::string &m_Destination, unsigned int m_Hour, unsigned int m_FlightDuration,
-                      unsigned int m_Capacity, unsigned long m_Price);
-        void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight, const std::string &m_CustomerID,
-                     const std::string &m_Customer, const unsigned int &m_FlightDate, const unsigned int &m_BuyDate,
-                     const unsigned int &m_BuyHour);
+                      const std::string &m_Destination, const std::string &m_Hour, const unsigned int &m_FlightDuration,
+                      const unsigned int &m_Capacity, const unsigned long &m_Price);
 
-        bool Sell(const std::string &IdVuelo, const unsigned int fecha, const std::string &currentAgency, const std::string &CustomerID, const std::string &Customer, const unsigned int &buyDate, const unsigned int &buyHour);
-	int ContarVentas(const std::string &IdVuelo);
-	bool VerificarFechas(const unsigned int fecha, const std::string dia);
+        void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
+                     const std::string &m_CustomerID,
+                     const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
+                     const std::string &m_BuyHour);
+
+        bool Sell(const std::string &IdVuelo, const std::string &fecha, const std::string &currentAgency,
+                  const std::string &CustomerID, const std::string &Customer, const std::string &buyDate,
+                  const std::string &buyHour);
+
+        int ContarVentas(const std::string &IdVuelo);
+
+        bool VerificarFechas(const std::string &fecha, const std::string &dia);
 
         bool CheckLogin(const std::string &m_AgencyID, const std::string &m_Password);
 
