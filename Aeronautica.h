@@ -8,6 +8,7 @@
 #include <vector>
 #include "Agencia.h"
 #include "Ruta.h"
+#include <random>
 
 namespace FJA {
     class Aeronautica {
