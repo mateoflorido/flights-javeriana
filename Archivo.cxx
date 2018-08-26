@@ -80,11 +80,11 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         hour = token;
         std::getline(ss, token, ';');
-        flightd = std::stoi(token);
+        flightd = static_cast<unsigned int>(std::stoi(token));
         std::getline(ss, token, ';');
-        cap = std::stoi(token);
+        cap = static_cast<unsigned int>(std::stoi(token));
         std::getline(ss, token, ';');
-        price = std::stol(token);
+        price = static_cast<unsigned long>(std::stol(token));
         a.NewRoute(code, day, from, to, hour, flightd, cap, price); // Create and add new flight read
         std::getline(input, line);
         ss.clear();
@@ -129,6 +129,5 @@ void SaveSales(std::string &salesReport){
     output.open("flights.txt");
     output << salesReport;
     output.close();
-    return;
 }
 

@@ -31,7 +31,7 @@ Venta(const std::string &m_Agency, const std::string &m_ID, const std::string &m
           m_BuyHour(m_BuyHour) {}
 
 FJA::Venta::
-~Venta() {}
+~Venta() = default;
 
 
 const std::string

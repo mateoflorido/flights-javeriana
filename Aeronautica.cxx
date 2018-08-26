@@ -68,14 +68,12 @@ bool FJA::Aeronautica
     auto itAgencies = this->m_Agencies.begin();
     for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
         if (itAgencies->GetAgencyID() == m_AgencyID)
-            if (itAgencies->GetPassword() == m_Password)
-                return true;
-            else
-                return false;
+            return itAgencies->GetPassword() == m_Password;
     }
     if (itAgencies == this->m_Agencies.end())
         return false;
 
+    return false;
 }
 
 bool FJA::Aeronautica
@@ -89,7 +87,8 @@ bool FJA::Aeronautica
             break;
         }
     }
-    if (itRoutes != this->m_Routes.end() && VerificarFechas(fecha, itRoutes->GetWeekDay()) == true) {
+    if (itRoutes != this->m_Routes.end() && VerificarFechas(fecha, itRoutes->GetWeekDay()) &&
+        sillasV < itRoutes->GetCapacity()) {
         auto itAgencies = this->m_Agencies.begin();
         for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
             std::mt19937 rng; //Random Number from 0000 to 9999
@@ -106,6 +105,7 @@ bool FJA::Aeronautica
     } else {
         return false;
     }
+    return false;
 }
 
 int FJA::Aeronautica
@@ -123,9 +123,9 @@ int FJA::Aeronautica
 bool FJA::Aeronautica
 ::VerificarFechas(const std::string &fecha, const std::string &dia) {
 
-    std::string year =  fecha.substr(1,3);
-    std::string month = fecha.substr(4,5);
-    std::string day = fecha.substr(6,7);
+    std::string year = fecha.substr(1, 3);
+    std::string month = fecha.substr(4, 5);
+    std::string day = fecha.substr(6, 7);
     int resultado = (std::stoi(year) + std::stoi(month) + std::stoi(day)) % 7;   //0=sabado
     if (resultado == 0 && dia == "Sabado")
         return true;
@@ -139,19 +139,19 @@ bool FJA::Aeronautica
         return true;
     if (resultado == 5 && dia == "Jueves")
         return true;
-    if (resultado == 6 && dia == "Viernes")
-        return true;
-    return false;
+    return resultado == 6 && dia == "Viernes";
 }
 
 std::string FJA::Aeronautica
 ::SalesReport() {
-    if(this->m_Agencies.size() != 0){
+    if (!this->m_Agencies.empty()) {
         std::string report;
         auto itAgencies = this->m_Agencies.begin();
-        for(;itAgencies != this->m_Agencies.end();itAgencies++){
+        for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
             report += itAgencies->SalesReport();
         }
+        return report;
     }
+    return std::string();
 }
 

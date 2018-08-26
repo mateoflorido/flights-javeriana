@@ -84,7 +84,7 @@ void ConsoleHub() {
         commandline >> mainCommand;
 
         if (mainCommand == "login") {
-            if (currentAgency == "") {
+            if (!currentAgency.empty()) {
                 std::cout << "Ingrese el Usuario: ";
                 std::getline(std::cin, arg1);
                 std::cout << "Ingrese su contraseña: ";
@@ -99,7 +99,7 @@ void ConsoleHub() {
                 std::cout << "Agencia: " << currentAgency << " Termine sesión para ingresar en otra cuenta.";
 
         } else if (mainCommand == "logout") {
-            if (currentAgency != "") {
+            if (!currentAgency.empty()) {
                 std::cout << " Cerrando Sesión de " << currentAgency << '\n';
                 currentAgency = "";
             } else
@@ -136,7 +136,7 @@ void ConsoleHub() {
             }
         } else if (mainCommand == "report") {
             if (commandline >> mainCommand) {
-                if (currentAgency != "") {
+                if (!currentAgency.empty()) {
                     if (mainCommand == "flights") {
                         //TODO
                     } else if (mainCommand == "inventory") {
@@ -146,7 +146,7 @@ void ConsoleHub() {
                     std::cout << "No ha iniciado sesión.";
             }
         } else if (mainCommand == "sell") {
-            if (currentAgency != "")
+            if (!currentAgency.empty())
                 if (commandline >> mainCommand) {
                     if (commandline >> mainCommand) {
                         std::string CustomerID;
@@ -178,7 +178,8 @@ void ConsoleHub() {
                 std::cout << "No ha iniciado sesión";
 
         } else if (mainCommand == "exit") {
-            a->SalesReport();
+            arg1 = a->SalesReport();
+            SaveSales(arg1);
         }
 
     }

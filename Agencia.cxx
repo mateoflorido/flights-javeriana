@@ -7,7 +7,7 @@ Agencia()
         : m_Sales(std::vector<FJA::Venta>()) {}
 
 FJA::Agencia::
-~Agencia() {}
+~Agencia() =default;
 
 
 const std::string &FJA::Agencia::GetAgencyID() const {
@@ -45,8 +45,8 @@ void FJA::Agencia::NewSale(const std::string &m_Agency, const std::string &m_ID,
 }
 
 std::string FJA::Agencia::SalesReport() {
-    std::string report = "";
-    if (this->m_Sales.size() != 0) {
+    std::string report;
+    if (!this->m_Sales.empty()) {
         auto itSales = this->m_Sales.begin();
         for (; itSales != this->m_Sales.end(); itSales++) {
             report += itSales->GetAgency();
