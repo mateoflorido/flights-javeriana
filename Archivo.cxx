@@ -1,6 +1,3 @@
-//
-// Created by florido on 20/08/18.
-//
 
 #include <fstream>
 #include <iostream>
@@ -126,3 +123,12 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
     input.close();
 
 }
+
+void SaveSales(std::string &salesReport){
+    std::ofstream output;
+    output.open("flights.txt");
+    output << salesReport;
+    output.close();
+    return;
+}
+

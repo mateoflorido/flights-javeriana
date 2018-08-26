@@ -1,7 +1,3 @@
-//
-// Created by Mateo Florido on 19/08/18.
-//
-
 #ifndef FLIGHTS_JAVERIANA_RUTA_H
 #define FLIGHTS_JAVERIANA_RUTA_H
 

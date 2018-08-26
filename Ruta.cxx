@@ -1,6 +1,4 @@
-//
-// Created by Mateo Florido on 19/08/18.
-//
+
 
 #include "Ruta.h"
 

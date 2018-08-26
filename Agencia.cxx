@@ -1,6 +1,4 @@
-//
-// Created by florido on 19/08/18.
-//
+
 
 #include "Agencia.h"
 

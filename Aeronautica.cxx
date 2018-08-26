@@ -1,6 +1,4 @@
-//
-// Created by florido on 19/08/18.
-//
+
 
 #include "Aeronautica.h"
 
@@ -17,6 +15,7 @@ Aeronautica(const std::vector<FJA::Agencia> &m_Agencies, const std::vector<FJA::
 
 FJA::Aeronautica::
 ~Aeronautica() = default;
+
 
 void FJA::Aeronautica::
 NewAgency(const std::string &name, const std::string &password) {

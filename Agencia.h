@@ -1,7 +1,3 @@
-//
-// Created by florido on 19/08/18.
-//
-
 #ifndef FLIGHTS_JAVERIANA_AGENCIA_H
 #define FLIGHTS_JAVERIANA_AGENCIA_H
 
@@ -27,7 +23,17 @@ namespace FJA {
         void SetPassword(const std::string &m_Password);
 
         void SetSales(const std::vector<Venta> &m_Sales);
-
+        /**
+         * @brief
+         * @param m_Agency
+         * @param m_ID
+         * @param m_Flight
+         * @param m_CustomerID
+         * @param m_Customer
+         * @param m_FlightDate
+         * @param m_BuyDate
+         * @param m_BuyHour
+         */
         void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
                      const std::string &m_CustomerID,
                      const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
