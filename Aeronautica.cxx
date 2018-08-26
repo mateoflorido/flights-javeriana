@@ -78,7 +78,7 @@ bool FJA::Aeronautica
         return false;
 
 }
-/*
+
 bool FJA::Aeronautica
 ::Sell(const std::string &IdVuelo, const unsigned int fecha, const std::string &currentAgency, const std::string &CustomerID, const std::string &Customer, const unsigned int &buyDate, const unsigned int &buyHour){
     int sillasV=ContarVentas(IdVuelo);
@@ -118,6 +118,25 @@ return conta;
 bool FJA::Aeronautica
 ::VerificarFechas(const unsigned int fecha,const std::string dia){
 auto s = std::to_string(fecha);
+std::string year=s[1]+s[2]+s[3];
+std::string month=s[4]+s[5];
+std::string day=s[6]+s[7];
+int resultado= (std::stoi(year)+ std::stoi(month) + std::stoi(day))%7;   //0=sabado
+if(resultado==0||dia==Sabado)	
+	return true;
+if(resultado==1||dia==Domingo)
+	return true;
+if(resultado==2||dia==Lunes)
+	return true;
+if(resultado==3||dia==Martes)	
+	return true;
+if(resultado==4||dia==Miercoles)
+	return true;
+if(resultado==5||dia==Jueves)
+	return true;
+if(resultado==6||dia==Viernes)
+	return true;
+return false;
 }
-*/
+
 
