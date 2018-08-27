@@ -123,23 +123,29 @@ int FJA::Aeronautica
 bool FJA::Aeronautica
 ::VerificarFechas(const std::string &fecha, const std::string &dia) {
 
+    
     std::string year = fecha.substr(1, 3);
     std::string month = fecha.substr(4, 5);
     std::string day = fecha.substr(6, 7);
-    int resultado = (std::stoi(year) + std::stoi(month) + std::stoi(day)) % 7;   //0=sabado
-    if (resultado == 0 && dia == "Sabado")
+    std::tm time_in={0,0,0,std::stoi(day),std::stoi(month)-1,std::stoi(year)-1900};
+    std::time_t time_temp = std::mktime(&time_temp);
+    const std::tm * time_out = std::localtime(&time_temp); //0=Domingo
+    
+    if (time_out->tm_wday == 0 && dia == "Domingo")
         return true;
-    if (resultado == 1 && dia == "Domingo")
+    if (time_out->tm_wday == 1 && dia == "Lunes")
         return true;
-    if (resultado == 2 && dia == "Lunes")
+    if (time_out->tm_wday == 2 && dia == "Martes")
         return true;
-    if (resultado == 3 && dia == "Martes")
+    if (time_out->tm_wday == 3 && dia == "Miercoles")
         return true;
-    if (resultado == 4 && dia == "Miercoles")
+    if (time_out->tm_wday == 4 && dia == "Jueves")
         return true;
-    if (resultado == 5 && dia == "Jueves")
+    if (time_out->tm_wday == 5 && dia == "Viernes")
         return true;
-    return resultado == 6 && dia == "Viernes";
+    if (time_out->tm_wday == 6 && dia == "Sabado")
+        return true;
+    return false;
 }
 
 std::string FJA::Aeronautica
