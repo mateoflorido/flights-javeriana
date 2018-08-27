@@ -84,7 +84,7 @@ void ConsoleHub() {
         commandline >> mainCommand;
 
         if (mainCommand == "login") {
-            if (!currentAgency.empty()) {
+            if (currentAgency.empty()) {
                 std::cout << "Ingrese el Usuario: ";
                 std::getline(std::cin, arg1);
                 std::cout << "Ingrese su contraseña: ";
@@ -147,8 +147,8 @@ void ConsoleHub() {
             }
         } else if (mainCommand == "sell") {
             if (!currentAgency.empty())
-                if (commandline >> mainCommand) {
-                    if (commandline >> mainCommand) {
+                if (commandline >> arg1) {
+                    if (commandline >> arg2) {
                         std::string CustomerID;
                         std::string Customer;
                         std::string buyHour;
@@ -161,7 +161,7 @@ void ConsoleHub() {
                         std::getline(std::cin, Customer);
                         buyHour = (std::to_string(std::localtime(&result)->tm_hour)) +
                                   (std::to_string(std::localtime(&result)->tm_min));
-                        buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900)) +
+                        buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900)) + "0" +
                                   (std::to_string(std::localtime(&result)->tm_mon + 1)) + (std::to_string(
                                 (std::localtime(&result)->tm_mday)));
                         if (a->Sell(arg1, arg2, currentAgency, CustomerID, Customer, buyDate, buyHour)) {

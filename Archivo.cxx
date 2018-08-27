@@ -126,7 +126,7 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
 
 void SaveSales(std::string &salesReport){
     std::ofstream output;
-    output.open("flights.txt");
+    output.open("tickets.txt");
     output << salesReport;
     output.close();
 }

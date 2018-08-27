@@ -124,16 +124,13 @@ bool FJA::Aeronautica
 ::VerificarFechas(const std::string &fecha, const std::string &dia) {
 
     
-    std::string year = fecha.substr(1, 3);
-    std::string month = fecha.substr(4, 5);
-    std::string day = fecha.substr(6, 7);
+    std::string year = fecha.substr(0, 4);
+    std::string month = fecha.substr(4, 2);
+    std::string day = fecha.substr(6, 2);
     int y = std::stoi(year);
     int m = std::stoi(month);
     int d = std::stoi(day);
     int resultado;
-    /*std::tm time_in={0,0,0,std::stoi(day),std::stoi(month)-1,std::stoi(year)-1900};
-    std::time_t time_temp = std::mktime(&time_temp);
-    const std::tm * time_out = std::localtime(&time_temp); //0=Domingo*/
     int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
     y -= (m<3);
     resultado= (y + y/4 - y/100 + y/400 + t[m-1] + d)%7;
