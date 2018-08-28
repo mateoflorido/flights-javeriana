@@ -139,10 +139,10 @@ void ConsoleHub() {
 				std::vector<FJA::Ruta> rutas2;
                                 rutas2=a->ReportFlights(arg1,arg2);
 				if(!rutas.empty()){
-			    	    auto itRutas = rutas.begin();
+			    	    auto itRutas2 = rutas2.begin();
 			    	    std::cout<<"Flights: \n";
-			    	    for(;itRutas!=rutas.end();itRutas++){
-				     	std::cout<<"Nombre: "<<itRutas->GetCode()<<"\n";
+			    	    for(;itRutas2!=rutas2.end();itRutas2++){
+				     	std::cout<<"Nombre: "<<itRutas2->GetCode()<<"\n";
 			    	    }
 			    	}
 	                    	else
