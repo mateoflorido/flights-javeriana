@@ -162,7 +162,7 @@ std::string FJA::Aeronautica
     }
     return std::string();
 }
-std::vector<Ruta> FJA::Aeronautica
+std::vector<FJA::Ruta> FJA::Aeronautica
 ::ReportFlights(std::string origen, std::string fecha){
     std::vector<Ruta> retorno;
     auto itRutas = this->TAgencies.begin();
