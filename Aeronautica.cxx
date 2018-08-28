@@ -1,5 +1,3 @@
-
-
 #include "Aeronautica.h"
 
 FJA::Aeronautica::
@@ -123,7 +121,7 @@ int FJA::Aeronautica
 bool FJA::Aeronautica
 ::VerificarFechas(const std::string &fecha, const std::string &dia) {
 
-    
+
     std::string year = fecha.substr(0, 4);
     std::string month = fecha.substr(4, 2);
     std::string day = fecha.substr(6, 2);
@@ -134,7 +132,7 @@ bool FJA::Aeronautica
     int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
     y -= (m<3);
     resultado= (y + y/4 - y/100 + y/400 + t[m-1] + d)%7;
-    
+
     if (resultado == 0 && dia == "Domingo")
         return true;
     if (resultado == 1 && dia == "Lunes")
@@ -164,4 +162,23 @@ std::string FJA::Aeronautica
     }
     return std::string();
 }
-
+std::vector<Ruta> FJA::Aeronautica
+::ReportFlights(std::string origen, std::string fecha){
+    std::vector<Ruta> retorno;
+    auto itRutas = this->TAgencies.begin();
+    if(origen==" " && fecha==" "){
+        for(;itRutas!=this->TAgencies.end();itRutas++){
+            if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
+                retorno.push_back(itRutas);
+        }
+    }
+    else{
+        for(;itRutas!=this->TAgencies.end();itRutas++){
+            if(itRutas->GetOrigin()==origen && VerificarFechas(fecha,itRutas->GetWeekDay())){
+                if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
+                    retorno.push_back(itRutas);
+            }
+        }
+    }
+    return retorno;
+}

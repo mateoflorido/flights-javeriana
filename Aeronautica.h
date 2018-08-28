@@ -5,6 +5,7 @@
 #include "Agencia.h"
 #include "Ruta.h"
 #include <random>
+#include <sstream>
 
 namespace FJA {
     class Aeronautica {
@@ -96,6 +97,7 @@ namespace FJA {
          * @return
          */
         std::string SalesReport();
+	std::vector<Ruta> ReportFlights(std::string origen, std::string fecha);
 
     protected:
         typedef std::vector<Agencia> TAgencies;
