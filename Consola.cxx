@@ -136,7 +136,7 @@ void ConsoleHub() {
                     if (mainCommand == "flights") {
                         if(commandline >> arg1){
                             if(commandline >> arg2){
-				std::vector<Ruta> rutas2;
+				std::vector<FJA::Ruta> rutas2;
                                 rutas2=a->ReportFlights(arg1,arg2);
 				if(!rutas.empty()){
 			    	    auto itRutas = rutas.begin();
@@ -150,7 +150,7 @@ void ConsoleHub() {
                             }
                         }
 			else{
-			    std::vector<Ruta> rutas;
+			    std::vector<FJA::Ruta> rutas;
                             rutas=a->ReportFlights(" "," ");
 			    if(!rutas.empty()){
 			    	auto itRutas = rutas.begin();

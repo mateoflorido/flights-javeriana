@@ -164,16 +164,16 @@ std::string FJA::Aeronautica
 }
 std::vector<FJA::Ruta> FJA::Aeronautica
 ::ReportFlights(std::string origen, std::string fecha){
-    std::vector<Ruta> retorno;
-    auto itRutas = this->TAgencies.begin();
+    std::vector<FJA::Ruta> retorno;
+    auto itRutas = this->m_Agencies.begin();
     if(origen==" " && fecha==" "){
-        for(;itRutas!=this->TAgencies.end();itRutas++){
+        for(;itRutas!=this->m_Agencies.end();itRutas++){
             if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
                 retorno.push_back(itRutas);
         }
     }
     else{
-        for(;itRutas!=this->TAgencies.end();itRutas++){
+        for(;itRutas!=this->m_Agencies.end();itRutas++){
             if(itRutas->GetOrigin()==origen && VerificarFechas(fecha,itRutas->GetWeekDay())){
                 if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
                     retorno.push_back(itRutas);
