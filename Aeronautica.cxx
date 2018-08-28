@@ -169,14 +169,14 @@ std::vector<FJA::Ruta> FJA::Aeronautica
     if(origen==" " && fecha==" "){
         for(;itRutas!=this->m_Routes.end();itRutas++){
             if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
-                retorno.push_back(itRutas);
+                retorno.push_back(*itRutas);
         }
     }
     else{
         for(;itRutas!=this->m_Routes.end();itRutas++){
             if(itRutas->GetOrigin()==origen && VerificarFechas(fecha,itRutas->GetWeekDay())){
                 if(ContarVentas(itRutas->GetCode())<itRutas->GetCapacity())
-                    retorno.push_back(itRutas);
+                    retorno.push_back(*itRutas);
             }
         }
     }
