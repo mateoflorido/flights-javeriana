@@ -134,34 +134,31 @@ void ConsoleHub() {
             if (commandline >> mainCommand) {
                 if (!currentAgency.empty()) {
                     if (mainCommand == "flights") {
-                        if(commandline >> arg1){
-                            if(commandline >> arg2){
-				std::vector<FJA::Ruta> rutas2;
-                                rutas2=a->ReportFlights(arg1,arg2);
-				if(!rutas.empty()){
-			    	    auto itRutas2 = rutas2.begin();
-			    	    std::cout<<"Flights: \n";
-			    	    for(;itRutas2!=rutas2.end();itRutas2++){
-				     	std::cout<<"Nombre: "<<itRutas2->GetCode()<<"\n";
-			    	    }
-			    	}
-	                    	else
-			    	    std::cout<<"No hay coincidencias.\n";
+                        if (commandline >> arg1) {
+                            if (commandline >> arg2) {
+                                std::vector<FJA::Ruta> rutas2;
+                                rutas2 = a->ReportFlights(arg1, arg2);
+                                if (!rutas2.empty()) {
+                                    auto itRutas2 = rutas2.begin();
+                                    std::cout << "Flights: \n";
+                                    for (; itRutas2 != rutas2.end(); itRutas2++) {
+                                        std::cout << "Nombre: " << itRutas2->GetCode() << "\n";
+                                    }
+                                } else
+                                    std::cout << "No hay coincidencias.\n";
                             }
+                        } else {
+                            std::vector<FJA::Ruta> rutas;
+                            rutas = a->ReportFlights(" ", " ");
+                            if (!rutas.empty()) {
+                                auto itRutas = rutas.begin();
+                                std::cout << "Flights: \n";
+                                for (; itRutas != rutas.end(); itRutas++) {
+                                    std::cout << "Nombre: " << itRutas->GetCode() << "\n";
+                                }
+                            } else
+                                std::cout << "No hay coincidencias.\n";
                         }
-			else{
-			    std::vector<FJA::Ruta> rutas;
-                            rutas=a->ReportFlights(" "," ");
-			    if(!rutas.empty()){
-			    	auto itRutas = rutas.begin();
-			    	std::cout<<"Flights: \n";
-			    	for(;itRutas!=rutas.end();itRutas++){
-				     std::cout<<"Nombre: "<<itRutas->GetCode()<<"\n";
-			    	}
-			    }
-	                    else
-			    	std::cout<<"No hay coincidencias.\n";
-			    }
                     } else if (mainCommand == "inventory") {
                         //TODO
                     }
