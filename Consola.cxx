@@ -28,8 +28,8 @@ std::unordered_map<std::string, std::string> ReadCommands() {
             {"sell",   "sell: sell <IDVuelo> <Fecha> "
                        "\n Realiza la venta de un vuelo determinado en una fecha seleccionada "
                        "\n Argumentos :"
-                       "\n \tIDVuelo: Identificador del vuelo seleccionado"
-                       "\n \tFecha: Fecha del vuelo seleccionado"
+                       "\n \t \t \tIDVuelo: Identificador del vuelo seleccionado"
+                       "\n \t \t \tFecha: Fecha del vuelo seleccionado"
                        "\n Estado de Salida: \nGenera una venta del vuelo seleccionado"
             },
             {
@@ -42,7 +42,16 @@ std::unordered_map<std::string, std::string> ReadCommands() {
              "login",  "login: login <idagencia>"
                        "\n Permite iniciar sesión en una agencia"
                        "\n Permite iniciar sesión en una agencia cuando el IDAGENCIA es válido"
-                       "\n Argumentos:\n \t IDAGENCIA\t Indica el ID de una agencia válida."
+                       "\n Argumentos:\n \t \t \t IDAGENCIA\t Indica el ID de una agencia válida."
+            },
+
+            {"read",   "read: sell <Modo> "
+                       "\n Realiza la lectura de los datos en persistencia "
+                       "\n Argumentos <Modo> :"
+                       "\n \t \t \tflights: Lee los vuelos programados por la Aeronautica Civil"
+                       "\n \t \t \tagencies: Lee las agencias disponibles en el sistema"
+                       "\n \t \t \tsales: Lee las ventas realizadas por las agencias"
+                       "\n Estado de Salida: \nLee un archivo con éxito."
             }
     };
 

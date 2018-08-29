@@ -123,31 +123,35 @@ int FJA::Aeronautica
 bool FJA::Aeronautica
 ::VerificarFechas(const std::string &fecha, const std::string &dia) {
 
+    if (fecha.size() == 8) {
+        std::string year = fecha.substr(0, 4);
+        std::string month = fecha.substr(4, 2);
+        std::string day = fecha.substr(6, 2);
+        int y = std::stoi(year);
+        int m = std::stoi(month);
+        int d = std::stoi(day);
+        int resultado;
+        int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+        y -= (m < 3);
+        resultado = (y + y / 4 - y / 100 + y / 400 + t[m - 1] + d) % 7;
 
-    std::string year = fecha.substr(0, 4);
-    std::string month = fecha.substr(4, 2);
-    std::string day = fecha.substr(6, 2);
-    int y = std::stoi(year);
-    int m = std::stoi(month);
-    int d = std::stoi(day);
-    int resultado;
-    int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
-    y -= (m < 3);
-    resultado = (y + y / 4 - y / 100 + y / 400 + t[m - 1] + d) % 7;
-
-    if (resultado == 0 && dia == "Domingo")
-        return true;
-    if (resultado == 1 && dia == "Lunes")
-        return true;
-    if (resultado == 2 && dia == "Martes")
-        return true;
-    if (resultado == 3 && dia == "Miercoles")
-        return true;
-    if (resultado == 4 && dia == "Jueves")
-        return true;
-    if (resultado == 5 && dia == "Viernes")
-        return true;
-    return resultado == 6 && dia == "Sabado";
+        if (resultado == 0 && dia == "Domingo")
+            return true;
+        if (resultado == 1 && dia == "Lunes")
+            return true;
+        if (resultado == 2 && dia == "Martes")
+            return true;
+        if (resultado == 3 && dia == "Miercoles")
+            return true;
+        if (resultado == 4 && dia == "Jueves")
+            return true;
+        if (resultado == 5 && dia == "Viernes")
+            return true;
+        if (resultado == 6 && dia == "Sabado")
+            return true;
+        return false;
+    } else
+        return false;
 }
 
 std::string FJA::Aeronautica
@@ -192,11 +196,11 @@ std::string FJA::Aeronautica
     }
     if (itAgencies != this->m_Agencies.end()) {
         std::stringstream ss;
-        int agencyW = 7, flightW = 7, idW = 5, customerIDW = 12, customerW = 30, statusW = 9;
+        int agencyW = 7, flightW = 7, idW = 5, customerIDW = 12, customerW = 50, statusW = 9;
 
         std::string column = " |";
         int totalW = agencyW + flightW + idW + customerIDW + customerW + statusW + column.size() * 6;
-        std::string separator = column + std::string(static_cast<unsigned long>(totalW - 1), '-') + '|';
+        std::string separator = column + std::string(totalW - 1, '-') + '|';
         auto itSales = itAgencies->GetSales().begin();
         auto itSNext = std::next(itSales, 1);
         std::string status = "Vendido";
