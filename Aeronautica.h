@@ -98,8 +98,19 @@ namespace FJA {
          */
         std::string SalesReport();
 
+        /**
+         * @brief
+         * @param origen
+         * @param fecha
+         * @return
+         */
         std::vector<Ruta> ReportFlights(std::string origen, std::string fecha);
 
+        /**
+         * @brief
+         * @param AgencyID
+         * @return
+         */
         std::string ReportInventory(std::string AgencyID);
 
     protected:

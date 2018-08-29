@@ -23,6 +23,7 @@ namespace FJA {
         void SetPassword(const std::string &m_Password);
 
         void SetSales(const std::vector<Venta> &m_Sales);
+
         /**
          * @brief
          * @param m_Agency
@@ -38,6 +39,7 @@ namespace FJA {
                      const std::string &m_CustomerID,
                      const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
                      const std::string &m_BuyHour);
+
         /**
          * @brief
          * @return

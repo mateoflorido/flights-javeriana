@@ -6,6 +6,7 @@
 #include "Aeronautica.h"
 
 std::unordered_map<std::string, std::string> ReadCommands();
+
 void ConsoleHub();
 
 #endif //FLIGHTS_JAVERIANA_CONSOLA_H

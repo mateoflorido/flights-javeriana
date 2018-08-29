@@ -8,7 +8,7 @@ Agencia()
         : m_Sales(std::vector<FJA::Venta>()) {}
 
 FJA::Agencia::
-~Agencia() =default;
+~Agencia() = default;
 
 
 const std::string &FJA::Agencia::GetAgencyID() const {

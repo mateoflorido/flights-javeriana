@@ -1,6 +1,4 @@
-
 #include <fstream>
-#include <iostream>
 #include <sstream>
 #include "Archivo.h"
 
@@ -28,7 +26,7 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
         id = token;
         std::getline(ss, token, ';');
         flight = token;
-        if(flight == ""){
+        if (flight.empty()) {
             flight.clear();
         }
         std::getline(ss, token, ';');
@@ -115,7 +113,7 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         agencyN = token;
         std::getline(ss, token, ';');
-        token.erase(token.end()-1, token.end());
+        token.erase(token.end() - 1, token.end());
         agencyPassW = token;
         a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
         std::getline(input, line);
@@ -127,7 +125,7 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
 
 }
 
-void SaveSales(std::string &salesReport){
+void SaveSales(std::string &salesReport) {
     std::ofstream output;
     output.open("tickets.txt");
     output << salesReport;

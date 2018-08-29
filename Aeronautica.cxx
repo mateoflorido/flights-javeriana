@@ -111,8 +111,8 @@ bool FJA::Aeronautica
 int FJA::Aeronautica
 ::ContarVentas(const std::string &IdVuelo) {
     int conta = 0;
-    for (auto itAg = this->m_Agencies.begin(); itAg != this->m_Agencies.end(); itAg++)
-        for (auto itSales = itAg->GetSales().begin(); itSales != itAg->GetSales().end(); itSales++) {
+    for (auto &m_Agencie : this->m_Agencies)
+        for (auto itSales = m_Agencie.GetSales().begin(); itSales != m_Agencie.GetSales().end(); itSales++) {
             if (itSales->GetID() == IdVuelo)
                 conta++;
         }
@@ -147,9 +147,7 @@ bool FJA::Aeronautica
         return true;
     if (resultado == 5 && dia == "Viernes")
         return true;
-    if (resultado == 6 && dia == "Sabado")
-        return true;
-    return false;
+    return resultado == 6 && dia == "Sabado";
 }
 
 std::string FJA::Aeronautica
@@ -198,7 +196,7 @@ std::string FJA::Aeronautica
 
         std::string column = " |";
         int totalW = agencyW + flightW + idW + customerIDW + customerW + statusW + column.size() * 6;
-        std::string separator = column + std::string(totalW - 1, '-') + '|';
+        std::string separator = column + std::string(static_cast<unsigned long>(totalW - 1), '-') + '|';
         auto itSales = itAgencies->GetSales().begin();
         auto itSNext = std::next(itSales, 1);
         std::string status = "Vendido";
