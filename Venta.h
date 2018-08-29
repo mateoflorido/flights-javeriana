@@ -47,6 +47,8 @@ namespace FJA {
 
         void SetBuyHour(const std::string &m_BuyHour);
 
+        bool operator < (const Venta& v) const;
+
     protected:
         std::string m_Agency;
         std::string m_ID;

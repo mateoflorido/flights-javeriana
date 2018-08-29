@@ -160,7 +160,7 @@ void ConsoleHub() {
                                 std::cout << "No hay coincidencias.\n";
                         }
                     } else if (mainCommand == "inventory") {
-                        //TODO
+                        std::cout << a->ReportInventory(currentAgency);
                     }
                 } else
                     std::cout << "No ha iniciado sesión.";

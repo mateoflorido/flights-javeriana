@@ -1,5 +1,6 @@
 
 
+#include <algorithm>
 #include "Agencia.h"
 
 FJA::Agencia::
@@ -42,6 +43,7 @@ void FJA::Agencia::NewSale(const std::string &m_Agency, const std::string &m_ID,
                            const std::string &m_BuyHour) {
     Venta v(m_Agency, m_ID, m_Flight, m_CustomerID, m_Customer, m_FlightDate, m_BuyDate, m_BuyHour);
     this->m_Sales.push_back(v);
+    std::sort(this->m_Sales.begin(), this->m_Sales.end());
 }
 
 std::string FJA::Agencia::SalesReport() {
@@ -51,8 +53,8 @@ std::string FJA::Agencia::SalesReport() {
         for (; itSales != this->m_Sales.end(); itSales++) {
             report += itSales->GetAgency();
             report += "_";
-            report += itSales->GetID() + ";" + itSales->GetFlight() + ";" + itSales->GetCustomerID() + ";" +
-                      itSales->GetCustomer() + ";" + itSales->GetFlightDate() + ";" + itSales->GetBuyDate() + ";" +
+            report += itSales->GetID() + ";" + itSales->GetFlight() + ";" + itSales->GetCustomer() + ";" +
+                      itSales->GetCustomerID() + ";" + itSales->GetFlightDate() + ";" + itSales->GetBuyDate() + ";" +
                       itSales->GetBuyHour() + "\n";
         }
     }

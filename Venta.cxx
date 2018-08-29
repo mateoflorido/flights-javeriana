@@ -101,4 +101,8 @@ void FJA::Venta::SetAgency(const std::string &m_Agency) {
     Venta::m_Agency = m_Agency;
 }
 
+bool FJA::Venta::operator<(const FJA::Venta &v) const {
+    return (this->GetID() < v.GetID());
+}
+
 

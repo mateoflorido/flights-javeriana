@@ -28,10 +28,13 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
         id = token;
         std::getline(ss, token, ';');
         flight = token;
-        std::getline(ss, token, ';');
-        customerID = token;
+        if(flight == ""){
+            flight.clear();
+        }
         std::getline(ss, token, ';');
         customer = token;
+        std::getline(ss, token, ';');
+        customerID = token;
         std::getline(ss, token, ';');
         flightDate = token;
         std::getline(ss, token, ';');

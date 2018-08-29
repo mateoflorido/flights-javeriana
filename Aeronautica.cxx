@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <iomanip>
 #include "Aeronautica.h"
 
 FJA::Aeronautica::
@@ -181,4 +183,81 @@ std::vector<FJA::Ruta> FJA::Aeronautica
         }
     }
     return retorno;
+}
+
+std::string FJA::Aeronautica
+::ReportInventory(std::string AgencyID) {
+    auto itAgencies = this->m_Agencies.begin();
+    for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
+        if (itAgencies->GetAgencyID() == AgencyID)
+            break;
+    }
+    if (itAgencies != this->m_Agencies.end()) {
+        std::stringstream ss;
+        int agencyW = 7, flightW = 7, idW = 5, customerIDW = 12, customerW = 30, statusW = 9;
+
+        std::string column = " |";
+        int totalW = agencyW + flightW + idW + customerIDW + customerW + statusW + column.size() * 6;
+        std::string separator = column + std::string(totalW - 1, '-') + '|';
+        auto itSales = itAgencies->GetSales().begin();
+        auto itSNext = std::next(itSales, 1);
+        std::string status = "Vendido";
+
+        ss << separator << "\n" << column
+           << std::setw(agencyW) << "Agencia" << column
+           << std::setw(idW) << "ID" << column
+           << std::setw(flightW) << "Vuelo" << column
+           << std::setw(customerIDW) << "ID Cliente" << column
+           << std::setw(customerW) << "Cliente" << column
+           << std::setw(statusW) << "Estado" << column << "\n" << separator << "\n";
+
+        for (; itSales != itAgencies->GetSales().end(); itSales++) {
+            if (itSNext != itAgencies->GetSales().end()) {
+                if (itSales->GetID() == itSNext->GetID()) {
+                    if (itSNext->GetFlight().empty()) {
+                        ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                           << std::setw(idW) << itSales->GetID() << column
+                           << std::setw(flightW) << itSales->GetFlight() << column
+                           << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                           << std::setw(customerW) << itSales->GetCustomer() << column
+                           << std::setw(statusW) << status << column << "\n";
+                        status = "Cancelado";
+                    } else if (std::stoi(itSales->GetBuyDate()) < std::stoi(itSNext->GetBuyDate())) {
+                        ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                           << std::setw(idW) << itSales->GetID() << column
+                           << std::setw(flightW) << itSales->GetFlight() << column
+                           << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                           << std::setw(customerW) << itSales->GetCustomer() << column
+                           << std::setw(statusW) << status << column << "\n";
+                        status = "Cambiado";
+                    }
+
+                } else {
+
+                    ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                       << std::setw(idW) << itSales->GetID() << column
+                       << std::setw(flightW) << itSales->GetFlight() << column
+                       << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                       << std::setw(customerW) << itSales->GetCustomer() << column
+                       << std::setw(statusW) << status << column << "\n";
+                    status = "Vendido";
+                }
+            } else {
+                ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                   << std::setw(idW) << itSales->GetID() << column
+                   << std::setw(flightW) << itSales->GetFlight() << column
+                   << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                   << std::setw(customerW) << itSales->GetCustomer() << column
+                   << std::setw(statusW) << status << column << "\n";
+                status = "Vendido";
+            }
+            if (itSNext != itAgencies->GetSales().end()) {
+                itSNext++;
+            }
+        }
+        ss << separator << "\n";
+        return ss.str();
+    }
+    return "No hay coincidencias";
+
 }

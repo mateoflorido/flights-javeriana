@@ -100,6 +100,8 @@ namespace FJA {
 
         std::vector<Ruta> ReportFlights(std::string origen, std::string fecha);
 
+        std::string ReportInventory(std::string AgencyID);
+
     protected:
         typedef std::vector<Agencia> TAgencies;
         typedef std::vector<Ruta> TRoutes;
