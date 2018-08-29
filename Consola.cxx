@@ -2,6 +2,8 @@
 #include <ctime>
 #include "Consola.h"
 #include <iomanip>
+#include <iostream>
+#include "Archivo.h"
 
 std::unordered_map<std::string, std::string> ReadCommands() {
     std::unordered_map<std::string, std::string> commandList;
