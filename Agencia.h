@@ -25,15 +25,15 @@ namespace FJA {
         void SetSales(const std::vector<Venta> &m_Sales);
 
         /**
-         * @brief
-         * @param m_Agency
-         * @param m_ID
-         * @param m_Flight
-         * @param m_CustomerID
-         * @param m_Customer
-         * @param m_FlightDate
-         * @param m_BuyDate
-         * @param m_BuyHour
+         * @brief Este método crea una venta en la agencia
+         * @param m_Agency Representa el nombre de la agencia
+         * @param m_ID Representa el ID de la nueva venta
+         * @param m_Flight Representa la ruta de la nueva venta
+         * @param m_CustomerID Representa el numero de documento del cliente que realizo la compra
+         * @param m_Customer Representa el nombre del cliente que realizó la compra
+         * @param m_FlightDate Representa la fecha de el vuelo
+         * @param m_BuyDate Representa la fecha de la nueva compra
+         * @param m_BuyHour Representa la hora de la nueva compra
          */
         void NewSale(const std::string &m_Agency, const std::string &m_ID, const std::string &m_Flight,
                      const std::string &m_CustomerID,
@@ -41,8 +41,8 @@ namespace FJA {
                      const std::string &m_BuyHour);
 
         /**
-         * @brief
-         * @return
+         * @brief Este método hace el reporte de las ventas de la agencia
+         * @return Una cadena de caracteres con el reporte de las ventas de la agencia
          */
         std::string SalesReport();
 
