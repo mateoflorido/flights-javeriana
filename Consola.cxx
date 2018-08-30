@@ -151,14 +151,14 @@ void ConsoleHub() {
                                     auto itRutas2 = rutas2.begin();
                                     std::cout << "Flights: \n";
 				    std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                    std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
+                                    std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(18)
                                               << "Origen" << std::setw(18)
                                               << "Destino" << std::setw(7) << "Hora" << std::setw(9) << "Duración "
                                               << std::setw(10) << "Capacidad " << std::setw(12) << "Precio " <<"|\n";
 				    std::cout << "|--------------------------------------------------------------------------------------|\n";
                                     for (; itRutas2 != rutas2.end(); itRutas2++) {
                                         std::cout << "|" <<std::setw(6) << itRutas2->GetCode() << std::setw(10)
-                                                  << itRutas2->GetWeekDay() << std::setw(14) << itRutas2->GetOrigin()
+                                                  << itRutas2->GetWeekDay() << std::setw(18) << itRutas2->GetOrigin()
                                                   << std::setw(18)
                                                   << itRutas2->GetDestination() << std::setw(7) << itRutas2->GetHour()
                                                   << std::setw(9) << itRutas2->GetDuration() << std::setw(10)
@@ -183,7 +183,7 @@ void ConsoleHub() {
 				std::cout << "|--------------------------------------------------------------------------------------|\n";
                                 for (; itRutas != rutas.end(); itRutas++) {
                                     std::cout << "|" << std::setw(6) << itRutas->GetCode() << std::setw(10)
-                                              << itRutas->GetWeekDay() << std::setw(14) << itRutas->GetOrigin()
+                                              << itRutas->GetWeekDay() << std::setw(18) << itRutas->GetOrigin()
                                               << std::setw(18)
                                               << itRutas->GetDestination() << std::setw(7) << itRutas->GetHour()
                                               << std::setw(9) << itRutas->GetDuration() << std::setw(10)
