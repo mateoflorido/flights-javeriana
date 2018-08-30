@@ -150,19 +150,22 @@ void ConsoleHub() {
                                 if (!rutas2.empty()) {
                                     auto itRutas2 = rutas2.begin();
                                     std::cout << "Flights: \n";
-                                    std::cout << std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
-                                              << "Origen" << std::setw(14)
-                                              << "Destino" << std::setw(5) << "Hora" << std::setw(9) << "Duración "
-                                              << std::setw(10) << "Capacidad " << std::setw(12) << "Precio \n";
+				    std::cout << "|--------------------------------------------------------------------------------------|\n";
+                                    std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
+                                              << "Origen" << std::setw(18)
+                                              << "Destino" << std::setw(7) << "Hora" << std::setw(9) << "Duración "
+                                              << std::setw(10) << "Capacidad " << std::setw(12) << "Precio " <<"|\n";
+				    std::cout << "|--------------------------------------------------------------------------------------|\n";
                                     for (; itRutas2 != rutas2.end(); itRutas2++) {
-                                        std::cout << std::setw(6) << itRutas2->GetCode() << std::setw(10)
+                                        std::cout << "|" <<std::setw(6) << itRutas2->GetCode() << std::setw(10)
                                                   << itRutas2->GetWeekDay() << std::setw(14) << itRutas2->GetOrigin()
-                                                  << std::setw(14)
-                                                  << itRutas2->GetDestination() << std::setw(5) << itRutas2->GetHour()
+                                                  << std::setw(18)
+                                                  << itRutas2->GetDestination() << std::setw(7) << itRutas2->GetHour()
                                                   << std::setw(9) << itRutas2->GetDuration() << std::setw(10)
                                                   << itRutas2->GetCapacity() << std::setw(12) << itRutas2->GetPrice()
-                                                  << "\n";
+                                                  << "|\n";
                                     }
+				    std::cout << "|--------------------------------------------------------------------------------------|\n";
                                 } else
                                     std::cout << "No hay coincidencias.\n";
                             }
@@ -172,18 +175,21 @@ void ConsoleHub() {
                             if (!rutas.empty()) {
                                 auto itRutas = rutas.begin();
                                 std::cout << "Flights: \n";
-                                std::cout << std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
-                                          << "Origen" << std::setw(14)
-                                          << "Destino" << std::setw(5) << "Hora" << std::setw(9) << "Duración "
-                                          << std::setw(10) << "Capacidad " << std::setw(12) << "Precio \n";
+				std::cout << "|--------------------------------------------------------------------------------------|\n";
+                                std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
+                                          << "Origen" << std::setw(18)
+                                          << "Destino" << std::setw(7) << "Hora" << std::setw(9) << "Duración "
+                                          << std::setw(10) << "Capacidad " << std::setw(12) << "Precio "<<"|\n";
+				std::cout << "|--------------------------------------------------------------------------------------|\n";
                                 for (; itRutas != rutas.end(); itRutas++) {
-                                    std::cout << std::setw(6) << itRutas->GetCode() << std::setw(10)
+                                    std::cout << "|" << std::setw(6) << itRutas->GetCode() << std::setw(10)
                                               << itRutas->GetWeekDay() << std::setw(14) << itRutas->GetOrigin()
-                                              << std::setw(14)
-                                              << itRutas->GetDestination() << std::setw(5) << itRutas->GetHour()
+                                              << std::setw(18)
+                                              << itRutas->GetDestination() << std::setw(7) << itRutas->GetHour()
                                               << std::setw(9) << itRutas->GetDuration() << std::setw(10)
-                                              << itRutas->GetCapacity() << std::setw(12) << itRutas->GetPrice() << "\n";
+                                              << itRutas->GetCapacity() << std::setw(12) << itRutas->GetPrice() << "|\n";
                                 }
+				std::cout << "|--------------------------------------------------------------------------------------|\n";
                             } else
                                 std::cout << "No hay coincidencias.\n";
                         }
