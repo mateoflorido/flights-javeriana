@@ -78,6 +78,9 @@ void ConsoleHub() {
               << std::asctime(std::localtime(&result))
               << "\nRecuerde Iniciar Sesión con el comando login <idagencia>\n"
               << "En caso de necesitar ayuda use help";
+    ReadAgencies(*a, "./passwords.txt");
+    ReadFlights(*a, "./flights.txt");
+    ReadSales(*a, "./tickets.txt");
 
     while (command != "exit") {
         std::cout << "\n" << currentAgency << " $ ";
@@ -87,6 +90,7 @@ void ConsoleHub() {
         commandline.clear();
         commandline.str(command);
         commandline >> mainCommand;
+
 
         if (mainCommand == "login") {
             if (currentAgency.empty()) {
@@ -111,12 +115,14 @@ void ConsoleHub() {
                 std::cout << "No hay una sesión iniciada.";
         } else if (mainCommand == "read") {
             if (commandline >> mainCommand) {
-                if (mainCommand == "flights")
-                    ReadFlights(*a, "./flights.txt");
-                else if (mainCommand == "agencies")
-                    ReadAgencies(*a, "./passwords.txt");
-                else if (mainCommand == "sales")
-                    ReadSales(*a, "./tickets.txt");
+                if(commandline >> arg1) {
+                    if (mainCommand == "flights")
+                        ReadFlights(*a, arg1);
+                    else if (mainCommand == "agencies")
+                        ReadAgencies(*a, arg1);
+                    else if (mainCommand == "sales")
+                        ReadSales(*a, arg1);
+                }
                 else
                     std::cout << "Argumento no Válido: \n" << commandList.find("sell")->second;
             }
@@ -145,53 +151,11 @@ void ConsoleHub() {
                     if (mainCommand == "flights") {
                         if (commandline >> arg1) {
                             if (commandline >> arg2) {
-                                std::vector<FJA::Ruta> rutas2;
-                                rutas2 = a->ReportFlights(arg1, arg2);
-                                if (!rutas2.empty()) {
-                                    auto itRutas2 = rutas2.begin();
-                                    std::cout << "Flights: \n";
-				    std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                    std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(18)
-                                              << "Origen" << std::setw(18)
-                                              << "Destino" << std::setw(7) << "Hora" << std::setw(9) << "Duración "
-                                              << std::setw(10) << "Capacidad " << std::setw(12) << "Precio " <<"|\n";
-				    std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                    for (; itRutas2 != rutas2.end(); itRutas2++) {
-                                        std::cout << "|" <<std::setw(6) << itRutas2->GetCode() << std::setw(10)
-                                                  << itRutas2->GetWeekDay() << std::setw(18) << itRutas2->GetOrigin()
-                                                  << std::setw(18)
-                                                  << itRutas2->GetDestination() << std::setw(7) << itRutas2->GetHour()
-                                                  << std::setw(9) << itRutas2->GetDuration() << std::setw(10)
-                                                  << itRutas2->GetCapacity() << std::setw(12) << itRutas2->GetPrice()
-                                                  << "|\n";
-                                    }
-				    std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                } else
-                                    std::cout << "No hay coincidencias.\n";
+                                std::cout << a->ReportFlights(arg1, arg2);
                             }
                         } else {
-                            std::vector<FJA::Ruta> rutas;
-                            rutas = a->ReportFlights(" ", " ");
-                            if (!rutas.empty()) {
-                                auto itRutas = rutas.begin();
-                                std::cout << "Flights: \n";
-				std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                std::cout << "|" <<std::setw(6) << "Codigo" << std::setw(10) << "Dia" << std::setw(14)
-                                          << "Origen" << std::setw(18)
-                                          << "Destino" << std::setw(7) << "Hora" << std::setw(9) << "Duración "
-                                          << std::setw(10) << "Capacidad " << std::setw(12) << "Precio "<<"|\n";
-				std::cout << "|--------------------------------------------------------------------------------------|\n";
-                                for (; itRutas != rutas.end(); itRutas++) {
-                                    std::cout << "|" << std::setw(6) << itRutas->GetCode() << std::setw(10)
-                                              << itRutas->GetWeekDay() << std::setw(18) << itRutas->GetOrigin()
-                                              << std::setw(18)
-                                              << itRutas->GetDestination() << std::setw(7) << itRutas->GetHour()
-                                              << std::setw(9) << itRutas->GetDuration() << std::setw(10)
-                                              << itRutas->GetCapacity() << std::setw(12) << itRutas->GetPrice() << "|\n";
-                                }
-				std::cout << "|--------------------------------------------------------------------------------------|\n";
-                            } else
-                                std::cout << "No hay coincidencias.\n";
+                            std::cout << a->ReportFlights(" ", " ");
+
                         }
                     } else if (mainCommand == "inventory") {
                         std::cout << a->ReportInventory(currentAgency);

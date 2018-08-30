@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iomanip>
+#include <iostream>
 #include "Aeronautica.h"
 
 FJA::Aeronautica::
@@ -167,9 +168,10 @@ std::string FJA::Aeronautica
     return std::string();
 }
 
-std::vector<FJA::Ruta> FJA::Aeronautica
+std::string FJA::Aeronautica
 ::ReportFlights(std::string origen, std::string fecha) {
     std::vector<FJA::Ruta> retorno;
+    std::stringstream ss;
     auto itRutas = this->m_Routes.begin();
     if (origen == " " && fecha == " ") {
         for (; itRutas != this->m_Routes.end(); itRutas++) {
@@ -184,7 +186,36 @@ std::vector<FJA::Ruta> FJA::Aeronautica
             }
         }
     }
-    return retorno;
+    int codigoW = 8, diaW = 10, originW = 15, destinationW = 15, horaW = 6, durationW = 15, capW = 15, priceW = 15;
+
+    std::string column = " |";
+
+    int totalW = codigoW + diaW + originW + destinationW + horaW + durationW + capW + priceW + column.size() * 8;
+
+    std::string separator = column + std::string(totalW - 1, '-') + '|';
+    auto itFlights = retorno.begin();
+
+    ss << separator << "\n" << column
+       << std::setw(codigoW) << "Codigo" << column
+       << std::setw(diaW) << "Dia" << column
+       << std::setw(originW) << "Origen" << column
+       << std::setw(destinationW) << "Destination" << column
+       << std::setw(horaW) << "Hora" << column
+       << std::setw(durationW) << "Duración" << column
+       << std::setw(capW) << "Capacidad" << column
+       << std::setw(priceW) << "Precio" << column << "\n" << separator << "\n";
+    for (; itFlights != retorno.end(); itFlights++) {
+        ss << column << std::setw(codigoW) << itFlights->GetCode() << column
+           << std::setw(diaW) << itFlights->GetWeekDay() << column
+           << std::setw(originW) << itFlights->GetOrigin() << column
+           << std::setw(destinationW) << itFlights->GetDestination() << column
+           << std::setw(horaW) << itFlights->GetHour() << column
+           << std::setw(durationW) << itFlights->GetDuration() << column
+           << std::setw(capW) << itFlights->GetCapacity() << column
+           << std::setw(priceW) << itFlights->GetPrice() << column << "\n";
+    }
+    return ss.str();
+
 }
 
 std::string FJA::Aeronautica
