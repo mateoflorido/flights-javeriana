@@ -94,15 +94,15 @@ void ConsoleHub() {
 
         if (mainCommand == "login") {
             if (currentAgency.empty()) {
-                std::cout << "Ingrese el Usuario: ";
-                std::getline(std::cin, arg1);
-                std::cout << "Ingrese su contraseña: ";
-                std::getline(std::cin, arg2);
-                if (a->CheckLogin(arg1, arg2)) {
-                    currentAgency = arg1;
-                } else {
-                    currentAgency = "";
-                    std::cout << "Usuario o Contraseña no Válidos";
+                if (commandline >> arg1) {
+                    if (commandline >> arg2) {
+                        if (a->CheckLogin(arg1, arg2)) {
+                            currentAgency = arg1;
+                        } else {
+                            currentAgency = "";
+                            std::cout << "Usuario o Contraseña no Válidos";
+                        }
+                    }
                 }
             } else
                 std::cout << "Agencia: " << currentAgency << " Termine sesión para ingresar en otra cuenta.";
@@ -115,15 +115,14 @@ void ConsoleHub() {
                 std::cout << "No hay una sesión iniciada.";
         } else if (mainCommand == "read") {
             if (commandline >> mainCommand) {
-                if(commandline >> arg1) {
+                if (commandline >> arg1) {
                     if (mainCommand == "flights")
                         ReadFlights(*a, arg1);
                     else if (mainCommand == "agencies")
                         ReadAgencies(*a, arg1);
                     else if (mainCommand == "sales")
                         ReadSales(*a, arg1);
-                }
-                else
+                } else
                     std::cout << "Argumento no Válido: \n" << commandList.find("sell")->second;
             }
 
