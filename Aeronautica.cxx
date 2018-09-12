@@ -294,3 +294,35 @@ std::string FJA::Aeronautica
     return "No hay coincidencias";
 
 }
+
+bool FJA::Aeronautica
+::CancelFLight(std::string idVenta, std::string currentAgencie){
+    auto itAgencies = this->m_Agencies.begin();
+    for(;itAgencies!=this->m_Agencies.end();itAgencies++){
+        if(itAgencies->GetAgencyID()==currentAgencie)
+                break;
+    }
+    if(itAgencies!=this->m_Agencies.end()){
+        int cont=0;
+        auto itSalesAux = itAgencies->GetSales().begin();
+        auto itSales = itSalesAux;
+        for(;itSalesAux!=itAgencies->GetSales().end();itSales++){
+            if(itSalesAux->GetID() == idVenta){
+                cont++;
+                itSales=itSalesAux;
+            }
+        }
+        if(cont!=0){
+            if(!itSales->GetFlight().empty()){
+                NewSale(currentAgencie,itSales->GetID(),"",itSales->GetCustomerID(),itSales->GetCustomer(),"",itSales->GetBuyDate(),itSales->GetBuyHour());
+                return true;
+            }
+            else
+                return true;
+        }
+        else
+            return false;
+
+    }
+}
+

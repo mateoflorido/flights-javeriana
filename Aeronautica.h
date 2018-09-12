@@ -113,6 +113,14 @@ namespace FJA {
          */
         std::string ReportInventory(std::string AgencyID);
 
+        /**
+         * @brief Este método elimina el vuelo especificado por id, y actualiza los archivos
+         * @param idVuelo Representa el id del vuelo que se va a eliminar
+         * @param currentAgencie Representa Representa el id de la agencia con una sesión iniciada
+         * @return Un booleano que informa sobre el éxito, o no, de la eliminación
+         */
+        bool CancelFLight(std::string idVuelo, std::string currentAgencie);
+
     protected:
         typedef std::vector<Agencia> TAgencies;
         typedef std::vector<Ruta> TRoutes;
