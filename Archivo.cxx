@@ -4,7 +4,7 @@
 
 void ReadSales(FJA::Aeronautica &a, std::string filename) {
     std::ifstream input(filename); // Open file
-    std::string token; // Create token 
+    std::string token; // Create token
     std::string line; // Create store line
     std::getline(input, line); // Get line from File
     std::istringstream ss(line); // Create stream with line
@@ -131,4 +131,3 @@ void SaveSales(std::string &salesReport) {
     output << salesReport;
     output.close();
 }
-

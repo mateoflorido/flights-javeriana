@@ -105,4 +105,3 @@ bool FJA::Venta::operator<(const FJA::Venta &v) const {
     return (this->GetID() < v.GetID());
 }
 
-

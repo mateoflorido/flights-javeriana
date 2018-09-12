@@ -9,49 +9,60 @@ std::unordered_map<std::string, std::string> ReadCommands() {
     std::unordered_map<std::string, std::string> commandList;
     commandList = {
 
-            {"exit",   "exit: exit "
-                       "\n Cierra todas las sesiones y finaliza la ejecución del programa"
+            {"exit",        "exit: exit "
+                            "\n Cierra todas las sesiones y finaliza la ejecución del programa"
             },
-            {"report", "report: report <Modo> [arg1] [arg2]"
-                       "\n Permite realizar un reporte detallado."
-                       "\n Genera un reporte detallado del modo seleccionado."
-                       "\n Argumentos <Modo>:"
-                       "\n \t Modo\t Selecciona un modo Válido entre"
-                       "\n \t \t flights: Genera un reporte de todos los vuelos con sillas disponibles"
-                       "\n \t \t inventory: Genera un reporte de todos los vuelos vendidos, cambiados o cancelados de una agencia de viajes"
-                       "\n \n Argumentos [arg1] [arg2]"
-                       "\n*Unicamente Modo flights*"
-                       "\n \t arg1: Origen de los vuelos a incluir en el reporte"
-                       "\n \t arg2: Fecha de los vuelos a incluir en el reporte"
-            },
-
-            {"sell",   "sell: sell <IDVuelo> <Fecha> "
-                       "\n Realiza la venta de un vuelo determinado en una fecha seleccionada "
-                       "\n Argumentos :"
-                       "\n \t \t \tIDVuelo: Identificador del vuelo seleccionado"
-                       "\n \t \t \tFecha: Fecha del vuelo seleccionado"
-                       "\n Estado de Salida: \nGenera una venta del vuelo seleccionado"
-            },
-            {
-             "logout", "logout: logout"
-                       "\n Permite cerrar sesión en una agencia"
-                       "\n Estado de Salida:"
-                       "\n Cierra la sesión siempre que exista una abierta"
-            },
-            {
-             "login",  "login: login <idagencia>"
-                       "\n Permite iniciar sesión en una agencia"
-                       "\n Permite iniciar sesión en una agencia cuando el IDAGENCIA es válido"
-                       "\n Argumentos:\n \t \t \t IDAGENCIA\t Indica el ID de una agencia válida."
+            {"report",      "report: report <Modo> [arg1] [arg2]"
+                            "\n Permite realizar un reporte detallado."
+                            "\n Genera un reporte detallado del modo seleccionado."
+                            "\n Argumentos <Modo>:"
+                            "\n \t Modo\t Selecciona un modo Válido entre"
+                            "\n \t \t flights: Genera un reporte de todos los vuelos con sillas disponibles"
+                            "\n \t \t inventory: Genera un reporte de todos los vuelos vendidos, cambiados o cancelados de una agencia de viajes"
+                            "\n \t \t money: Genera un reporte de las ventas informando los activos y pasivos de la agencia"
+                            "\n \n Argumentos [arg1] [arg2]"
+                            "\n*Unicamente Modo flights*"
+                            "\n \t arg1: Origen de los vuelos a incluir en el reporte"
+                            "\n \t arg2: Fecha de los vuelos a incluir en el reporte"
             },
 
-            {"read",   "read: sell <Modo> "
-                       "\n Realiza la lectura de los datos en persistencia "
-                       "\n Argumentos <Modo> :"
-                       "\n \t \t \tflights: Lee los vuelos programados por la Aeronautica Civil"
-                       "\n \t \t \tagencies: Lee las agencias disponibles en el sistema"
-                       "\n \t \t \tsales: Lee las ventas realizadas por las agencias"
-                       "\n Estado de Salida: \nLee un archivo con éxito."
+            {"sell",        "sell: sell <IDVuelo> <Fecha> "
+                            "\n Realiza la venta de un vuelo determinado en una fecha seleccionada "
+                            "\n Argumentos :"
+                            "\n \t \t \tIDVuelo: Identificador del vuelo seleccionado"
+                            "\n \t \t \tFecha: Fecha del vuelo seleccionado"
+                            "\n Estado de Salida: \nGenera una venta del vuelo seleccionado"
+            },
+            {
+             "logout",      "logout: logout"
+                            "\n Permite cerrar sesión en una agencia"
+                            "\n Estado de Salida:"
+                            "\n Cierra la sesión siempre que exista una abierta"
+            },
+            {
+             "login",       "login: login <idagencia>"
+                            "\n Permite iniciar sesión en una agencia"
+                            "\n Permite iniciar sesión en una agencia cuando el IDAGENCIA es válido"
+                            "\n Argumentos:\n \t \t \t IDAGENCIA\t Indica el ID de una agencia válida."
+            },
+
+            {"read",        "read: sell <Modo> "
+                            "\n Realiza la lectura de los datos en persistencia "
+                            "\n Argumentos <Modo> :"
+                            "\n \t \t \tflights: Lee los vuelos programados por la Aeronautica Civil"
+                            "\n \t \t \tagencies: Lee las agencias disponibles en el sistema"
+                            "\n \t \t \tsales: Lee las ventas realizadas por las agencias"
+                            "\n Estado de Salida: \nLee un archivo con éxito."
+            },
+            {"cancel",      "cancel: cancel <id> "
+                            "\nCancela un vuelo o paquete "
+                            "\n Argumentos <id> :"
+                            "\n \t \t \t id: Es el identificador de un vuelo."
+                            "\n Estado de Salida: \nCancela el vuelo."
+            },
+            {"consolidate", "consolidate: consolidate "
+                            "\nElimina de la base de datos trasacciones pasadas ya realizadas. "
+                            "\n Estado de Salida: \nLimpia la base de datos de transacciones pasadas."
             }
     };
 
@@ -158,6 +169,8 @@ void ConsoleHub() {
                         }
                     } else if (mainCommand == "inventory") {
                         std::cout << a->ReportInventory(currentAgency);
+                    } else if (mainCommand == "money") {
+                        //TODO Enviar a Aeronautica e Imprimir
                     }
                 } else
                     std::cout << "No ha iniciado sesión.";
@@ -194,6 +207,10 @@ void ConsoleHub() {
             else
                 std::cout << "No ha iniciado sesión";
 
+        } else if (mainCommand == "cancel") {
+            //TODO Cancel en Aeronautica
+        } else if (mainCommand == "consolidate") {
+            //TODO Consolidate
         } else if (mainCommand == "exit") {
             arg1 = a->SalesReport();
             SaveSales(arg1);
