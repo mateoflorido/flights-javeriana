@@ -79,7 +79,7 @@ void ConsoleHub() {
     std::string arg2;
     TCommandList commandList = ReadCommands();
     std::string currentAgency;
-
+    std::string currentDate;
     auto a = new FJA::Aeronautica();
 
     std::time_t result = std::time(nullptr);
@@ -191,9 +191,16 @@ void ConsoleHub() {
                         std::getline(std::cin, Customer);
                         buyHour = (std::to_string(std::localtime(&result)->tm_hour)) +
                                   (std::to_string(std::localtime(&result)->tm_min));
-                        buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900)) + "0" +
-                                  (std::to_string(std::localtime(&result)->tm_mon + 1)) + (std::to_string(
-                                (std::localtime(&result)->tm_mday)));
+                        buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
+                        if ((std::localtime(&result)->tm_mon + 1) < 10) {
+                            buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
+                                          (std::to_string((std::localtime(&result)->tm_mday)));
+
+                        } else {
+                            buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) +
+                                          (std::to_string((std::localtime(&result)->tm_mday)));
+                        }
+
                         if (a->Sell(arg1, arg2, currentAgency, CustomerID, Customer, buyDate, buyHour)) {
                             std::cout << "-Operacion exitosa.\n";
                         } else {
@@ -208,20 +215,26 @@ void ConsoleHub() {
                 std::cout << "No ha iniciado sesión. \n";
 
         } else if (mainCommand == "cancel") {
-            if(commandline >> arg1){
-                if(a->CancelFLight(arg1,currentAgency))
+            if (commandline >> arg1) {
+                if (a->CancelFLight(arg1, currentAgency))
                     std::cout << "Operación exitosa.\n";
                 else
                     std::cout << "Datos invalidos.\n";
-            }
-            else{
+            } else {
                 std::cout << "- Sin argumentos válidos.\n";
             }
 
         } else if (mainCommand == "consolidate") {
-            std::string currentDate;
-            currentDate=(std::to_string(std::localtime(&result)->tm_year + 1900)) + "0" +
-                        (std::to_string(std::localtime(&result)->tm_mon + 1)) + (std::to_string((std::localtime(&result)->tm_mday)));
+
+            currentDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
+            if ((std::localtime(&result)->tm_mon + 1) < 10) {
+                currentDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
+                              (std::to_string((std::localtime(&result)->tm_mday)));
+
+            } else {
+                currentDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) +
+                              (std::to_string((std::localtime(&result)->tm_mday)));
+            }
             a->Consolidate(currentDate);
         } else if (mainCommand == "exit") {
             arg1 = a->SalesReport();
