@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 2.6)
+
+cmake_minimum_required(VERSION 3.12)
 project(flights_javeriana)
 
-#Version Number
-set(flights_javeriana_VERSION_MAJOR 0)
-set(flights_javeriana_VERSION_MINOR 5)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(flights_javeriana main.cpp Ruta.cxx Venta.cxx Agencia.cxx Aeronautica.cxx Consola.cxx Archivo.cxx Trie.cxx)
+add_executable(flights_javeriana main.cpp Aeronautica.cxx Aeronautica.h Agencia.cxx Agencia.h Archivo.cxx Archivo.h Consola.cxx Consola.h Ruta.cxx Ruta.h Venta.cxx Venta.h Trie.cxx Trie.h)

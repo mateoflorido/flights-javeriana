@@ -60,3 +60,11 @@ std::string FJA::Agencia::SalesReport() {
     }
     return report;
 }
+
+void FJA::Agencia::Consolidate(std::string currentDate){
+    auto itSales = this->m_Sales.begin();
+    for(;itSales != this->m_Sales.end(); itSales++){
+        if(itSales->GetFlightDate()<currentDate)
+            itSales= this->m_Sales.erase(itSales);
+    }
+}

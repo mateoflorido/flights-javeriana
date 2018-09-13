@@ -326,3 +326,10 @@ bool FJA::Aeronautica
     }
 }
 
+void FJA::Aeronautica
+::Consolidate(std::string currentDate){
+    auto itAgencies = this->m_Agencies.begin();
+    for(;itAgencies!=this->m_Agencies.end();itAgencies++){
+        itAgencies->Consolidate(currentDate);
+    }
+}

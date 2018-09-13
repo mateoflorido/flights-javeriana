@@ -46,6 +46,12 @@ namespace FJA {
          */
         std::string SalesReport();
 
+        /**
+         * @brief Este método elimina todas las transacciones de la agencia con una fecha anterior a la especificada
+         * @param currentDate Representa la fecha especificada para hacer la eleminación de las transacciones anteriores
+         */
+        void Consolidate(std::string currentDate);
+
     protected:
         std::string m_AgencyID;
         std::string m_Password;
