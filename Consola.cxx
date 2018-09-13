@@ -203,12 +203,21 @@ void ConsoleHub() {
                     } else
                         std::cout << "- Falta segundo Argumento.\n";
                 } else
-                    std::cout << "- Sin argumentos válidos";
+                    std::cout << "- Sin argumentos válidos.\n";
             else
-                std::cout << "No ha iniciado sesión";
+                std::cout << "No ha iniciado sesión. \n";
 
         } else if (mainCommand == "cancel") {
-            //TODO Cancel en Aeronautica
+            if(commandline >> arg1){
+                if(a->CancelFLight(arg1,currentAgency))
+                    std::cout << "Operación exitosa.\n";
+                else
+                    std::cout << "Datos invalidos.\n";
+            }
+            else{
+                std::cout << "- Sin argumentos válidos.\n";
+            }
+
         } else if (mainCommand == "consolidate") {
             //TODO Consolidate
         } else if (mainCommand == "exit") {
