@@ -219,7 +219,10 @@ void ConsoleHub() {
             }
 
         } else if (mainCommand == "consolidate") {
-            //TODO Consolidate
+            std::string currentDate;
+            currentDate=(std::to_string(std::localtime(&result)->tm_year + 1900)) + "0" +
+                        (std::to_string(std::localtime(&result)->tm_mon + 1)) + (std::to_string((std::localtime(&result)->tm_mday)));
+            a->Consolidate(currentDate);
         } else if (mainCommand == "exit") {
             arg1 = a->SalesReport();
             SaveSales(arg1);
