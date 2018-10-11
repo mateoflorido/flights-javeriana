@@ -1,6 +1,8 @@
-#include "Consola.h"
+#include "Console.h"
 
 int main() {
-    ConsoleHub();
+    Console console("$ ");
+    console.run();
+
     return 0;
 }

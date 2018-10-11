@@ -1,8 +1,11 @@
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include "Archivo.h"
 
-void ReadSales(FJA::Aeronautica &a, std::string filename) {
+void
+ReadSales(FJA::Aeronautica &a, std::string filename)
+{
     std::ifstream input(filename); // Open file
     std::string token; // Create token
     std::string line; // Create store line
@@ -48,8 +51,9 @@ void ReadSales(FJA::Aeronautica &a, std::string filename) {
     input.close();
 }
 
-void ReadFlights(FJA::Aeronautica &a, std::string filename) {
-
+void
+ReadFlights(FJA::Aeronautica &a, std::string filename)
+{
 
     std::ifstream input(filename); //Open file
     std::string token; // Create Token
@@ -86,7 +90,12 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
         cap = static_cast<unsigned int>(std::stoi(token));
         std::getline(ss, token, ';');
         price = static_cast<unsigned long>(std::stol(token));
-        a.NewRoute(code, day, from, to, hour, flightd, cap, price); // Create and add new flight read
+        try {
+            a.NewRoute(code, day, from, to, hour, flightd, cap, price); // Create and add new flight read
+        }
+        catch (std::exception &e) {
+            std::cout << "\n Ruta " + code + " ya registrada.";
+        }
         std::getline(input, line);
         ss.clear();
         ss.str(line);
@@ -96,7 +105,9 @@ void ReadFlights(FJA::Aeronautica &a, std::string filename) {
 
 }
 
-void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
+void
+ReadAgencies(FJA::Aeronautica &a, std::string filename)
+{
     std::ifstream input(filename); //Open file
     std::string token;// Create token
     std::string line; // Create store
@@ -115,7 +126,13 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
         std::getline(ss, token, ';');
         token.erase(token.end() - 1, token.end());
         agencyPassW = token;
-        a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
+        try {
+            a.NewAgency(agencyN, agencyPassW); // Create and add new agency read
+        }
+        catch (const std::exception &e) {
+            std::cout << "\n Agencia " + agencyN + " ya registrada.";
+        }
+
         std::getline(input, line);
         ss.clear();
         ss.str(line);
@@ -125,7 +142,9 @@ void ReadAgencies(FJA::Aeronautica &a, std::string filename) {
 
 }
 
-void SaveSales(std::string &salesReport) {
+void
+SaveSales(std::string &salesReport)
+{
     std::ofstream output;
     output.open("tickets.txt");
     output << salesReport;

@@ -14,14 +14,14 @@ namespace FJA {
          * @brief
          * @return
          */
-        Trie *getNode(void);
+        Trie *getNode();
 
         /**
          * @brief
          * @param root
          * @param key
          */
-        void Insert(Trie *root, const std::string key);
+        void Insert(Trie *root, std::string key);
 
         /**
          * @brief
@@ -29,7 +29,7 @@ namespace FJA {
          * @param key
          * @return
          */
-        bool Search(Trie *root, const std::string key);
+        bool Search(Trie *root, std::string key);
 
         /**
          * @brief
@@ -37,6 +37,12 @@ namespace FJA {
          * @return
          */
         bool IsLastNode(Trie *root);
+        /**
+         *
+         * @param query
+         * @return
+         */
+        std::string Coincidence(Trie *root, std::string &query, std::string &response);
 
 
 

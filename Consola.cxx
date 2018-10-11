@@ -40,10 +40,11 @@ std::unordered_map<std::string, std::string> ReadCommands() {
                             "\n Cierra la sesión siempre que exista una abierta"
             },
             {
-             "login",       "login: login <idagencia>"
+             "login",       "login: login <idagencia> <password>"
                             "\n Permite iniciar sesión en una agencia"
                             "\n Permite iniciar sesión en una agencia cuando el IDAGENCIA es válido"
                             "\n Argumentos:\n \t \t \t IDAGENCIA\t Indica el ID de una agencia válida."
+                            "\n \t \t \t PASSWORD\t Indica el password asociado a la agencia."
             },
 
             {"read",        "read: sell <Modo> "
@@ -194,11 +195,11 @@ void ConsoleHub() {
                         buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
                         if ((std::localtime(&result)->tm_mon + 1) < 10) {
                             buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
-                                          (std::to_string((std::localtime(&result)->tm_mday)));
+                                      (std::to_string((std::localtime(&result)->tm_mday)));
 
                         } else {
                             buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) +
-                                          (std::to_string((std::localtime(&result)->tm_mday)));
+                                      (std::to_string((std::localtime(&result)->tm_mday)));
                         }
 
                         if (a->Sell(arg1, arg2, currentAgency, CustomerID, Customer, buyDate, buyHour)) {
@@ -216,7 +217,7 @@ void ConsoleHub() {
 
         } else if (mainCommand == "cancel") {
             if (commandline >> arg1) {
-                if (a->CancelFLight(arg1, currentAgency))
+                if (a->CancelFlight(arg1, currentAgency))
                     std::cout << "Operación exitosa.\n";
                 else
                     std::cout << "Datos invalidos.\n";
@@ -228,14 +229,22 @@ void ConsoleHub() {
 
             currentDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
             if ((std::localtime(&result)->tm_mon + 1) < 10) {
-                currentDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
-                              (std::to_string((std::localtime(&result)->tm_mday)));
+                currentDate += (std::to_string(std::localtime(&result)->tm_mon + 1));
+                if ((std::localtime(&result)->tm_mday) < 10) {
+                    currentDate += "0" + (std::to_string(std::localtime(&result)->tm_mday));
+                } else
+                    currentDate += (std::to_string(std::localtime(&result)->tm_mday));
 
             } else {
-                currentDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) +
-                              (std::to_string((std::localtime(&result)->tm_mday)));
+                currentDate += (std::to_string(std::localtime(&result)->tm_mon + 1));
+                if ((std::localtime(&result)->tm_mday) < 10) {
+                    currentDate += "0" + (std::to_string(std::localtime(&result)->tm_mday));
+                }
+                else
+                    currentDate += (std::to_string(std::localtime(&result)->tm_mday));
             }
             a->Consolidate(currentDate);
+            std::cout << "Consolidate Exitoso\n";
         } else if (mainCommand == "exit") {
             arg1 = a->SalesReport();
             SaveSales(arg1);

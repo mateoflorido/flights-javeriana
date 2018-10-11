@@ -8,7 +8,15 @@ Agencia()
         : m_Sales(std::vector<FJA::Venta>()) {}
 
 FJA::Agencia::
-~Agencia() = default;
+Agencia(const std::string &m_AgencyID, const std::string &m_Password)
+        : m_AgencyID(m_AgencyID),
+          m_Password(m_Password),
+          m_Sales(std::vector<FJA::Venta>()) {}
+
+FJA::Agencia::
+~Agencia()
+{
+}
 
 
 const std::string &FJA::Agencia::GetAgencyID() const {
@@ -61,10 +69,14 @@ std::string FJA::Agencia::SalesReport() {
     return report;
 }
 
-void FJA::Agencia::Consolidate(std::string currentDate){
+void FJA::Agencia::
+Consolidate(std::string currentDate) {
     auto itSales = this->m_Sales.begin();
-    for(;itSales != this->m_Sales.end(); itSales++){
-        if(itSales->GetFlightDate()<currentDate)
-            itSales= this->m_Sales.erase(itSales);
+    for (; itSales != this->m_Sales.end(); itSales++) {
+        if (this->m_Sales.empty()) {
+            return;
+        }
+        if (itSales->GetFlightDate() < currentDate)
+            itSales = this->m_Sales.erase(itSales);
     }
 }

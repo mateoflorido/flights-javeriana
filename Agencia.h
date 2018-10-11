@@ -10,6 +10,8 @@ namespace FJA {
     public:
         Agencia();
 
+        Agencia(const std::string &m_AgencyID, const std::string &m_Password);
+
         virtual ~Agencia();
 
         const std::string &GetAgencyID() const;
