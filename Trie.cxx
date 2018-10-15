@@ -8,8 +8,8 @@
 FJA::Trie::TrieNode::
 TrieNode() {
   this->End = false;
-  for (auto i = 0; i < 26; i++) {
-    this->children[i] = nullptr;
+  for (auto &i : this->children) {
+    i = nullptr;
   }
 }
 

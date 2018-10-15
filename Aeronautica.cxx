@@ -221,6 +221,7 @@ FJA::Aeronautica
        << std::setw(capW) << itFlights->GetCapacity() << column
        << std::setw(priceW) << itFlights->GetPrice() << column << "\n";
   }
+  ss << separator << "\n";
   return ss.str();
 
 }

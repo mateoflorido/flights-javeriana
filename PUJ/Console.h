@@ -7,33 +7,33 @@
 #include <deque>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include "../Trie.h"
+#include "../Aeronautica.h"
 
-namespace PUJ
-{
+namespace PUJ {
 /**
  */
-class Console
-{
+class Console {
 public:
   typedef Console Self;
 
 public:
-  Console( );
-  Console( const std::string& prompt );
-  virtual ~Console( );
+  Console();
+  Console(const std::string &prompt);
+  virtual ~Console();
 
-  void run( );
-  void setPrompt( const std::string& prompt );
-  virtual int trigger( const std::string& cmd );
-  virtual int hotkeys( char c );
-  void pause( );
-  void quit( );
-  std::string getLine( );
-  std::string getLine( int mode, const std::string& delimiter = "" );
-  void setMaxHistory( int count );
-  void setBuffer( const std::string& buffer );
-  std::string getBuffer( ) const;
+  void run();
+  void setPrompt(const std::string &prompt);
+  virtual int trigger(const std::string &cmd);
+  virtual int hotkeys(char c);
+  void pause();
+  void quit();
+  std::string getLine();
+  std::string getLine(int mode, const std::string &delimiter = "");
+  void setMaxHistory(int count);
+  void setBuffer(const std::string &buffer);
+  std::string getBuffer() const;
 
 public:
   static const unsigned long MAX_HISTORY;
@@ -61,9 +61,12 @@ protected:
   char m_Char;
   std::string m_String;
   std::string m_Unused;
-  std::deque< char > m_Buffer;
-  std::deque< std::string > m_History;
+  std::string m_Agency;
+  std::deque<char> m_Buffer;
+  std::deque<std::string> m_History;
   FJA::Trie m_Trie;
+  std::unordered_map<std::string, std::string> commandList;
+  FJA::Aeronautica m_Aero;
 };
 } // end namespace
 

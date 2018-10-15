@@ -9,19 +9,20 @@
 /**
  */
 class Console
-    : public PUJ::Console
-{
+    : public PUJ::Console {
 public:
-  typedef Console      Self;
+  typedef Console Self;
   typedef PUJ::Console Superclass;
 
 public:
-  Console( );
-  Console( const std::string& prompt );
-  virtual ~Console( );
+  Console();
+  Console(const std::string &prompt);
+  virtual ~Console();
 
-  virtual int trigger( const std::string& s ) override;
-  virtual int hotkeys( char c ) override;
+  virtual int trigger(const std::string &s) override;
+  virtual int hotkeys(char c) override;
+
+  void Greet();
 };
 
 #endif // __Console__h__
