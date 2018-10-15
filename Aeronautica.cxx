@@ -59,13 +59,21 @@ FJA::Aeronautica
           const std::string &m_CustomerID,
           const std::string &m_Customer, const std::string &m_FlightDate, const std::string &m_BuyDate,
           const std::string &m_BuyHour) {
-  auto itAgencies = this->m_Agencies.begin();
-  for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
-    if (itAgencies->GetAgencyID() == m_Agency) {
-      itAgencies->NewSale(m_Agency, m_ID, m_Flight, m_CustomerID, m_Customer, m_FlightDate, m_BuyDate, m_BuyHour);
-      return;
-    }//fi
-  }//rof
+  auto itRoutes = this->m_Routes.begin();
+  for (; itRoutes != this->m_Routes.end(); itRoutes++) {
+    if (m_Flight == itRoutes->GetCode()) {
+      break;
+    }
+  }
+  if (itRoutes != this->m_Routes.end()) {
+    auto itAgencies = this->m_Agencies.begin();
+    for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
+      if (itAgencies->GetAgencyID() == m_Agency) {
+        itAgencies->NewSale(m_Agency, m_ID, m_Flight, m_CustomerID, m_Customer, m_FlightDate, m_BuyDate, m_BuyHour);
+        return;
+      }//fi
+    }//rof
+  }
 }
 
 bool
@@ -314,26 +322,8 @@ FJA::Aeronautica
   }
 
   if (itAgencies != this->m_Agencies.end()) {
-
-    auto Sales = itAgencies->GetSales();
-    auto itSales = Sales.cbegin();
-    for (; itSales != Sales.cend(); itSales++) {
-      if (itSales->GetID() == SaleID) {
-        break;
-      }
-    }
-    if (itSales != Sales.cend()) {
-      if (!itSales->GetFlight().empty()) {
-        NewSale(AgencyID, itSales->GetID(), "", itSales->GetCustomerID(), itSales->GetCustomer(), "",
-                itSales->GetBuyDate(), itSales->GetBuyHour());
-        return true;
-      } else
-        return true;
-    } else
-      return false;
-
+    return itAgencies->CancelFlight(SaleID);
   }
-
   return false;
 }
 
@@ -352,6 +342,7 @@ FJA::Aeronautica
 
   long localDebt = 0;
   long totalDebt = 0;
+  long totalCredit = 0;
   auto itAgencies = this->m_Agencies.begin();
   for (; itAgencies != this->m_Agencies.end(); itAgencies++) {
     if (itAgencies->GetAgencyID() == AgencyID)
@@ -377,9 +368,16 @@ FJA::Aeronautica
        << std::setw(statusW) << "Estado" << column << "\n" << separator << "\n";
 
     for (; itSales != itAgencies->GetSales().end(); itSales++) {
-      if (itSNext != itAgencies->GetSales().end()) {
-        if (itSales->GetID() == itSNext->GetID()) {
-          if (itSNext->GetFlight().empty()) {
+      if (itSNext != itAgencies->GetSales().end()) { // El segundo iterador no ha llegado al final
+        if (itSales->GetID() == itSNext->GetID()) { //Puede ser un cambio o cancelacion
+          if (itSNext->GetFlight().empty()) {//El siguiente es cancelado
+            for (auto itRoutes = this->m_Routes.begin(); itRoutes != this->m_Routes.end(); itRoutes++) {
+              if (itRoutes->GetCode() == itSales->GetFlight() && status == "Vendido") {
+                localDebt = itRoutes->GetPrice();
+              } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Cambiado") {
+                localDebt = localDebt - itRoutes->GetPrice();
+              }
+            }
             ss << column << std::setw(agencyW) << itSales->GetAgency() << column
                << std::setw(idW) << itSales->GetID() << column
                << std::setw(flightW) << itSales->GetFlight() << column
@@ -387,7 +385,14 @@ FJA::Aeronautica
                << std::setw(customerW) << itSales->GetCustomer() << column
                << std::setw(statusW) << status << column << "\n";
             status = "Cancelado";
-          } else if (std::stoi(itSales->GetBuyDate()) < std::stoi(itSNext->GetBuyDate())) {
+          } else if (std::stoi(itSales->GetBuyDate()) < std::stoi(itSNext->GetBuyDate())) {//El siguiente es cambiado
+            for (auto itRoutes = this->m_Routes.begin(); itRoutes != this->m_Routes.end(); itRoutes++) {
+              if (itRoutes->GetCode() == itSales->GetFlight() && status == "Vendido") {
+                localDebt = itRoutes->GetPrice();
+              } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Cambiado") {
+                localDebt = localDebt - itRoutes->GetPrice();
+              }
+            }
             ss << column << std::setw(agencyW) << itSales->GetAgency() << column
                << std::setw(idW) << itSales->GetID() << column
                << std::setw(flightW) << itSales->GetFlight() << column
@@ -397,8 +402,22 @@ FJA::Aeronautica
             status = "Cambiado";
           }
 
-        } else {
+        }
+          //-----------------------------------CASO NORMAL----------------------------------------------------------------
+        else { //Es una venta normal. i.e. sin Cambios o Cancelaciones
 
+          for (auto itRoutes = this->m_Routes.begin(); itRoutes != this->m_Routes.end(); itRoutes++) {
+            if (status == "Cancelado") {
+              localDebt = localDebt * 0.85;
+              totalDebt += localDebt;
+              localDebt = 0;
+              break;
+            } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Cambiado") {
+              localDebt = localDebt - itRoutes->GetPrice();
+            } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Vendido") {
+              localDebt = 0;
+            }
+          }
           ss << column << std::setw(agencyW) << itSales->GetAgency() << column
              << std::setw(idW) << itSales->GetID() << column
              << std::setw(flightW) << itSales->GetFlight() << column
@@ -407,7 +426,18 @@ FJA::Aeronautica
              << std::setw(statusW) << status << column << "\n";
           status = "Vendido";
         }
-      } else {
+      } else {// El segundo iterador ha llegado al final
+        for (auto itRoutes = this->m_Routes.begin(); itRoutes != this->m_Routes.end(); itRoutes++) {
+          if (itRoutes->GetCode() == itSales->GetFlight() && status == "Cancelado") {
+            localDebt = localDebt * 0.85;
+            totalDebt += localDebt;
+            localDebt = 0;
+          } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Cambiado") {
+            localDebt = localDebt - itRoutes->GetPrice();
+          } else if (itRoutes->GetCode() == itSales->GetFlight() && status == "Vendido") {
+            localDebt = 0;
+          }
+        }
         ss << column << std::setw(agencyW) << itSales->GetAgency() << column
            << std::setw(idW) << itSales->GetID() << column
            << std::setw(flightW) << itSales->GetFlight() << column
@@ -416,10 +446,26 @@ FJA::Aeronautica
            << std::setw(statusW) << status << column << "\n";
         status = "Vendido";
       }
-      if (itSNext != itAgencies->GetSales().end()) {
+      if (itSNext != itAgencies->GetSales().end()) { //Continuar al siguiente elemento si aún existe uno.
         itSNext++;
       }
+      if (status == "Vendido" || status == "Cambiado") {
+        if (localDebt < 0) {
+          totalDebt += labs(localDebt);
+          localDebt = 0;
+        } else {
+          totalCredit += localDebt;
+          localDebt = 0;
+        }
+      }
     }
+
+    ss << separator << "\n"
+       << column << std::setw(49) << "Debitos" << column
+       << std::setw(49) << "Creditos" << column << "\n"
+       << separator << "\n"
+       << column << std::setw(49) << totalDebt << column
+       << std::setw(49) << totalCredit << column << "\n";
     ss << separator << "\n";
     return ss.str();
   }

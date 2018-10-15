@@ -77,3 +77,22 @@ Consolidate(std::string currentDate) {
       itSales = this->m_Sales.erase(itSales);
   }
 }
+
+bool FJA::Agencia::
+CancelFlight(std::string &SaleID) {
+  auto itSales = this->m_Sales.begin();
+  for (; itSales != this->m_Sales.end(); itSales++) {
+    if (itSales->GetID() == SaleID) {
+      this->NewSale(this->m_AgencyID,
+                    SaleID,
+                    "",
+                    itSales->GetCustomerID(),
+                    itSales->GetCustomer(),
+                    "",
+                    itSales->GetBuyDate(),
+                    itSales->GetBuyHour());
+      return true;
+    }
+  }
+  return false;
+}

@@ -54,6 +54,8 @@ public:
    */
   void Consolidate(std::string currentDate);
 
+  bool CancelFlight(std::string &SaleID);
+
 protected:
   std::string m_AgencyID;
   std::string m_Password;

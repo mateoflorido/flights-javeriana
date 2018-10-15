@@ -109,7 +109,7 @@ trigger(const std::string &s) {
         } else if (mainCommand == "inventory") {
           std::cout << this->m_Aero.ReportInventory(this->m_Agency);
         } else if (mainCommand == "money") {
-          //TODO Enviar a Aeronautica e Imprimir
+          std::cout << this->m_Aero.ReportMoney(this->m_Agency);
         }
       } else
         std::cout << "No ha iniciado sesión.";

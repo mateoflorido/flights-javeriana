@@ -100,6 +100,9 @@ void FJA::Venta::SetAgency(const std::string &m_Agency) {
 }
 
 bool FJA::Venta::operator<(const FJA::Venta &v) const {
-  return (this->GetID() < v.GetID());
+  if (this->m_ID == v.m_ID)
+    return (this->m_BuyDate < v.m_BuyDate);
+  else
+    return (this->GetID() < v.GetID());
 }
 
