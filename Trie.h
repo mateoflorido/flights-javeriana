@@ -1,57 +1,38 @@
 //
-// Created by mateo on 12/09/18.
+//
+// Created by mateo on 14/10/18.
 //
 
-#ifndef FLIGHTS_JAVERIANA_TRIE_H
-#define FLIGHTS_JAVERIANA_TRIE_H
+#ifndef TRIE_TRIE_H
+#define TRIE_TRIE_H
 
 #include <string>
-
 namespace FJA {
-    class Trie {
-    public:
-        /**
-         * @brief
-         * @return
-         */
-        Trie *getNode();
+class Trie {
 
-        /**
-         * @brief
-         * @param root
-         * @param key
-         */
-        void Insert(Trie *root, std::string key);
+public:
+  Trie();
+  void Insert(const std::string &v);
+  bool Search(const std::string &v);
+  std::string Coincidence(const std::string &query, std::string &r);
 
-        /**
-         * @brief
-         * @param root
-         * @param key
-         * @return
-         */
-        bool Search(Trie *root, std::string key);
+protected:
+  class TrieNode {
+  public:
+    TrieNode();
+    void Insert(const std::string &v);
+    bool Search(const std::string &v);
+    std::string Coincidence(const std::string &query, std::string &r);
+    bool Last();
 
-        /**
-         * @brief
-         * @param root
-         * @return
-         */
-        bool IsLastNode(Trie *root);
-        /**
-         *
-         * @param query
-         * @return
-         */
-        std::string Coincidence(Trie *root, std::string &query, std::string &response);
+  public:
+    TrieNode *children[26];
+    bool End;
 
-
-
-
-    protected:
-        Trie *Desc[26];
-        bool isWordEnd;
-    };
+  };
+protected:
+  TrieNode *m_Root;
+};
 }
 
-
-#endif //FLIGHTS_JAVERIANA_TRIE_H
+#endif //TRIE_TRIE_H

@@ -1,58 +1,108 @@
 //
-// Created by mateo on 12/09/18.
+// Created by mateo on 14/10/18.
 //
 
 #include "Trie.h"
 
-#define CHAR_TO_INDEX(c) ((int)(c) - (int)'a')
-
-FJA::Trie *FJA::Trie::getNode() {
-  auto *p = new Trie;
-  p->isWordEnd = false;
-  for (auto &i : p->Desc)
-    i = nullptr;
-  return p;
-}
-
-void FJA::Trie::Insert(FJA::Trie *root, const std::string key) {
-  Trie *pCrawl = root;
-  for (auto level = 0; level < key.length(); level++) {
-    int index = CHAR_TO_INDEX(key[level]);
-    if (!pCrawl->Desc[index])
-      pCrawl->Desc[index] = getNode();
-    pCrawl = pCrawl->Desc[index];
-  }
-}
-
-bool FJA::Trie::Search(FJA::Trie *root, const std::string key) {
-  int length = key.length();
-  Trie *pCrawl = root;
-  for (auto level = 0; level < length; level++) {
-    int index = CHAR_TO_INDEX(key[level]);
-    if (!pCrawl->Desc[index])
-      return false;
-    pCrawl = pCrawl->Desc[index];
-  }
-  return (pCrawl != nullptr && pCrawl->isWordEnd);
-}
-
-std::string FJA::Trie::Coincidence(FJA::Trie *root, std::string &query, std::string &response) {
-
-  if (IsLastNode(root)) {
-    return response;
-  }
+//---------------------------------------------------------------------------------
+FJA::Trie::TrieNode::
+TrieNode() {
+  this->End = false;
   for (auto i = 0; i < 26; i++) {
-    if (root->Desc[i]) {
-      response += (i + 'a');
-      return Coincidence(root->Desc[i], query, response);
+    this->children[i] = nullptr;
+  }
+}
+
+//---------------------------------------------------------------------------------
+void FJA::Trie::TrieNode::
+Insert(const std::string &v) {
+  TrieNode *actual = this;
+  for (auto i = 0; i < v.length(); i++) {
+    auto index = v[i] - 'a';
+    if (actual->children[index] == nullptr)
+      actual->children[index] = new TrieNode();
+    actual = actual->children[index];
+  }
+
+  actual->End = true;
+
+}
+
+//--------------------------------------------------------------------------------
+bool FJA::Trie::TrieNode::
+Search(const std::string &v) {
+  TrieNode *actual = this;
+  for (auto i = 0; i < v.length(); i++) {
+    auto index = v[i] - 'a';
+    if (actual->children[index] == nullptr)
+      return false;
+    actual = actual->children[index];
+  }
+
+  return (actual != nullptr && actual->End);
+}
+//--------------------------------------------------------------------------------
+bool FJA::Trie::TrieNode::
+Last() {
+  for (auto i = 0; i < 26; i++) {
+    if (this->children[i] != nullptr)
+      return false;
+  }
+  return true;
+}
+
+//--------------------------------------------------------------------------------
+std::string FJA::Trie::TrieNode::
+Coincidence(const std::string &query, std::string &r) {
+  TrieNode *actual = this;
+  for (auto i = 0; i < query.length(); i++) {
+    auto index = query[i] - 'a';
+    if (actual->children[index] == nullptr) {
+      r.clear();
+      return r;
+    } else
+      r += query[i];
+    actual = actual->children[index];
+  }
+  while (!actual->End) {
+    for (auto i = 0; i < 26; i++) {
+      if (actual->Last())
+        return r;
+      if (actual->children[i] != nullptr) {
+        r += (char) ('a' + i);
+        actual = actual->children[i];
+        break;
+      }
     }
   }
-
+  return r;
 }
 
-bool FJA::Trie::IsLastNode(FJA::Trie *root) {
-  for (auto i = 0; i < 26; i++)
-    if (root->Desc[i])
-      return false;
-  return true;
+//--------------------------------------------------------------------------------
+FJA::Trie::Trie() {
+  this->m_Root = new TrieNode();
+}
+//--------------------------------------------------------------------------------
+void FJA::Trie::
+Insert(const std::string &v) {
+  if (this->m_Root != nullptr) {
+    this->m_Root->Insert(v);
+  }
+}
+//--------------------------------------------------------------------------------
+bool FJA::Trie::
+Search(const std::string &v) {
+  if (this->m_Root != nullptr) {
+    this->m_Root->Search(v);
+  } else
+    return false;
+}
+//--------------------------------------------------------------------------------
+std::string FJA::Trie::
+Coincidence(const std::string &query, std::string &r) {
+  if (this->m_Root != nullptr) {
+    this->m_Root->Coincidence(query, r);
+    return r;
+  } else
+    return "";
 }

@@ -7,6 +7,7 @@
 #include <deque>
 #include <iostream>
 #include <string>
+#include "../Trie.h"
 
 namespace PUJ
 {
@@ -62,6 +63,7 @@ protected:
   std::string m_Unused;
   std::deque< char > m_Buffer;
   std::deque< std::string > m_History;
+  FJA::Trie m_Trie;
 };
 } // end namespace
 

@@ -77,6 +77,18 @@ Console( const std::string& prompt )
   this->m_Pos = -1;
   this->m_LinePos = 0;
   this->m_SkipOut = false;
+  this->m_Trie = FJA::Trie();
+  this->m_Trie.Insert("login");
+  this->m_Trie.Insert("logout");
+  this->m_Trie.Insert("report");
+  this->m_Trie.Insert("report flights");
+  this->m_Trie.Insert("report money");
+  this->m_Trie.Insert("help");
+  this->m_Trie.Insert("sell");
+  this->m_Trie.Insert("cancel");
+  this->m_Trie.Insert("consolidate");
+  this->m_Trie.Insert("exit");
+  this->m_Trie.Insert("login");
 }
 
 // -------------------------------------------------------------------------

@@ -42,10 +42,19 @@ trigger(const std::string &s) {
 int Console::
 hotkeys(char c) {
   if (c == Superclass::TAB) {
-    std::cerr
-        << std::endl
-        << "TAB! (" << this->getBuffer() << ")"
-        << std::endl;
+
+    if (!this->getBuffer().empty()) {
+      // Clear actual prefix
+      for (int i = 0; i < this->m_LinePos; ++i)
+        std::cout << "\b \b";
+    }
+    std::string now;
+    this->m_Trie.Coincidence(this->getBuffer(), now);
+    if (!now.empty()) {
+      this->setBuffer(now);
+      std::cout << this->getBuffer();
+      this->m_LinePos = this->m_Buffer.size();
+    }
   } else
     return (0);
 }
