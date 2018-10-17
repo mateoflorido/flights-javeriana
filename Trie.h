@@ -26,7 +26,7 @@ protected:
     bool Last();
 
   public:
-    TrieNode *children[26];
+    TrieNode *children[95];
     bool End;
 
   };

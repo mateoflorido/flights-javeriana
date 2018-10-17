@@ -20,6 +20,11 @@ Console(const std::string &prompt)
   ReadAgencies(this->m_Aero, "./passwords.txt");
   ReadFlights(this->m_Aero, "./flights.txt");
   ReadSales(this->m_Aero, "./tickets.txt");
+  std::vector<std::string> IDs = this->m_Aero.GetIDAgencies();
+  auto itID = IDs.begin();
+  for(;itID != IDs.end() ; itID++){
+      this->m_Trie.Insert("login "+(*itID));
+  }
 }
 
 // -------------------------------------------------------------------------
@@ -60,6 +65,7 @@ trigger(const std::string &s) {
     if (!this->m_Agency.empty()) {
       std::cout << " Cerrando Sesión de " << this->m_Agency << '\n';
       this->m_Agency.clear();
+      this->m_Prompt="$ ";
     } else
       std::cout << "No ha iniciado sesión.";
     return (1);
@@ -129,15 +135,18 @@ trigger(const std::string &s) {
           std::cout << "\n- Ingrese su nombre con este formato: Apellido1 Apellido2, Nombre1 Nombre2 \n";
           std::getline(std::cin, Customer);
           std::time_t result = std::time(nullptr);
-          buyHour = (std::to_string(std::localtime(&result)->tm_hour)) +
-              (std::to_string(std::localtime(&result)->tm_min));
+          buyHour = (std::to_string(std::localtime(&result)->tm_hour));
+          if(std::localtime(&result)->tm_min<10)
+              buyHour+="0" +(std::to_string(std::localtime(&result)->tm_min));
+          else
+              buyHour+= (std::to_string(std::localtime(&result)->tm_min));
           buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
           if ((std::localtime(&result)->tm_mon + 1) < 10) {
-            buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
+            buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
                 (std::to_string((std::localtime(&result)->tm_mday)));
 
           } else {
-            buyDate = (std::to_string(std::localtime(&result)->tm_mon + 1)) +
+            buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) +
                 (std::to_string((std::localtime(&result)->tm_mday)));
           }
 

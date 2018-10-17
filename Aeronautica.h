@@ -134,6 +134,7 @@ public:
    * @return
    */
   std::string ReportMoney(std::string AgencyID);
+  std::vector<std::string> GetIDAgencies();
 
 protected:
   typedef std::vector<Agencia> TAgencies;

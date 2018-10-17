@@ -78,6 +78,7 @@ Console(const std::string &prompt) {
   this->m_Trie.Insert("logout");
   this->m_Trie.Insert("report");
   this->m_Trie.Insert("report flights");
+  this->m_Trie.Insert("report inventory");
   this->m_Trie.Insert("report money");
   this->m_Trie.Insert("help");
   this->m_Trie.Insert("sell");

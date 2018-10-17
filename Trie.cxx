@@ -18,7 +18,7 @@ void FJA::Trie::TrieNode::
 Insert(const std::string &v) {
   TrieNode *actual = this;
   for (auto i = 0; i < v.length(); i++) {
-    auto index = v[i] - 'a';
+    auto index = v[i] - ' ';
     if (actual->children[index] == nullptr)
       actual->children[index] = new TrieNode();
     actual = actual->children[index];
@@ -33,7 +33,7 @@ bool FJA::Trie::TrieNode::
 Search(const std::string &v) {
   TrieNode *actual = this;
   for (auto i = 0; i < v.length(); i++) {
-    auto index = v[i] - 'a';
+    auto index = v[i] - ' ';
     if (actual->children[index] == nullptr)
       return false;
     actual = actual->children[index];
@@ -44,7 +44,7 @@ Search(const std::string &v) {
 //--------------------------------------------------------------------------------
 bool FJA::Trie::TrieNode::
 Last() {
-  for (auto i = 0; i < 26; i++) {
+  for (auto i = 0; i < 95; i++) {
     if (this->children[i] != nullptr)
       return false;
   }
@@ -56,7 +56,7 @@ std::string FJA::Trie::TrieNode::
 Coincidence(const std::string &query, std::string &r) {
   TrieNode *actual = this;
   for (auto i = 0; i < query.length(); i++) {
-    auto index = query[i] - 'a';
+    auto index = query[i] - ' ';
     if (actual->children[index] == nullptr) {
       r.clear();
       return r;
@@ -65,11 +65,11 @@ Coincidence(const std::string &query, std::string &r) {
     actual = actual->children[index];
   }
   while (!actual->End) {
-    for (auto i = 0; i < 26; i++) {
+    for (auto i = 0; i < 95; i++) {
       if (actual->Last())
         return r;
       if (actual->children[i] != nullptr) {
-        r += (char) ('a' + i);
+        r += (char) (' ' + i);
         actual = actual->children[i];
         break;
       }
