@@ -22,8 +22,8 @@ Console(const std::string &prompt)
   ReadSales(this->m_Aero, "./tickets.txt");
   std::vector<std::string> IDs = this->m_Aero.GetIDAgencies();
   auto itID = IDs.begin();
-  for(;itID != IDs.end() ; itID++){
-      this->m_Trie.Insert("login "+(*itID));
+  for (; itID != IDs.end(); itID++) {
+    this->m_Trie.Insert("login " + (*itID));
   }
 }
 
@@ -54,20 +54,22 @@ trigger(const std::string &s) {
             this->setPrompt(arg1 + "$ ");
           } else {
             this->m_Agency.clear();
-            std::cerr << "Usuario o Contraseña no Válidos";
+            std::cerr << "Usuario o Contraseña no Válidos\n";
           }
-        }
-      }
+        } else
+          std::cout << "No ha ingresado una contraseña.\n";
+      } else
+        std::cout << "No ha ingresado un usuario.\n";
     } else
-      std::cerr << "Agencia: " << this->m_Agency << " Termine sesión para ingresar en otra cuenta.";
+      std::cerr << "Agencia: " << this->m_Agency << " Termine sesión para ingresar en otra cuenta.\n";
     return (1);
   } else if (mainCommand == "logout") {
     if (!this->m_Agency.empty()) {
       std::cout << " Cerrando Sesión de " << this->m_Agency << '\n';
       this->m_Agency.clear();
-      this->m_Prompt="$ ";
+      this->m_Prompt = "$ ";
     } else
-      std::cout << "No ha iniciado sesión.";
+      std::cout << "No ha iniciado sesión.\n";
     return (1);
   } else if (mainCommand == "read") {
     if (commandline >> mainCommand) {
@@ -88,7 +90,7 @@ trigger(const std::string &s) {
         std::cout << this->commandList.find(arg1)->second;
       else
         std::cout << "No existe el comando seleccionado. Utilice 'help' para ver la lista de comandos"
-                     " disponibles";
+                     " disponibles \n";
     } else {
       auto it = this->commandList.begin();
       std::cout << "--------------------------------\n";
@@ -118,7 +120,7 @@ trigger(const std::string &s) {
           std::cout << this->m_Aero.ReportMoney(this->m_Agency);
         }
       } else
-        std::cout << "No ha iniciado sesión.";
+        std::cout << "No ha iniciado sesión.\n";
     }
   } else if (mainCommand == "sell") {
     if (!this->m_Agency.empty())
@@ -129,17 +131,17 @@ trigger(const std::string &s) {
           std::string buyHour;
           std::string buyDate;
           std::cout << "- Ingrese su numero de identificación antecedido de el tipo de documento.\n";
-          std::cout << "- Ejemplo: CC1233691510.";
+          std::cout << "- Ejemplo: CC1233691510.\n";
           std::cout << "Documento: ";
           std::getline(std::cin, CustomerID);
           std::cout << "\n- Ingrese su nombre con este formato: Apellido1 Apellido2, Nombre1 Nombre2 \n";
           std::getline(std::cin, Customer);
           std::time_t result = std::time(nullptr);
           buyHour = (std::to_string(std::localtime(&result)->tm_hour));
-          if(std::localtime(&result)->tm_min<10)
-              buyHour+="0" +(std::to_string(std::localtime(&result)->tm_min));
+          if (std::localtime(&result)->tm_min < 10)
+            buyHour += "0" + (std::to_string(std::localtime(&result)->tm_min));
           else
-              buyHour+= (std::to_string(std::localtime(&result)->tm_min));
+            buyHour += (std::to_string(std::localtime(&result)->tm_min));
           buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
           if ((std::localtime(&result)->tm_mon + 1) < 10) {
             buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
@@ -161,7 +163,7 @@ trigger(const std::string &s) {
       } else
         std::cout << "- Sin argumentos válidos.\n";
     else
-      std::cout << "No ha iniciado sesión. \n";
+      std::cout << "No ha iniciado sesión.\n";
 
   } else if (mainCommand == "cancel") {
     if (commandline >> arg1) {
@@ -199,7 +201,7 @@ trigger(const std::string &s) {
     this->quit();
     return (1);
   } else {
-    std::cerr << "Unknown command: " << s << std::endl;
+    std::cerr << "Comando Desconocido: " << s << std::endl;
     return (0);
   } // end if
 }
@@ -211,15 +213,15 @@ hotkeys(char c) {
 
     if (!this->getBuffer().empty()) {
       // Clear actual prefix
-      for (int i = 0; i < this->m_LinePos; ++i)
-        std::cout << "\b \b";
-    }
-    std::string now;
-    this->m_Trie.Coincidence(this->getBuffer(), now);
-    if (!now.empty()) {
-      this->setBuffer(now);
-      std::cout << this->getBuffer();
-      this->m_LinePos = this->m_Buffer.size();
+      std::string now;
+      this->m_Trie.Coincidence(this->getBuffer(), now);
+      if (!now.empty()) {
+        for (int i = 0; i < this->m_LinePos; ++i)
+          std::cout << "\b \b";
+        this->setBuffer(now);
+        std::cout << this->getBuffer();
+        this->m_LinePos = this->m_Buffer.size();
+      }
     }
   } else
     return (0);
