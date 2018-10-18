@@ -68,13 +68,13 @@ std::string FJA::Agencia::SalesReport() {
 
 void FJA::Agencia::
 Consolidate(std::string currentDate) {
+    Venta aux;
   auto itSales = this->m_Sales.begin();
-  for (; itSales != this->m_Sales.end(); itSales++) {
-    if (this->m_Sales.empty()) {
-      return;
-    }
+  while(itSales != this->m_Sales.end()) {
     if (itSales->GetFlightDate() < currentDate)
       itSales = this->m_Sales.erase(itSales);
+    else
+        itSales++;
   }
 }
 
