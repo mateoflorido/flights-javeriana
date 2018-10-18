@@ -80,17 +80,12 @@ Console(const std::string &prompt) {
   this->m_Trie.Insert("report flights");
   this->m_Trie.Insert("report inventory");
   this->m_Trie.Insert("report money");
-  this->m_Trie.Insert("help report");
-  this->m_Trie.Insert("help login");
-  this->m_Trie.Insert("help logout");
-  this->m_Trie.Insert("help cancel");
-  this->m_Trie.Insert("help sell");
-  this->m_Trie.Insert("help consolidate");
-  this->m_Trie.Insert("help exit");
+  this->m_Trie.Insert("help");
   this->m_Trie.Insert("sell");
   this->m_Trie.Insert("cancel");
   this->m_Trie.Insert("consolidate");
   this->m_Trie.Insert("exit");
+  this->m_Trie.Insert("login");
 
   this->commandList.insert({
 

@@ -465,10 +465,10 @@ FJA::Aeronautica
        << std::setw(49) << "Creditos" << column << "\n"
        << separator << "\n"
        << column << std::setw(49) << totalDebt << column
-       << std::setw(49) << totalCredit<< column << "\n";
+       << std::setw(49) << totalCredit << column << "\n";
     ss << separator << "\n";
     return ss.str();
-
+  }
   return "No hay coincidencias";
 
 }
