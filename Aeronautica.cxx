@@ -508,44 +508,37 @@ FJA::Aeronautica
     }
     if(ItAgency!=this->m_Agencies.end()){
         int seatsSold = SeatsSold(IDFlightN);
-        auto itRoutes = this->m_Routes.begin();
-        for (; itRoutes != this->m_Routes.end(); itRoutes++) {
-            if (itRoutes->GetCode() == IDFlightN) {
+        auto itRoutesN = this->m_Routes.begin();
+        for (; itRoutesN != this->m_Routes.end(); itRoutesN++) {
+            if (itRoutesN->GetCode() == IDFlightN) {
                 break;
             }
         }
-        if (itRoutes != this->m_Routes.end() && CheckDates(date, itRoutes->GetWeekDay()) &&
-            seatsSold < itRoutes->GetCapacity()) {
+        auto itRoutesO = this->m_Routes.begin();
+        for (; itRoutesO != this->m_Routes.end(); itRoutesO++) {
+            if (itRoutesO->GetCode() == IDFlightO) {
+                break;
+            }
+        }
+        if (itRoutesN != this->m_Routes.end()&&itRoutesO != this->m_Routes.end() && CheckDates(date, itRoutesN->GetWeekDay()) &&
+            seatsSold < itRoutesN->GetCapacity()) {
             std::string IDSale,Customer;
             auto SaleIt=ItAgency->GetSales().begin();
             for(;SaleIt!=ItAgency->GetSales().end();SaleIt++){
-                if(SaleIt->GetFlight()==IDFlightO){
+                if(SaleIt->GetFlight()==IDFlightO&&SaleIt->GetCustomerID()==IDPassenger){
                     IDSale=SaleIt->GetID();
                     Customer=SaleIt->GetCustomer();
                     break;
                 }
             }
             if(SaleIt!=ItAgency->GetSales().end()){
-              float oldPrice;
-              float nPrice=-1;
-              auto RIt=this->m_Routes.begin();
-              for(;RIt!=this->m_Routes.end();RIt++){
-                if(RIt->GetCode()==IDFlightO){
-                  oldPrice=RIt->GetPrice();
-                }
-                if(RIt->GetCode()==IDFlightN){
-                  nPrice=RIt->GetPrice();
-                }
-              }
-              if(nPrice!=-1){
-                NewSale(IDAgency, IDSale, itRoutes->GetCode(),
+              float oldPrice=itRoutesO->GetPrice();
+              float nPrice=itRoutesN->GetPrice();
+                NewSale(IDAgency, IDSale, itRoutesN->GetCode(),
                         IDPassenger, Customer, date, buyDate, buyHour);
                 newPrice=nPrice-oldPrice;
                 return true;
-              }
-              else{
-                return false;
-              }
+
             }
             else
                 return false;
