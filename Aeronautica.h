@@ -136,6 +136,9 @@ public:
    */
   std::string ReportMoney(std::string AgencyID);
   std::vector<std::string> GetIDAgencies();
+  std::vector<std::string> RecommendedRoutes(std::string origen, std::string destino);
+  void GraphInitialize();
+  void ChangeSale(std::string IDPassenger,std::string IDFlightO, std::string IDFlightN);
 
 protected:
   typedef std::vector<Agencia> TAgencies;
@@ -144,6 +147,7 @@ protected:
 protected:
   TAgencies m_Agencies;
   TRoutes m_Routes;
+  Graph<std::string,unsigned int> m_GRoutes;
 };
 }
 

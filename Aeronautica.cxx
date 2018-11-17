@@ -482,3 +482,24 @@ FJA::Aeronautica
   }
   return ret;
 }
+void
+FJA::Aeronautica
+::GraphInitialize(){
+  auto RIt= this->m_Routes.begin();
+  for(;RIt!=this->m_Routes.end();RIt++){
+    this->m_GRoutes.AddNode((*RIt).GetOrigin());
+    this->m_GRoutes.AddNode((*RIt).GetDestination());
+    this->m_GRoutes.AddArc(this->m_GRoutes.GetIndex((*RIt).GetOrigin()),this->m_GRoutes.GetIndex((*RIt).GetDestination()),(*RIt).GetDuration());
+  }
+}
+
+std::vector<std::string>
+FJA::Aeronautica
+::RecommendedRoutes(std::string orginen, std::string destino){
+  //TODO
+}
+void
+FJA::Aeronautica
+::ChangeSale(std::string IDPassenger, std::string IDFlightO, std::string IDFlightN){
+  //TODO
+}
