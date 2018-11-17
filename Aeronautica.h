@@ -6,6 +6,7 @@
 #include "Ruta.h"
 #include <random>
 #include <sstream>
+#include "Graph.h"
 
 namespace FJA {
 class Aeronautica {
