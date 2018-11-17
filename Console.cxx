@@ -5,6 +5,7 @@
 #include <ctime>
 #include "Console.h"
 #include "Archivo.h"
+#include <math.h>
 
 // -------------------------------------------------------------------------
 Console::
@@ -20,6 +21,7 @@ Console(const std::string &prompt)
   ReadAgencies(this->m_Aero, "./passwords.txt");
   ReadFlights(this->m_Aero, "./flights.txt");
   ReadSales(this->m_Aero, "./tickets.txt");
+  this->m_Aero.GraphInitialize();
   std::vector<std::string> IDs = this->m_Aero.GetIDAgencies();
   auto itID = IDs.begin();
   for (; itID != IDs.end(); itID++) {
@@ -40,6 +42,7 @@ trigger(const std::string &s) {
   std::string mainCommand;
   std::string arg1;
   std::string arg2;
+  std::string arg3;
 
   commandline >> mainCommand;
 
@@ -195,6 +198,61 @@ trigger(const std::string &s) {
     }
     this->m_Aero.Consolidate(currentDate);
     std::cout << "Consolidate Exitoso\n";
+  } else if(mainCommand == "change"){
+      if(!this->m_Agency.empty()){
+          if(commandline >> arg1){
+              if(commandline >> arg2){
+                  if(commandline >> arg3){
+                      std::string CustomerID=arg1;
+                      std::string IDFlightO=arg2;
+                      std::string IDFlightN=arg3;
+                      std::string buyHour;
+                      std::string buyDate;
+                      std::string date;
+                      float newPrice=0;
+                      std::time_t result = std::time(nullptr);
+                      buyHour = (std::to_string(std::localtime(&result)->tm_hour));
+                      if (std::localtime(&result)->tm_min < 10)
+                          buyHour += "0" + (std::to_string(std::localtime(&result)->tm_min));
+                      else
+                          buyHour += (std::to_string(std::localtime(&result)->tm_min));
+                      buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
+                      if ((std::localtime(&result)->tm_mon + 1) < 10) {
+                          buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
+                                     (std::to_string((std::localtime(&result)->tm_mday)));
+
+                      } else {
+                          buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) +
+                                     (std::to_string((std::localtime(&result)->tm_mday)));
+                      }
+                      std::cout<<"Ingrese la fecha en la que desea viajar: ";
+                      std::cin>>date;
+                      if(this->m_Aero.ChangeSale(CustomerID,IDFlightO,IDFlightO,this->m_Agency, buyHour,buyDate, date,newPrice)){
+                          std::cout<<"Operacion exitosa "<<std::endl;
+                          if(newPrice<0){
+                              newPrice=abs(newPrice);
+                              std::cout<<"La tarifa disminuye "<<newPrice<<std::endl;
+                          }
+                          else{
+                              if(newPrice==0){
+                                  std::cout<<"No existe cambio en la tarifa ";
+                              }
+                              std::cout<<"La tarifa aumenta "<<newPrice<<std::endl;
+                          }
+                      }
+                      else{
+                          std::cout<<"Datos invalidos"<<std::endl;
+                      }
+                  }
+                  else
+                      std::cout<<"Falta tercer argumento "<< std::endl;
+              }
+              else
+                  std::cout<<"Falta segundo argumento"<<std::endl;
+          }
+          else
+              std::cout<<"Sin argumentos validos"<<std::endl;
+      }
   } else if (mainCommand == "exit") {
     mainCommand = this->m_Aero.SalesReport();
     SaveSales(mainCommand);

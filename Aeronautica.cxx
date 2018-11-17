@@ -498,8 +498,60 @@ FJA::Aeronautica
 ::RecommendedRoutes(std::string orginen, std::string destino){
   //TODO
 }
-void
+bool
 FJA::Aeronautica
-::ChangeSale(std::string IDPassenger, std::string IDFlightO, std::string IDFlightN){
-  //TODO
+::ChangeSale(std::string IDPassenger, std::string IDFlightO, std::string IDFlightN, std::string IDAgency,std::string buyHour, std::string buyDate, std::string date, float &newPrice){
+    auto ItAgency= this->m_Agencies.begin();
+    for(;ItAgency!=this->m_Agencies.end();ItAgency++){
+        if(ItAgency->GetAgencyID()==IDAgency)
+            break;
+    }
+    if(ItAgency!=this->m_Agencies.end()){
+        int seatsSold = SeatsSold(IDFlightN);
+        auto itRoutes = this->m_Routes.begin();
+        for (; itRoutes != this->m_Routes.end(); itRoutes++) {
+            if (itRoutes->GetCode() == IDFlightN) {
+                break;
+            }
+        }
+        if (itRoutes != this->m_Routes.end() && CheckDates(date, itRoutes->GetWeekDay()) &&
+            seatsSold < itRoutes->GetCapacity()) {
+            std::string IDSale,Customer;
+            auto SaleIt=ItAgency->GetSales().begin();
+            for(;SaleIt!=ItAgency->GetSales().end();SaleIt++){
+                if(SaleIt->GetFlight()==IDFlightO){
+                    IDSale=SaleIt->GetID();
+                    Customer=SaleIt->GetCustomer();
+                    break;
+                }
+            }
+            if(SaleIt!=ItAgency->GetSales().end()){
+              float oldPrice;
+              float nPrice=-1;
+              auto RIt=this->m_Routes.begin();
+              for(;RIt!=this->m_Routes.end();RIt++){
+                if(RIt->GetCode()==IDFlightO){
+                  oldPrice=RIt->GetPrice();
+                }
+                if(RIt->GetCode()==IDFlightN){
+                  nPrice=RIt->GetPrice();
+                }
+              }
+              if(nPrice!=-1){
+                NewSale(IDAgency, IDSale, itRoutes->GetCode(),
+                        IDPassenger, Customer, date, buyDate, buyHour);
+                newPrice=nPrice-oldPrice;
+                return true;
+              }
+              else{
+                return false;
+              }
+            }
+            else
+                return false;
+        } else {
+            return false;
+        }
+    }
+    return false;
 }
