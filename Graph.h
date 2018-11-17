@@ -41,7 +41,7 @@ public:
     std::vector<long> Dijkstra (long seed);
     double EuclideanDist( Point a, Point b);
     long Size();
-    std::vector<long> Path(long a, long b);
+    std::deque<long> Path(long a, long b);
 
 protected:
     std::vector<V> m_Vertices;

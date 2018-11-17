@@ -3,6 +3,7 @@
 //
 
 #include "Graph.h"
+#include <deque>
 
 template<class V, class C>
 Graph<V, C>::Graph()
@@ -113,28 +114,28 @@ template<class V, class C>
 std::vector<long> Graph<V, C>::Dijkstra(long seed)
 {
 
-    typedef std::pair<long, float> TNode;
+    typedef std::tuple<long,long, float> TNode;
     typedef std::map<long, std::map<long, float>>::iterator RowIterator;
     typedef std::map<long, float>::iterator ColIterator;
 
     struct {
         bool operator()(TNode a, TNode b)
         {
-            return ( std::get<1>(b) < std::get<1>(a));
+            return ( std::get<2>(b) < std::get<2>(a));
         }
     } cmp;
 
     std::vector<bool> marks(this->m_Vertices.size(), false); //Mark Nodes
-    std::vector<long> Path(this->m_Vertices.size(), -1);
-    TNode s(seed, 0); // Seed
+    std::vector<long> mst(this->m_Vertices.size(), -1);
+    TNode n(seed,seed, 0); // Seed
     std::vector<TNode> q; // Priority Queue
 
-    q.push_back(s); // Seed PQ.
+    q.push_back(n); // Seed PQ.
     std::make_heap(q.begin(), q.end(), cmp); //Make heap with PQ
 
     while (!q.empty()) {
 
-        std::make_heap(q.begin(), q.end(), cmp);
+        //std::make_heap(q.begin(), q.end(), cmp);
         std::pop_heap(q.begin(), q.end(), cmp); //Send min to back
         TNode current = q.back(); //Get min
         q.pop_back(); //Delete node from PQ
@@ -146,19 +147,22 @@ std::vector<long> Graph<V, C>::Dijkstra(long seed)
 
         //Path.push_back(std::get<0>(current)); //Add to path
         marks[ std::get<0>(current) ] = true; //Mark actual Node
+        mst[ std::get<0>(current) ]=std::get<1>(current);//Add Parent
 
         RowIterator ItA = this->m_Matrix.find(std::get<0>(current)); // Iterator row
-        if ( ItA == this->m_Matrix.end())
-            continue;
-        ColIterator ItB = ItA->second.begin(); // Iterator Column
-        while (ItB != ItA->second.end()) {
-            if ( !marks[ ItB->first ] ) {
-                q.push_back(std::make_pair(ItB->first, ItB->second + std::get<1>(current)));
-                Path[ ItB->first ] = ItA->first;
+        if ( ItA != this->m_Matrix.end()){
+            ColIterator ItB = ItA->second.begin(); // Iterator Column
+            for (;ItB != ItA->second.end();ItB++) {
+                /*if ( !marks[ ItB->first ] ) {
+                    q.push_back(std::make_pair(ItB->first, ItB->second + std::get<1>(current)));
+                    Path[ ItB->first ] = ItA->first;
+                }*/
+                TNode NewNode(ItB->first,std::get<0>(current),std::get<2>(current)+ItB->second);
+                q.push_back(NewNode);
+                std::push_heap(q.begin(),q.end(),cmp);
             }
-            ItB++;
-        }
 
+        }
     }
     return Path;
 
@@ -173,17 +177,17 @@ long Graph<V, C>::Size()
 
 //------------------------------------------------------------------------------------------------------
 template<class V, class C>
-std::vector<long> Graph<V, C>::Path(long a, long b)
+std::deque<long> Graph<V, C>::Path(long a, long b)
 {
     auto l = this->Dijkstra(a);
-    std::vector<long> response;
+    std::deque<long> response;
     long pos = b;
 
     while (pos != -1) {
-        response.push_back(pos);
+        response.push_front(pos);
         pos = l[ pos ];
     }
-    std::reverse(response.begin(), response.end());
+
     return response;
 
 }
