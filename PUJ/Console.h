@@ -67,6 +67,8 @@ protected:
   FJA::Trie m_Trie;
   std::unordered_map<std::string, std::string> commandList;
   FJA::Aeronautica m_Aero;
+  std::string lastComplete;
+  std::string lastSuggestion;
 };
 } // end namespace
 
