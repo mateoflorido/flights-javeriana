@@ -487,8 +487,10 @@ FJA::Aeronautica
 ::GraphInitialize(){
   auto RIt= this->m_Routes.begin();
   for(;RIt!=this->m_Routes.end();RIt++){
-    this->m_GRoutes.AddNode((*RIt).GetOrigin());
-    this->m_GRoutes.AddNode((*RIt).GetDestination());
+    if(this->m_GRoutes.GetIndex((*RIt).GetOrigin())==-1)
+      this->m_GRoutes.AddNode((*RIt).GetOrigin());
+    if(this->m_GRoutes.GetIndex((*RIt).GetDestination())==-1)
+      this->m_GRoutes.AddNode((*RIt).GetDestination());
     this->m_GRoutes.AddArc(this->m_GRoutes.GetIndex((*RIt).GetOrigin()),this->m_GRoutes.GetIndex((*RIt).GetDestination()),(*RIt).GetDuration());
   }
 }
@@ -547,4 +549,15 @@ FJA::Aeronautica
         }
     }
     return false;
+}
+void
+FJA::Aeronautica
+::PrintDijk(std::string origen, std::string destino){
+  std::deque<long>path;
+  path=this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen),this->m_GRoutes.GetIndex(destino));
+  auto ItD=path.begin();
+  for(;ItD!=path.end();ItD++){
+    std::cout<<this->m_GRoutes.GetNode((*ItD));
+  }
+
 }

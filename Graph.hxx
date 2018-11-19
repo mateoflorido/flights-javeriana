@@ -113,9 +113,9 @@ template<class V, class C>
 std::vector<long> Graph<V, C>::Dijkstra(long seed)
 {
 
-    typedef std::tuple<long,long, float> TNode;
-    typedef std::map<long, std::map<long, float>>::iterator RowIterator;
-    typedef std::map<long, float>::iterator ColIterator;
+    typedef std::tuple<long,long, unsigned int> TNode;
+    typedef std::map<long, std::map<long, unsigned int>>::iterator RowIterator;
+    typedef std::map<long, unsigned int>::iterator ColIterator;
 
     struct {
         bool operator()(TNode a, TNode b)
@@ -163,7 +163,7 @@ std::vector<long> Graph<V, C>::Dijkstra(long seed)
 
         }
     }
-    return Path;
+    return mst;
 
 }
 
