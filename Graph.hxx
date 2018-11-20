@@ -156,7 +156,7 @@ std::vector<long> Graph<V, C>::Dijkstra(long seed)
                     q.push_back(std::make_pair(ItB->first, ItB->second + std::get<1>(current)));
                     Path[ ItB->first ] = ItA->first;
                 }*/
-                TNode NewNode(ItB->first,std::get<0>(current),std::get<2>(current)+ItB->second);
+                TNode NewNode(ItB->first,std::get<0>(current),std::get<2>(current)+ItB->second+7200);
                 q.push_back(NewNode);
                 std::push_heap(q.begin(),q.end(),cmp);
             }
@@ -238,4 +238,52 @@ std::vector<long> Graph<V,C>::FloydWarshall(std::string origen,std::string desti
         }
     }
     return response;
+}
+template<class V,class C>
+std::vector<long> Graph<V,C>::Prim(long seed){
+    typedef std::tuple<long,long, unsigned int> TNode;
+    typedef std::map<long, std::map<long, unsigned int>>::iterator RowIterator;
+    typedef std::map<long, unsigned int>::iterator ColIterator;
+
+    struct {
+        bool operator()(TNode a, TNode b)
+        {
+            return ( std::get<2>(b) < std::get<2>(a));
+        }
+    } cmp;
+
+    std::vector<bool> marks(this->m_Vertices.size(), false); //Mark Nodes
+    std::vector<long> mst(this->m_Vertices.size(), -1);
+    TNode n(seed,seed, 0); // Seed
+    std::vector<TNode> q; // Priority Queue
+
+    q.push_back(n); // Seed PQ.
+    std::make_heap(q.begin(), q.end(), cmp); //Make heap with PQ
+
+    while (!q.empty()) {
+
+        std::pop_heap(q.begin(), q.end(), cmp); //Send min to back
+        TNode current = q.back(); //Get min
+        q.pop_back(); //Delete node from PQ
+
+        if ( marks[ std::get<0>(current) ] ) //Check visited Node
+        {
+            continue;
+        }
+        marks[ std::get<0>(current) ] = true; //Mark actual Node
+        mst[ std::get<0>(current) ]=std::get<1>(current);//Add Parent
+
+        RowIterator ItA = this->m_Matrix.find(std::get<0>(current)); // Iterator row
+        if ( ItA != this->m_Matrix.end()){
+            ColIterator ItB = ItA->second.begin(); // Iterator Column
+            for (;ItB != ItA->second.end();ItB++) {
+
+                TNode NewNode(ItB->first,std::get<0>(current),std::get<2>(current)+7200);
+                q.push_back(NewNode);
+                std::push_heap(q.begin(),q.end(),cmp);
+            }
+
+        }
+    }
+    return mst;
 }

@@ -43,6 +43,7 @@ public:
     long Size();
     std::deque<long> Path(long a, long b);
     std::vector<long> FloydWarshall(std::string origen,std::string destino);
+    std::vector<long> Prim(long seed);
 
 protected:
     std::vector<V> m_Vertices;
