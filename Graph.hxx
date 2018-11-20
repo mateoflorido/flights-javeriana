@@ -191,3 +191,23 @@ std::deque<long> Graph<V, C>::Path(long a, long b)
     return response;
 
 }
+template<class V, class C>
+std::vector<long> Graph<V,C>::FloydWarshall(){
+    typedef std::map<long, std::map<long, unsigned int>>::iterator RowIterator;
+    typedef std::map<long, unsigned int>::iterator ColIterator;
+    RowIterator ItR=this->m_Matrix.begin();
+    std::vector<std::vector<long>(this->m_Vertices.size(),9223372036854775)> dist(this->m_Vertices.size(),9223372036854775);
+    std::vector<std::vector<long>> next;
+    for(int i=0;i<this->m_Vertices;i++){
+        for(int j=0;j<this->m_Vertices;j++){
+            if(this->m_Matrix.find(i)!=this->m_Matrix.end()){
+                ItR=this->m_Matrix.find(i);
+                if((*ItR).second.find(j)!=(*ItR).second.end()){
+                    ColIterator ItC=(*ItR).second.find(j);
+                    dist[i][j]=(*ItC).second;
+                };
+            }
+        }
+    }
+
+}

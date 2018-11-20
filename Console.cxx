@@ -272,6 +272,7 @@ hotkeys(char c) {
                 this->m_Trie.AllCoincidence(this->lastComplete, now);
                 std::cout << now;
                 std::cout << std::endl;
+
             } else {
                 this->m_Trie.Coincidence(this->getBuffer(), now);
                 this->lastComplete = this->getBuffer();
