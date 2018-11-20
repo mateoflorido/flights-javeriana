@@ -554,10 +554,11 @@ void
 FJA::Aeronautica
 ::PrintDijk(std::string origen, std::string destino){
   std::deque<long>path;
-  path=this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen),this->m_GRoutes.GetIndex(destino));
-  auto ItD=path.begin();
-  for(;ItD!=path.end();ItD++){
-    std::cout<<this->m_GRoutes.GetNode((*ItD));
+  if(this->m_GRoutes.GetIndex(origen)!=-1&&this->m_GRoutes.GetIndex(destino)){
+      path=this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen),this->m_GRoutes.GetIndex(destino));
+      auto ItD=path.begin();
+      for(;ItD!=path.end();ItD++){
+          std::cout<<this->m_GRoutes.GetNode((*ItD));
+      }
   }
-
 }

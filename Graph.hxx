@@ -182,10 +182,11 @@ std::deque<long> Graph<V, C>::Path(long a, long b)
     std::deque<long> response;
     long pos = b;
 
-    while (pos != -1) {
+    while (pos != l[pos]) {
         response.push_front(pos);
         pos = l[ pos ];
     }
+    response.push_front(pos);
 
     return response;
 
