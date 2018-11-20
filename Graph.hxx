@@ -192,22 +192,50 @@ std::deque<long> Graph<V, C>::Path(long a, long b)
 
 }
 template<class V, class C>
-std::vector<long> Graph<V,C>::FloydWarshall(){
-    typedef std::map<long, std::map<long, unsigned int>>::iterator RowIterator;
-    typedef std::map<long, unsigned int>::iterator ColIterator;
-    RowIterator ItR=this->m_Matrix.begin();
-    std::vector<std::vector<long>(this->m_Vertices.size(),9223372036854775)> dist(this->m_Vertices.size(),9223372036854775);
-    std::vector<std::vector<long>> next;
-    for(int i=0;i<this->m_Vertices;i++){
-        for(int j=0;j<this->m_Vertices;j++){
-            if(this->m_Matrix.find(i)!=this->m_Matrix.end()){
-                ItR=this->m_Matrix.find(i);
-                if((*ItR).second.find(j)!=(*ItR).second.end()){
-                    ColIterator ItC=(*ItR).second.find(j);
-                    dist[i][j]=(*ItC).second;
-                };
+std::vector<long> Graph<V,C>::FloydWarshall(std::string origen,std::string destino){
+    std::vector<long> response;
+    long nOrigen=this->GetIndex(origen);
+    long nDestino=this->GetIndex(destino);
+    if(nOrigen!=-1&&nDestino!=-1){
+        typedef std::map<long, std::map<long, unsigned int>>::iterator RowIterator;
+        typedef std::map<long, unsigned int>::iterator ColIterator;
+        RowIterator ItR=this->m_Matrix.begin();
+        std::vector<std::vector<long>> dist(this->m_Vertices.size(), std::vector<long>(this->m_Vertices.size(), 9223372036854775));
+        std::vector<std::vector<long>> next(this->m_Vertices.size(), std::vector<long>(this->m_Vertices.size(), -1));
+        for(int i=0;i<this->m_Vertices.size();i++){
+            for(int j=0;j<this->m_Vertices.size();j++){
+                if(this->m_Matrix.find(i)!=this->m_Matrix.end()){
+                    ItR=this->m_Matrix.find(i);
+                    if((*ItR).second.find(j)!=(*ItR).second.end()){
+                        ColIterator ItC=(*ItR).second.find(j);
+                        dist[i][j]=(*ItC).second;
+                        next[i][j]=j;
+                    };
+                }
             }
         }
+        for(int k=0;k<this->m_Vertices.size();k++){
+            for(int i=0;i<this->m_Vertices.size();i++){
+                for(int j=0;j<this->m_Vertices.size();j++){
+                    if(dist[i][j]>dist[i][k]+dist[k][j]){
+                        dist[i][j]=dist[i][k]+dist[k][j];
+                        next[i][j]=next[i][k];
+                    }
+                }
+            }
+        }
+        if(next[nOrigen][nDestino]==-1)
+            return response;
+        else{
+            long index;
+            response.push_back(nOrigen);
+            index=nOrigen;
+            while(index!=nDestino){
+                index=next[index][nDestino];
+                response.push_back(index);
+            }
+            return response;
+        }
     }
-
+    return response;
 }

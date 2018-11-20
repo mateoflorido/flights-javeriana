@@ -42,7 +42,7 @@ public:
     double EuclideanDist( Point a, Point b);
     long Size();
     std::deque<long> Path(long a, long b);
-    std::vector<long> FloydWarshall();
+    std::vector<long> FloydWarshall(std::string origen,std::string destino);
 
 protected:
     std::vector<V> m_Vertices;

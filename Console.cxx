@@ -22,6 +22,7 @@ Console(const std::string &prompt)
     ReadSales(this->m_Aero, "./tickets.txt");
     this->m_Aero.GraphInitialize();
     this->m_Aero.PrintDijk("Cali","Pasto");
+    this->m_Aero.PrintFloyd("Villavicencio","Palmira");
     std::vector<std::string> IDs = this->m_Aero.GetIDAgencies();
     auto itID = IDs.begin();
     for (; itID != IDs.end(); itID++) {

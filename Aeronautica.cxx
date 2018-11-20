@@ -562,3 +562,12 @@ FJA::Aeronautica
       }
   }
 }
+void FJA::Aeronautica
+::PrintFloyd(std::string origen, std::string destino){
+    std::vector<long> path;
+    path=this->m_GRoutes.FloydWarshall(origen, destino);
+    auto ItP=path.begin();
+    for(;ItP!=path.end();ItP++){
+        std::cout<<this->m_GRoutes.GetNode((*ItP));
+    }
+}
