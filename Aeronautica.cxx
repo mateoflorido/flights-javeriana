@@ -264,7 +264,7 @@ FJA::Aeronautica
     for (; itSales != itAgencies->GetSales().end(); itSales++) {
       if (itSNext != itAgencies->GetSales().end()) {
         if (itSales->GetID() == itSNext->GetID()) {
-          if (itSNext->GetFlightDate().empty()) {
+          if (itSNext->GetFlight().empty()) {
             ss << column << std::setw(agencyW) << itSales->GetAgency() << column
                << std::setw(idW) << itSales->GetID() << column
                << std::setw(flightW) << itSales->GetFlight() << column
@@ -272,14 +272,27 @@ FJA::Aeronautica
                << std::setw(customerW) << itSales->GetCustomer() << column
                << std::setw(statusW) << status << column << "\n";
             status = "Cancelado";
-          } else if (std::stoi(itSales->GetBuyDate()) < std::stoi(itSNext->GetBuyDate())) {
-            ss << column << std::setw(agencyW) << itSales->GetAgency() << column
-               << std::setw(idW) << itSales->GetID() << column
-               << std::setw(flightW) << itSales->GetFlight() << column
-               << std::setw(customerIDW) << itSales->GetCustomerID() << column
-               << std::setw(customerW) << itSales->GetCustomer() << column
-               << std::setw(statusW) << status << column << "\n";
-            status = "Cambiado";
+          } else if (std::stoi(itSales->GetBuyDate()) <= std::stoi(itSNext->GetBuyDate())) {
+              if(std::stoi(itSales->GetBuyDate()) < std::stoi(itSNext->GetBuyDate())){
+                  ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                     << std::setw(idW) << itSales->GetID() << column
+                     << std::setw(flightW) << itSales->GetFlight() << column
+                     << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                     << std::setw(customerW) << itSales->GetCustomer() << column
+                     << std::setw(statusW) << status << column << "\n";
+                  status = "Cambiado";
+              }
+              else{
+                    if(std::stoi(itSales->GetBuyHour()) < std::stoi(itSNext->GetBuyHour())){
+                        ss << column << std::setw(agencyW) << itSales->GetAgency() << column
+                           << std::setw(idW) << itSales->GetID() << column
+                           << std::setw(flightW) << itSales->GetFlight() << column
+                           << std::setw(customerIDW) << itSales->GetCustomerID() << column
+                           << std::setw(customerW) << itSales->GetCustomer() << column
+                           << std::setw(statusW) << status << column << "\n";
+                        status = "Cambiado";
+                    }
+              }
           }
 
         } else {
@@ -527,6 +540,7 @@ FJA::Aeronautica
             break;
     }
     if(ItAgency!=this->m_Agencies.end()){
+        std::cout<<"Ruta vieja"<<IDFlightO<< "Ruta nueva"<<IDFlightN;
         int seatsSold = SeatsSold(IDFlightN);
         auto itRoutesN = this->m_Routes.begin();
         for (; itRoutesN != this->m_Routes.end(); itRoutesN++) {
@@ -553,13 +567,14 @@ FJA::Aeronautica
               }
             }
             if(coincidence){
-              Next==AuxSaleIt++;
+              Next=AuxSaleIt;
+              Next++;
               if(Next!=ItAgency->GetSales().end()){
-                if((*Next).GetFlight()!=""){
+                if(Next->GetFlight()!=""){
                   float oldPrice=itRoutesO->GetPrice();
                   float nPrice=itRoutesN->GetPrice();
-                  NewSale(IDAgency, (*AuxSaleIt).GetID(), itRoutesN->GetCode(),
-                          IDPassenger, (*AuxSaleIt).GetCustomer(), date, buyDate, buyHour);
+                  NewSale(IDAgency, AuxSaleIt->GetID(), itRoutesN->GetCode(),
+                          IDPassenger, AuxSaleIt->GetCustomer(), date, buyDate, buyHour);
                   newPrice=nPrice-oldPrice;
                   return true;
                 }
@@ -570,8 +585,8 @@ FJA::Aeronautica
               else{
                 float oldPrice=itRoutesO->GetPrice();
                 float nPrice=itRoutesN->GetPrice();
-                NewSale(IDAgency, (*AuxSaleIt).GetID(), itRoutesN->GetCode(),
-                        IDPassenger, (*AuxSaleIt).GetCustomer(), date, buyDate, buyHour);
+                NewSale(IDAgency, AuxSaleIt->GetID(), itRoutesN->GetCode(),
+                        IDPassenger, AuxSaleIt->GetCustomer(), date, buyDate, buyHour);
                 newPrice=nPrice-oldPrice;
                 return true;
               }

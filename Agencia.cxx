@@ -85,10 +85,10 @@ CancelFlight(std::string &SaleID) {
     if (itSales->GetID() == SaleID) {
       this->NewSale(this->m_AgencyID,
                     SaleID,
-                    itSales->GetFlight(),
+                    "",
                     itSales->GetCustomerID(),
                     itSales->GetCustomer(),
-                    "",
+                    itSales->GetFlightDate(),
                     itSales->GetBuyDate(),
                     itSales->GetBuyHour());
       return true;

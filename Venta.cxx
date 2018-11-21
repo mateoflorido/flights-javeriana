@@ -100,8 +100,15 @@ void FJA::Venta::SetAgency(const std::string &m_Agency) {
 }
 
 bool FJA::Venta::operator<(const FJA::Venta &v) const {
-  if (this->m_ID == v.m_ID)
-    return (this->m_BuyDate < v.m_BuyDate);
+  if (this->m_ID == v.m_ID){
+    if (this->m_BuyDate == v.m_BuyDate){
+      return (this->m_BuyHour<v.m_BuyHour);
+    }
+    else{
+      return (this->m_BuyDate<v.m_BuyDate);
+    }
+  }
+
   else
     return (this->GetID() < v.GetID());
 }

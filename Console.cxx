@@ -226,7 +226,7 @@ trigger(const std::string &s) {
                         }
                         std::cout << "Ingrese la fecha en la que desea viajar: ";
                         std::cin >> date;
-                        if (this->m_Aero.ChangeSale(CustomerID, IDFlightO, IDFlightO, this->m_Agency, buyHour, buyDate,
+                        if (this->m_Aero.ChangeSale(CustomerID, IDFlightO, IDFlightN, this->m_Agency, buyHour, buyDate,
                                                     date, newPrice)) {
                             std::cout << "Operacion exitosa " << std::endl;
                             if (newPrice < 0) {
