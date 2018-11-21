@@ -120,9 +120,13 @@ trigger(const std::string &s) {
                     std::cout << this->m_Aero.ReportInventory(this->m_Agency);
                 } else if (mainCommand == "money") {
                     std::cout << this->m_Aero.ReportMoney(this->m_Agency);
+                } else{
+                    std::cout <<"Reporte inválido. \n";
                 }
             } else
                 std::cout << "No ha iniciado sesión.\n";
+        }else{
+            std::cout << "Sin argumentos válidos.\n";
         }
     } else if (mainCommand == "sell") {
         if (!this->m_Agency.empty())
@@ -287,9 +291,9 @@ hotkeys(char c) {
             std::string now;
             if (this->getBuffer() == this->lastSuggestion) {
                 this->m_Trie.AllCoincidence(this->lastComplete, now);
-                std::cout << now;
-                std::cout << std::endl;
-
+                this->printThread(now);
+                std::cout<< this->m_Prompt + this->getBuffer();
+                return (0);
             } else {
                 this->m_Trie.Coincidence(this->getBuffer(), now);
                 this->lastComplete = this->getBuffer();
@@ -318,6 +322,12 @@ Greet() {
               << std::asctime(std::localtime(&result))
               << "\nRecuerde Iniciar Sesión con el comando login <idagencia> <mot de passe>\n"
               << "En caso de necesitar ayuda use help\n";
+}
+//---------------------------------------------------------------------------
+void Console::
+printThread(std::string v) {
+    std::cout << "\n";
+    std::cerr << v + "\n";
 }
 
 

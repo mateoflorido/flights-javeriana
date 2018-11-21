@@ -142,6 +142,7 @@ public:
   void PrintDijk(std::string origen, std::string destino);
   void PrintFloyd(std::string origen,std::string destino);
   void PrintPrim(std::string origen, std::string destino);
+  void PrintThread(std::string v);
 
 protected:
   typedef std::vector<Agencia> TAgencies;

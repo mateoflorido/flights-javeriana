@@ -91,6 +91,8 @@ Console(const std::string &prompt) {
   this->m_Trie.Insert("cancel");
   this->m_Trie.Insert("consolidate");
   this->m_Trie.Insert("exit");
+  this->m_Trie.Insert("change");
+  this->m_Trie.Insert("path");
 
   this->commandList.insert({
 

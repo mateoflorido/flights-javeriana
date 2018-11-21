@@ -22,6 +22,8 @@ public:
   virtual int trigger(const std::string &s) override;
   virtual int hotkeys(char c) override;
 
+  void printThread(std::string v);
+
   void Greet();
 };
 
