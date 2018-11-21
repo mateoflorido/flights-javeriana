@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include "Agencia.h"
+#include <ctime>
 
 FJA::Agencia::
 Agencia()
@@ -80,6 +81,23 @@ Consolidate(std::string currentDate) {
 
 bool FJA::Agencia::
 CancelFlight(std::string &SaleID) {
+    std::string buyHour;
+    std::string buyDate;
+    std::time_t result = std::time(nullptr);
+    buyHour = (std::to_string(std::localtime(&result)->tm_hour));
+    if (std::localtime(&result)->tm_min < 10)
+        buyHour += "0" + (std::to_string(std::localtime(&result)->tm_min));
+    else
+        buyHour += (std::to_string(std::localtime(&result)->tm_min));
+    buyDate = (std::to_string(std::localtime(&result)->tm_year + 1900));
+    if ((std::localtime(&result)->tm_mon + 1) < 10) {
+        buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) + "0" +
+                   (std::to_string((std::localtime(&result)->tm_mday)));
+
+    } else {
+        buyDate += (std::to_string(std::localtime(&result)->tm_mon + 1)) +
+                   (std::to_string((std::localtime(&result)->tm_mday)));
+    }
   auto itSales = this->m_Sales.begin();
   for (; itSales != this->m_Sales.end(); itSales++) {
     if (itSales->GetID() == SaleID) {
@@ -89,8 +107,8 @@ CancelFlight(std::string &SaleID) {
                     itSales->GetCustomerID(),
                     itSales->GetCustomer(),
                     itSales->GetFlightDate(),
-                    itSales->GetBuyDate(),
-                    itSales->GetBuyHour());
+                    buyDate,
+                    buyHour);
       return true;
     }
   }

@@ -540,7 +540,6 @@ FJA::Aeronautica
             break;
     }
     if(ItAgency!=this->m_Agencies.end()){
-        std::cout<<"Ruta vieja"<<IDFlightO<< "Ruta nueva"<<IDFlightN;
         int seatsSold = SeatsSold(IDFlightN);
         auto itRoutesN = this->m_Routes.begin();
         for (; itRoutesN != this->m_Routes.end(); itRoutesN++) {
