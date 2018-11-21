@@ -136,7 +136,7 @@ public:
    */
   std::string ReportMoney(std::string AgencyID);
   std::vector<std::string> GetIDAgencies();
-  std::vector<std::string> RecommendedRoutes(std::string origen, std::string destino);
+  void RecommendedRoutes(std::string origen, std::string destino);
   void GraphInitialize();
   bool ChangeSale(std::string IDPassenger, std::string IDFlightO, std::string IDFlightN, std::string IDAgency,std::string buyHour, std::string buyDate, std::string date, float &newPrice);
   void PrintDijk(std::string origen, std::string destino);

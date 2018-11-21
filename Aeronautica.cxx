@@ -495,10 +495,28 @@ FJA::Aeronautica
   }
 }
 
-std::vector<std::string>
+void
 FJA::Aeronautica
-::RecommendedRoutes(std::string orginen, std::string destino){
-  //TODO
+::RecommendedRoutes(std::string origen, std::string destino){
+    if(this->m_GRoutes.GetIndex(origen)!=-1&&this->m_GRoutes.GetIndex(origen)!=-1){
+        std::cout<<"Ruta recomendadas: "<<std::endl;
+        std::cout<<"Dijkstra: ";
+        this->PrintDijk(origen,destino);
+        std::cout<<std::endl;
+        std::cout<<"Floyd Warshall: ";
+        this->PrintFloyd(origen,destino);
+        std::cout<<std::endl;
+        std::cout<<"Prim: ";
+        this->PrintPrim(origen,destino);
+        std::cout<<std::endl;
+    }
+    else{
+        if(this->m_GRoutes.GetIndex(origen)==-1)
+            std::cout<<"Ciudad de origen no valida."<<std::endl;
+        if(this->m_GRoutes.GetIndex(destino)==-1)
+            std::cout<<"Ciudad de destino no valida."<<std::endl;
+    }
+
 }
 bool
 FJA::Aeronautica
@@ -522,28 +540,48 @@ FJA::Aeronautica
                 break;
             }
         }
-        if (itRoutesN != this->m_Routes.end()&&itRoutesO != this->m_Routes.end() && CheckDates(date, itRoutesN->GetWeekDay()) &&
-            seatsSold < itRoutesN->GetCapacity()) {
-            std::string IDSale,Customer;
+        if (itRoutesN != this->m_Routes.end()&&itRoutesO != this->m_Routes.end()) {
+          if( CheckDates(date, itRoutesN->GetWeekDay()) && seatsSold < itRoutesN->GetCapacity()){
             auto SaleIt=ItAgency->GetSales().begin();
+            auto AuxSaleIt=SaleIt;
+            auto Next=SaleIt;
+            bool coincidence=false;
             for(;SaleIt!=ItAgency->GetSales().end();SaleIt++){
-                if(SaleIt->GetFlight()==IDFlightO&&SaleIt->GetCustomerID()==IDPassenger){
-                    IDSale=SaleIt->GetID();
-                    Customer=SaleIt->GetCustomer();
-                    break;
-                }
+              if(SaleIt->GetFlight()==IDFlightO&&SaleIt->GetCustomerID()==IDPassenger){
+                AuxSaleIt=SaleIt;
+                coincidence=true;
+              }
             }
-            if(SaleIt!=ItAgency->GetSales().end()){
-              float oldPrice=itRoutesO->GetPrice();
-              float nPrice=itRoutesN->GetPrice();
-                NewSale(IDAgency, IDSale, itRoutesN->GetCode(),
-                        IDPassenger, Customer, date, buyDate, buyHour);
+            if(coincidence){
+              Next==AuxSaleIt++;
+              if(Next!=ItAgency->GetSales().end()){
+                if((*Next).GetFlight()!=""){
+                  float oldPrice=itRoutesO->GetPrice();
+                  float nPrice=itRoutesN->GetPrice();
+                  NewSale(IDAgency, (*AuxSaleIt).GetID(), itRoutesN->GetCode(),
+                          IDPassenger, (*AuxSaleIt).GetCustomer(), date, buyDate, buyHour);
+                  newPrice=nPrice-oldPrice;
+                  return true;
+                }
+                else{
+                  return false;
+                }
+              }
+              else{
+                float oldPrice=itRoutesO->GetPrice();
+                float nPrice=itRoutesN->GetPrice();
+                NewSale(IDAgency, (*AuxSaleIt).GetID(), itRoutesN->GetCode(),
+                        IDPassenger, (*AuxSaleIt).GetCustomer(), date, buyDate, buyHour);
                 newPrice=nPrice-oldPrice;
                 return true;
-
+              }
             }
             else
-                return false;
+              return false;
+          }
+          else
+            return false;
+
         } else {
             return false;
         }
@@ -554,13 +592,11 @@ void
 FJA::Aeronautica
 ::PrintDijk(std::string origen, std::string destino){
   std::deque<long>path;
-  if(this->m_GRoutes.GetIndex(origen)!=-1&&this->m_GRoutes.GetIndex(destino)){
       path=this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen),this->m_GRoutes.GetIndex(destino));
       auto ItD=path.begin();
       for(;ItD!=path.end();ItD++){
-          std::cout<<this->m_GRoutes.GetNode((*ItD));
+          std::cout<<this->m_GRoutes.GetNode((*ItD))<<" ";
       }
-  }
 }
 void FJA::Aeronautica
 ::PrintFloyd(std::string origen, std::string destino){
@@ -568,17 +604,15 @@ void FJA::Aeronautica
     path=this->m_GRoutes.FloydWarshall(origen, destino);
     auto ItP=path.begin();
     for(;ItP!=path.end();ItP++){
-        std::cout<<this->m_GRoutes.GetNode((*ItP));
+        std::cout<<this->m_GRoutes.GetNode((*ItP))<<" ";
     }
 }
 void FJA::Aeronautica
 ::PrintPrim(std::string origen, std::string destino){
   std::deque<long>path;
-  if(this->m_GRoutes.GetIndex(origen)!=-1&&this->m_GRoutes.GetIndex(destino)){
     path=this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen),this->m_GRoutes.GetIndex(destino));
     auto ItD=path.begin();
     for(;ItD!=path.end();ItD++){
-      std::cout<<this->m_GRoutes.GetNode((*ItD));
+      std::cout<<this->m_GRoutes.GetNode((*ItD))<<" ";
     }
-  }
 }

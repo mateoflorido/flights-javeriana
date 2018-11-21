@@ -21,9 +21,6 @@ Console(const std::string &prompt)
     ReadFlights(this->m_Aero, "./flights.txt");
     ReadSales(this->m_Aero, "./tickets.txt");
     this->m_Aero.GraphInitialize();
-    this->m_Aero.PrintDijk("Cali","Pasto");
-    this->m_Aero.PrintFloyd("Villavicencio","Palmira");
-    this->m_Aero.PrintPrim("Villavicencio","Palmira");
     std::vector<std::string> IDs = this->m_Aero.GetIDAgencies();
     auto itID = IDs.begin();
     for (; itID != IDs.end(); itID++) {
@@ -251,7 +248,25 @@ trigger(const std::string &s) {
             } else
                 std::cout << "Sin argumentos validos" << std::endl;
         }
-    } else if (mainCommand == "exit") {
+    } else if(mainCommand == "path") {
+        if(!this->m_Agency.empty()){
+            if(commandline >> arg1){
+                if(commandline >> arg2){
+                    this->m_Aero.RecommendedRoutes(arg1,arg2);
+                }
+                else{
+                    std::cout<<"Falta segundo argumento" << std::endl;
+                }
+            }
+            else{
+                std::cout << "Sin argumentos validos" << std::endl;
+            }
+        }
+        else{
+            std::cout<<"No ha iniciado sesion"<<std::endl;
+        }
+    }
+    else if (mainCommand == "exit") {
         mainCommand = this->m_Aero.SalesReport();
         SaveSales(mainCommand);
         this->quit();
