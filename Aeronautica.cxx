@@ -517,16 +517,24 @@ void
 FJA::Aeronautica
 ::RecommendedRoutes(std::string origen, std::string destino) {
     if (this->m_GRoutes.GetIndex(origen) != -1 && this->m_GRoutes.GetIndex(origen) != -1) {
+        std::string Dijk,Floyd,Prim;
         std::cout << "Ruta recomendadas: " << std::endl;
-        std::cout << "Dijkstra: ";
-        this->PrintDijk(origen, destino);
-        std::cout << std::endl;
-        std::cout << "Floyd Warshall: ";
-        this->PrintFloyd(origen, destino);
-        std::cout << std::endl;
-        std::cout << "Prim: ";
-        this->PrintPrim(origen, destino);
-        std::cout << std::endl;
+        Dijk=this->PrintDijk(origen, destino);
+        Floyd=this->PrintFloyd(origen, destino);
+        Prim=this->PrintPrim(origen, destino);
+        if(Dijk==Floyd){
+            if(Dijk==Prim)
+                std::cout<<Dijk<<std::endl;
+        }
+        else if(Dijk==Prim){
+            std::cout<<Dijk<<std::endl;
+            std::cout<<Floyd<<std::endl;
+        }
+        else {
+            std::cout<<Dijk<<std::endl;
+            std::cout<<Prim<<std::endl;
+            std::cout<<Floyd<<std::endl;
+        }
     } else {
         if (this->m_GRoutes.GetIndex(origen) == -1)
             std::cout << "Ciudad de origen no valida." << std::endl;
@@ -605,35 +613,44 @@ FJA::Aeronautica
     return false;
 }
 
-void
+std::string
 FJA::Aeronautica
 ::PrintDijk(std::string origen, std::string destino) {
+    std::string response;
     std::deque<long> path;
     path = this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen), this->m_GRoutes.GetIndex(destino));
     auto ItD = path.begin();
     for (; ItD != path.end(); ItD++) {
-        std::cout << this->m_GRoutes.GetNode((*ItD)) << " ";
+        response+=this->m_GRoutes.GetNode((*ItD));
+        response+=" ";
     }
+    return response;
 }
 
-void FJA::Aeronautica
+std::string FJA::Aeronautica
 ::PrintFloyd(std::string origen, std::string destino) {
+    std::string response;
     std::vector<long> path;
     path = this->m_GRoutes.FloydWarshall(origen, destino);
     auto ItP = path.begin();
     for (; ItP != path.end(); ItP++) {
-        std::cout << this->m_GRoutes.GetNode((*ItP)) << " ";
+        response+=this->m_GRoutes.GetNode((*ItP));
+        response+=" ";
     }
+    return response;
 }
 
-void FJA::Aeronautica
+std::string FJA::Aeronautica
 ::PrintPrim(std::string origen, std::string destino) {
+    std::string response;
     std::deque<long> path;
     path = this->m_GRoutes.Path(this->m_GRoutes.GetIndex(origen), this->m_GRoutes.GetIndex(destino));
     auto ItD = path.begin();
     for (; ItD != path.end(); ItD++) {
-        std::cout << this->m_GRoutes.GetNode((*ItD)) << " ";
+         response+=this->m_GRoutes.GetNode((*ItD));
+         response+=" ";
     }
+    return response;
 }
 
 void FJA::Aeronautica::

@@ -139,9 +139,9 @@ public:
   void RecommendedRoutes(std::string origen, std::string destino);
   void GraphInitialize();
   bool ChangeSale(std::string IDPassenger, std::string IDFlightO, std::string IDFlightN, std::string IDAgency,std::string buyHour, std::string buyDate, std::string date, float &newPrice);
-  void PrintDijk(std::string origen, std::string destino);
-  void PrintFloyd(std::string origen,std::string destino);
-  void PrintPrim(std::string origen, std::string destino);
+  std::string PrintDijk(std::string origen, std::string destino);
+  std::string PrintFloyd(std::string origen,std::string destino);
+  std::string PrintPrim(std::string origen, std::string destino);
   void PrintThread(std::string v);
 
 protected:
