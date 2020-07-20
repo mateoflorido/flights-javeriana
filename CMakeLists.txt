@@ -6,4 +6,6 @@ set(flights_javeriana_VERSION_MAJOR 0)
 set(flights_javeriana_VERSION_MINOR 2)
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(flights_javeriana main.cpp Ruta.cxx Venta.cxx Agencia.cxx Aeronautica.cxx Archivo.cxx Trie.cxx PUJ/Console.cxx Console.cxx Console.h)
+file( GLOB SRCS ./src/*.cpp ./src/*.cxx ./src/PUJ/*.cxx )
+
+add_executable( ${PROJECT_NAME}  ${SRCS})
